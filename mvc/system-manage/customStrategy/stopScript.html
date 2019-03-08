@@ -1,0 +1,43 @@
+<div class="common_modal" id="stopScript_auth_modal">
+        <div class="common_modal_title_div" id = "stopScript_auth_modal_title">
+            <label class = "common_modal_title_label" >编辑关闭脚本</label>
+            <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "hidecustomStrategyModal()">
+                <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+            </div>
+        </div>
+    
+        <div class="common_modal_body">
+            <table class="common_operate_table" >
+                <tr>
+                    <td>脚本路径:</td>
+                    <td>
+                        <input type="text" ng-model="stopScriptData.path" 
+                             class="common_normal_input md5_input">
+                    </td>
+                    <td><label class="common_required_item">*</label></td>
+                </tr>
+                <tr>
+                    <td>脚本名称:</td>
+                    <td>
+                        <input type="text" ng-model="stopScriptData.name" value=""
+                              class="common_normal_input md5_input">
+                    </td>
+                    <td><label class="common_required_item">*</label></td>
+                </tr>
+                <tr>
+                    <td>脚本参数:</td>
+                    <td>
+                        <textarea name="" id="" cols="30" rows="10" ng-model="stopScriptData.params" class="common_normal_input md5_input" style="height: 60px;"></textarea>
+                    </td>
+                    <!-- <td><label class="common_required_item">*</label></td> -->
+                </tr>
+            </table>
+        
+        </div>
+    
+        <div class="common_modal_footer">
+            <button type="button" class="common_blue_btn common_normal_btn  common_default_length common_line_unend_item" ng-click="confirmStopScript()">确定</button>
+            <button type="button" class="common_green_btn common_normal_btn  common_default_length" ng-click="hidecustomStrategyModal()">取消</button>
+        </div>
+    </div>
+    

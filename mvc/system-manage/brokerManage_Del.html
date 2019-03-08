@@ -1,0 +1,17 @@
+<div class = "common_modal " style = "width:300px;" id = "brokerManage_Del_modal" >
+	<div class="common_modal_title_div" id = "brokerManage_Del_modal_title">
+		<label class = "common_modal_title_label">{{delBrokerInfo.modalTitle}}</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "brokerManageDel_HideModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class = "common_modal_body">
+		<div class = "brokerManage_freeze_modal_content">
+			{{delBrokerInfo.tips}}
+		</div>
+	</div>
+	<div class = "common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "brokerDelConfirm()">确定</button>
+		<button type="button" class = "common_green_btn common_normal_btn common_default_length" ng-click = "brokerManageDel_HideModal()">取消</button>
+	</div>
+</div>

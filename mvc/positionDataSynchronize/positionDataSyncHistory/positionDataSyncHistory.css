@@ -1,0 +1,121 @@
+.brokerManage_option_div {
+	position: absolute;
+	top: 0px;
+	left: 13px;
+	right: 9px;
+	height: 26px;
+	vertical-align: middle;
+}
+.brokerManage_data_div {
+	position: absolute;
+	top: 37px;
+	left: 13px;
+	right: 9px;
+	bottom: 10px;
+	border: 1px solid rgba(34,36,38,.15);
+}
+.brokerManage_data_div::-webkit-scrollbar {
+	width: 7px;
+	height: 7px;
+}
+.brokerManage_data_div::-webkit-scrollbar-thumb {
+	width: 7px;
+	background-color: rgba(197,198,192,0.5);
+	border-radius: 7px;
+	-webkit-box-shadow: inset 0 0 3px rgba(0,0,0,.3);
+}
+
+.brokerManage_form_compact_header {
+	font-size: 12px;
+	display: inline-block;
+	width: 120px;
+	margin-right: 5px;
+}
+
+.brokerManage_form_item_tips {
+	color: red;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+/*带下划线*/
+.brokerManage_form_item_tips_u {
+	color: red;
+	font-size: 12px;
+	text-decoration: underline;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.brokerManage_Alt_form_right_item {
+	/* margin-left: 30px; */
+	margin-bottom: 10px;
+	margin-right: 10px;
+}
+
+.brokerManage_table_label {
+	font-size: 12px;
+	vertical-align: middle;
+	color: rgb(101,101,101);
+}
+
+.brokerManage_table_option_label {
+	color: rgb(9,157,220);
+	font-size: 12px;
+	cursor: pointer;
+}
+.brokerManage_table_option_label:hover {
+	color: red;
+}
+.brokerManage_table_option_divider {
+	color: rgb(9,157,220);
+	font-size: 12px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.brokerManage_freeze_modal_content {
+	text-align:center;
+	font-size:12px;
+	color:rgb(101,101,101)
+}
+
+.clearTimeInput{
+	width: 99px;
+	border: 1px solid #DCDCDC;
+    border-radius: 2px;
+    padding-left: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 5px;
+	outline: none;
+}
+
+.clearTimeInput:focus {
+	border: 1px solid lightsteelblue;
+}
+.clearTimeInput::-webkit-input-placeholder {
+	color: #d8d8d8;
+	-webkit-user-select: none;
+}
+
+.operMacBind_import_tip2 {
+	position: absolute;
+	top: 90px;
+	left: 350px;
+	background-color: rgb(221,221,221);
+	border-radius: 5px;
+	z-index: 51;
+	padding: 2px;
+}
+
+.operMacBind_import_tip_label2 {
+	font-size: 12px;
+	color:rgb(144,143,143);
+}
+
+.alarmMessage_data_div {
+    height: calc(100% - 77px);
+    margin:  0px 10px 0px 5px ;
+    border: 1px solid #DCDCDC;
+}

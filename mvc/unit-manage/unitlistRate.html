@@ -1,0 +1,153 @@
+<div class = "common_modal" style="width:1180px;" id = "unitlist_rate_modal">
+	<div class="common_modal_title_div" id = "unitlist_rate_modal_title">
+		<label class = "common_modal_title_label">策略组合费率设置</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "unitlistHideModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class = "common_modal_operate_body">
+        <div class="common_form_div_item_10px">
+            <label for="">市场:</label>
+            <!-- <select ng-init="stockFeeRateInfo.currentMarket" ng-model="stockFeeRateInfo.currentMarket"  class="common_dropdown common_line_unend_item"
+                ng-options="market.marketchname+'('+market.briefcode+')' for market in allMarket">
+            </select> -->
+			<select ng-model="stockFeeRateInfo.currentMarketID" class="common_dropdown common_line_unend_item tradeAccountManage_select">
+                <option value="-1">所有市场</option>
+                <option ng-repeat="market in allMarket" ng-show="market.checked" value="{{market.marketid}}">{{market.marketchname+"("+market.briefcode+")"}}</option>
+            </select>
+            <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length "
+                ng-click="refreshStockFee()" ng-show="stockFeeRateInfo.state == 'showFee'">
+                刷新
+            </button>
+            <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length "
+                ng-click="clickAddStockFeeRate()" ng-show="stockFeeRateInfo.state == 'showFee'">
+                指令设置
+            </button>
+
+			<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length "
+                ng-click="saveMultipleStockFeeRate()" ng-show="stockFeeRateInfo.state == 'addFee'">
+                保存设置
+            </button>
+
+            <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length "
+                ng-click="cancelStockFee()" ng-show="stockFeeRateInfo.state != 'showFee'">
+                取消
+            </button>
+        </div>
+        <div class="common_scroll_div" style="height:400px; border: 1px solid #DCDCDC;">
+            <table class="common_fixed_table" ng-show="stockFeeRateInfo.state == 'showFee'" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+                <thead>
+                    <tr>
+                        <th>指令</th>
+                        <th>印花税率(‱)</th>
+                        <th>佣金费率(‱)</th>
+                        <th>最小佣金费()</th>
+                        <th>最大佣金费()</th>
+                        <th>过户费率(‱)</th>
+                        <th>最小过户费</th>
+                        <th>最大过户费</th>
+                        <th>经手费率(‱)</th>
+                        <th>证管费率(‱)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="stockFeeRate in allStockFeeRate" ng-class="{'common_activeTr': stockFeeRateInfo.showStockFeeIndex == $index}"
+                        ng-hide="stockFeeRateInfo.currentMarketID != -1 && stockFeeRateInfo.currentMarketID != stockFeeRate.marketid ">
+                        <td>
+
+                            {{stockFeeRate.cmdname}}
+                        </td>
+                        <td>{{stockFeeRate.taxrate | number:2}}</td>
+                        <td>{{stockFeeRate.commissionrate | number:2}}</td>
+                        <td>{{stockFeeRate.min_commissionfee | number:2}}</td>
+                        <td>{{stockFeeRate.max_commissionfee | number:2}}</td>
+                        <td>{{stockFeeRate.transrate | number:2}}</td>
+                        <td>{{stockFeeRate.min_transfee | number:2}}</td>
+                        <td>{{stockFeeRate.max_transfee | number:2}}</td>
+                        <td>{{stockFeeRate.handingrate | number:2}}</td>
+                        <td>{{stockFeeRate.sec_mgt_rate | number:2}}</td>
+
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <table class="common_fixed_table " ng-show="stockFeeRateInfo.state != 'showFee'" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+                <thead style="z-index:10;">
+                    <tr>
+                        <th class = "common_nowrap">指令</th>
+                        <th class = "common_nowrap">模板</th>
+                        <th class = "common_nowrap">印花税率(‱)</th>
+                        <th class = "common_nowrap">佣金费率(‱)</th>
+                        <th class = "common_nowrap">最小佣金费</th>
+                        <th class = "common_nowrap">最大佣金费</th>
+                        <th class = "common_nowrap">过户费率(‱)</th>
+                        <th class = "common_nowrap">最小过户费</th>
+                        <th class = "common_nowrap">最大过户费</th>
+                        <th class = "common_nowrap">经手费率(‱)</th>
+                        <th class = "common_nowrap">证管费率(‱)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="command in allCommand " ng-class="{'common_activeTr': stockFeeRateInfo.editStockFeeIndex == $index, 'common_errorTr': command.error}" ng-click="clickEditStockFeeTable($index)"
+                        ng-hide="( !command.valid || stockFeeRateInfo.currentMarketID != -1 && stockFeeRateInfo.currentMarketID != command.marketid)">
+                        <td class = "common_nowrap">
+                            <input type="checkbox" ng-checked="command.checked" style="    vertical-align: middle;" ng-click="clickCheckBox(command)" value="">
+                            {{command.cmdname}}
+                        </td>
+                        <td class = "common_nowrap feeRate_td">
+                            <select ng-init="command.template" ng-model="command.template"  class="table_dropdown "
+                                ng-options="feeTemplate.tmplcomm+'('+feeTemplate.tmplid+')' for feeTemplate in allStockFeeRateTemplate" ng-change="changeFeeTemplate(command)">
+                            </select>
+
+                        </td>
+                        <td class = "common_nowrap feeRate_td" >
+                            <input type="text" ng-model="command.taxrate" ng-change="changeStockFeeRate(command)"
+								maxlength="18" cms-mask="unsignedFloat" class="common_normal_input  table_normal_input">
+                        </td>
+                        <td class = "common_nowrap feeRate_td" >
+                            <input type="text" ng-model="command.commissionrate" ng-change="changeStockFeeRate(command)"
+							 	maxlength="18" cms-mask="unsignedFloat"	class="common_normal_input  table_normal_input">
+
+                        </td>
+                        <td class = "common_nowrap feeRate_td" >
+                            <input type="text" ng-model="command.min_commissionfee" ng-change="changeStockFeeRate(command)"
+								maxlength="18" cms-mask="unsignedFloat" class="common_normal_input  table_normal_input">
+                        </td>
+                        <td class = "common_nowrap feeRate_td" >
+                            <input type="text" ng-model="command.max_commissionfee" ng-change="changeStockFeeRate(command)"
+								maxlength="18" cms-mask="unsignedFloat" class="common_normal_input  table_normal_input">
+                        </td>
+                        <td class = "common_nowrap feeRate_td" >
+                            <input type="text" ng-model="command.transrate" ng-change="changeStockFeeRate(command)"
+								maxlength="18" cms-mask="unsignedFloat" class="common_normal_input  table_normal_input">
+
+
+                        </td>
+                        <td class = "common_nowrap feeRate_td" >
+                            <input type="text" ng-model="command.min_transfee" ng-change="changeStockFeeRate(command)"
+								maxlength="18" cms-mask="unsignedFloat" class="common_normal_input  table_normal_input">
+                        </td>
+                        <td class = "common_nowrap feeRate_td" >
+                            <input type="text" ng-model="command.max_transfee" ng-change="changeStockFeeRate(command)"
+								maxlength="18" cms-mask="unsignedFloat" class="common_normal_input  table_normal_input">
+                        </td>
+                        <td class = "common_nowrap feeRate_td" >
+                            <input type="text" ng-model="command.handingrate" ng-change="changeStockFeeRate(command)"
+								maxlength="18" cms-mask="unsignedFloat" class="common_normal_input  table_normal_input">
+                        </td>
+                        <td class = "common_nowrap feeRate_td" >
+                            <input type="text" ng-model="command.sec_mgt_rate" ng-change="changeStockFeeRate(command)"
+								maxlength="18" cms-mask="unsignedFloat" class="common_normal_input  table_normal_input">
+                        </td>
+
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+	</div>
+	<div class = "common_modal_back_lv2" id = "unitlist_rate_modal_back">
+		<div ng-include = "tatrdFundModalInfo.path" onload = "unitlistShowTatrdFundModalLoadReady()"></div>
+	</div>
+</div>

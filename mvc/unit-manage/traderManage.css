@@ -1,0 +1,21 @@
+.tm_operate_div {
+	position: absolute;
+	top: 10px;
+	left: 5px;
+	right: 9px;
+	height: 26px;
+	vertical-align: middle;
+}
+.tm_data_div {
+	position: absolute;
+	top: 47px;
+	left: 5px;
+	right: 9px;
+	bottom: 10px;
+	border: 1px solid #DCDCDC;
+}
+.tm_freeze_modal_content {
+	text-align:center;
+	font-size:12px;
+	color:rgb(101,101,101)
+}

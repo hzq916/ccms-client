@@ -1,0 +1,79 @@
+<div class = "common_modal" id = "taacct_fund_transfer_modal">
+	<div class="common_modal_title_div" id = "taacct_fund_transfer_modal_title">
+		<label class = "common_modal_title_label">资金账户余额划转</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "hideTaacctFundModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class = "common_modal_body">
+		<div class = "common_form_div_item_10px">
+			<label class = "unitlist_tatrd_form_header">转出资产账户：</label>
+			<select ng-model="operateTaacctFund.outAssetAccount"  class="common_dropdown common_line_unend_item unitlist_tatrd_dropdown"
+			 		ng-change = "unitlistTatrdFundChangeInfo('out_acid')" ng-disabled = "!operateTaacctFund.in_state"
+	              ng-options="assetAccount.acname+'('+assetAccount.acid+')' for assetAccount in allAssetAccount">
+	        </select>
+
+			<!-- <select class="common_dropdown common_line_unend_item unitlist_tatrd_dropdown"
+				ng-disabled = "!operateTaacctFund.in_state" ng-model = "operateTaacctFund.out_acid" ng-change = "unitlistTatrdFundChangeInfo('out_acid')">
+				<option ng-repeat="assetAccount in allAssetAccount" value="{{assetAccount.acid}}">{{assetAccount.acname +"("+assetAccount.acid+")"}}</option>
+			</select> -->
+			<label class = "unitlist_form_item_tips">*</label>
+		</div>
+		<div class = "unitlist_tatrd_form_item">
+			<label class = "unitlist_tatrd_form_header">核算币种：</label>
+			<select class="common_dropdown common_line_unend_item unitlist_tacap_dropdown" ng-disabled = "!operateTaacctFund.in_state" ng-model = "operateTaacctFund.out_currencyid" ng-change = "unitlistTatrdFundChangeInfo('out_currencyid')">
+				<option ng-repeat = "currency in allCurrency" value = "{{currency.currencyid}}">{{currency.curencychname+ "("+currency.briefcode+")"}}</option>
+			</select>
+			<label class = "unitlist_form_item_tips">*</label>
+		</div>
+		<div class = "unitlist_tatrd_form_item">
+			<label class = "unitlist_tatrd_form_header">资金余额：</label>
+			<input type="text" class = "common_normal_input  unitlist_tatrd_input common_right_align" ng-disabled = "true" ng-model = "operateTaacctFund.out_totalamt">
+		</div>
+		<div class = "common_form_div_item_10px">
+			<label class = "unitlist_tatrd_form_header">转入资产账户：</label>
+			<!-- <select class="common_dropdown common_line_unend_item unitlist_tatrd_dropdown" ng-disabled = "operateTaacctFund.in_state" ng-model = "operateTaacctFund.in_acid" ng-change = "unitlistTatrdFundChangeInfo('in_acid')">
+				<option ng-repeat="assetAccount in allAssetAccount" value="{{assetAccount.acid}}">{{assetAccount.acname +"("+assetAccount.acid+")"}}</option>
+			</select> -->
+
+			<select ng-model="operateTaacctFund.inAssetAccount"  class="common_dropdown common_line_unend_item unitlist_tatrd_dropdown"
+					ng-change = "unitlistTatrdFundChangeInfo('in_acid')" ng-disabled = "operateTaacctFund.in_state"
+				  ng-options="assetAccount.acname+'('+assetAccount.acid+')' for assetAccount in allAssetAccount">
+			</select>
+			<label class = "unitlist_form_item_tips">*</label>
+		</div>
+		<div class = "unitlist_tatrd_form_item">
+			<label class = "unitlist_tatrd_form_header">核算币种：</label>
+			<select class="common_dropdown common_line_unend_item unitlist_tacap_dropdown" ng-disabled = "operateTaacctFund.in_state" ng-model = "operateTaacctFund.in_currencyid" ng-change = "unitlistTatrdFundChangeInfo('in_currencyid')">
+				<option ng-repeat = "currency in allCurrency" value = "{{currency.currencyid}}">{{currency.curencychname+ "("+currency.briefcode+")"}}</option>
+			</select>
+			<label class = "unitlist_form_item_tips">*</label>
+		</div>
+		<div class = "unitlist_tatrd_form_item">
+			<label class = "unitlist_tatrd_form_header">资金余额：</label>
+			<input type="text" class = "common_normal_input  unitlist_tatrd_input common_right_align" ng-disabled = "true" ng-model = "operateTaacctFund.in_totalamt">
+		</div>
+		<div class = "unitlist_tatrd_form_item">
+			<label class = "unitlist_tatrd_form_header">划转金额：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item unitlist_tatrd_input common_right_align"  ng-model = "operateTaacctFund.changeAmt"
+				maxlength="18" cms-mask="unsignedFloat" ng-change = "unitlistTatrdFundChangeAmt()">
+			<label class = "unitlist_form_item_tips">*</label>
+		</div>
+		<div class = "unitlist_tatrd_form_item">
+			<label class = "unitlist_tatrd_form_header">转换汇率：</label>
+			<input type="text" class = "common_normal_input unitlist_tatrd_input common_right_align"  ng-disabled = "true" ng-model = "operateTaacctFund.changeRate">
+		</div>
+		<div class = "unitlist_tatrd_form_item">
+			<label class = "unitlist_tatrd_form_header">转入后余额：</label>
+			<input type="text" class = "common_normal_input unitlist_tatrd_input common_right_align" ng-disabled = "true" ng-model = "operateTaacctFund.result">
+		</div>
+		<div class = "">
+			<label class = "unitlist_tatrd_form_header">同步更新份额：</label>
+			<input type="checkbox" class = "common_line_unend_item"  ng-model = "operateTaacctFund.changeShare">
+		</div>
+	</div>
+	<div class="common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "transferTaacctFund()">确定</button>
+		<button type="button" class = "common_green_btn common_normal_btn common_default_length" ng-click = "hideTaacctFundModal()">取消</button>
+	</div>
+</div>

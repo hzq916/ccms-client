@@ -1,0 +1,106 @@
+<div class = "common_page_html common_scroll_div" ng-controller="unitNetInfoCtrl">
+
+    <div class="common_mini_subguide_div"
+      ng-show="!showSubguide" ng-click="showSubguide=true;">
+        <div class="common_mini_guide_title_div">
+            <div class="common_menu_icon"></div>
+            账户导航
+        </div>
+    </div>
+
+    <div class="common_subguide_div" ng-show="showSubguide">
+        <div class = "common_guide_title_div">
+            <label class = "common_guide_title_label">账户导航</label>
+            <img src="../commonui/images/icon_lock.png" draggable="false"  class = "common_guide_close_icon" title="点击收起菜单" ng-click = "showSubguide=false;"/>
+        </div>
+        <div class=" common_guide_content_div common_scroll_div">
+            <cms-guide guide-data = "{{guideTree}}" guide-showid = "false" guide-selectleaf = "true" guide-click = "clickUnit(menu)" guide-setmenu = "setGuideMenu" ></cms-guide>
+        </div>
+    </div>
+
+    <div ng-class = "{'common_content_locked_div':showSubguide,'common_content_unlocked_div':!showSubguide}" >
+        <div class="common_page_html common_scroll_div">
+            <div class="common_normal_operate_div common_nowrap" >
+                <label class="common_line_unend_item">
+                    <input type="radio" style="width: 12px;height: 12px; cursor:pointer; "  ng-click="retrieveToday()" ng-checked="filterOption.isToday === 1"/>当日查询
+                    <input type="radio" style="width: 12px;height: 12px; cursor:pointer; " ng-click="retrieveHistory()"  ng-checked="filterOption.isToday === 0"/>历史查询
+                </label>
+                <label class=" common_line_unend_item" ng-show="filterOption.isToday === 0">
+                    日期：
+                    <input type="date" class = "common_normal_input  common_form_calendar common_form_calendar_width " ng-model="begin_date" ng-change="changeStartDate()">
+                    -
+                    <input type="date" class = "common_normal_input  common_form_calendar common_form_calendar_width " ng-model="end_date" ng-change="changeEndDate()">
+                </label>
+                <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length  " ng-show="filterOption.trid"  ng-click="getCombStrategyNetInfo()">刷新</button>
+                <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length  " ng-disabled="exportNetInfoCount >=0"
+                ng-if = "menuRight.indexOf(2004002001) != -1"　ng-show="filterOption.trid" ng-click="manuallyExport()">手动导出</button>
+                <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length  " ng-if = "menuRight.indexOf(2004002002) != -1" ng-click="setConfiguration()">导出设置</button>
+            </div>
+            <div class=" common_normal_data_div" >
+                <div class="common_scroll_div" style="height:calc(100% - 28px); ">
+                    <table class="common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+                      <thead>
+                        <tr >
+                          <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('trday')" >
+                              <span ng-show = "keyName == 'trday'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                              日期
+                          </th>
+                          <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('trid',true)" >
+                              <span ng-show = "keyName == 'trid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                              组合ID
+                          </th>
+                          <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('assets',true)" >
+                              <span ng-show = "keyName == 'assets'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                              策略净值
+                          </th>
+                          <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('cost',true)">
+                              <span ng-show = "keyName == 'cost'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                              股票成本
+                          </th>
+                          <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('cash',true)">
+                              <span ng-show = "keyName == 'cash'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                              现金
+                          </th>
+                          <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('precent',true)" >
+                              <span ng-show = "keyName == 'precent'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                              仓位
+                          </th>
+                          <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('value',true)">
+                              <span ng-show = "keyName == 'value'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                              股票最新市值
+                          </th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-repeat="netInfo in unitNetInfoArray | orderBy:keyName:false:sortFunction " ng-click="clickNetInfoTr(netInfo)"
+                            ng-class="{'common_activeTr': netInfo.selected}">
+                          <td class = " common_nowrap common_center_align" >
+                              {{netInfo.trday}}
+                          </td>
+                          <td class = " common_nowrap common_center_align" >{{netInfo.trid}}</td>
+                          <td class = " common_nowrap common_right_align" >{{netInfo.assets | number:3}}</td>
+                          <td class = " common_nowrap common_right_align" >{{netInfo.cost | number:3}}</td>
+                          <td class = " common_nowrap common_right_align" >{{netInfo.cash | number:3}}</td>
+                          <td class = " common_nowrap common_right_align" >{{netInfo.percent | number:3}}</td>
+                          <td class = " common_nowrap common_right_align" >{{netInfo.value | number:3}}</td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+
+                <cms-data-pager click-menu-item="goToPage(page)" all-page="{{allPage}}" current-page="currentPage"></cms-data-pager>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <div class = "common_modal_back" id = "unitNet_modal_back">
+        <div ng-include = "dialogModalInfo.path" onload = "showUnitNetModalLoadReady()"></div>
+    </div>
+
+
+</div>

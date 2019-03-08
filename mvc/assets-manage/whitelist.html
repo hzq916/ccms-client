@@ -1,0 +1,34 @@
+<div class = "common_page_html common_scroll_div" ng-controller = "whitelistCtrl" ng-init = "whitelistInit()">
+	<div class = "common_page_tab_div">
+		<button type = "button" class = "common_page_tab_first_item common_page_tab_unend_item " ng-if = "menuRight.indexOf(2002004001) != -1" ng-class = "{true:'common_page_tab_active_item',false:'common_page_tab_item'}[pageType == 1]" ng-click = "whitelistPageTypeChange(1)">资产账户白名单</button>
+		<button type = "button" class = "common_page_tab_unend_item common_page_tab_unend_item" ng-if = "menuRight.indexOf(2002004002) != -1" ng-class = "{true:'common_page_tab_active_item',false:'common_page_tab_item'}[pageType == 2]" ng-click = "whitelistPageTypeChange(2)">策略组合白名单</button>
+		<!--<button type = "button" class = "common_page_tab_unend_item " ng-if = "menuRight.indexOf(2002004003) != -1"  ng-class = "{true:'common_page_tab_active_item',false:'common_page_tab_item'}[pageType == 3]" ng-click = "whitelistPageTypeChange(3)">交易员白名单</button>-->
+	</div>
+	<div class = "common_tab_content_div" ng-show = "pageType != 3 && pageType != 0">
+		<div class = "common_tab_subguide_min_div" ng-show = "!showSubguide">
+			<div class = "common_mini_guide_title_div" ng-click="showSubguide=true;">
+				<div class="common_menu_icon"></div>
+				账户导航
+			</div>
+		</div>
+		<div class = "common_tab_subguide_div" ng-show = "showSubguide">
+			<div class="common_guide_title_div">
+				<label class="common_guide_title_label">账&nbsp;户&nbsp;导&nbsp;航</label>
+				<img src="../commonui/images/icon_lock.png" draggable="false"  class = "common_guide_close_icon" title="点击收起菜单" ng-click = "showSubguide=false;"/>
+			</div>
+			<div class = "common_guide_content_div common_scroll_div">
+				<cms-guide guide-data = "{{unitList}}" guide-showid = "true" guide-selectleaf = "true" guide-click = "whitelistClickMenu(menu)" guide-setmenu = "whitelistSetMenu"></cms-guide>
+			</div>
+		</div>
+	    <div ng-class = "{'common_content_locked_div':showSubguide,'common_content_unlocked_div':!showSubguide}">
+			<div class = "whitelist_page" ng-include = "'../assets-manage/whitelist-assets.html'" ng-show = "pageType == 1" onload = "whitelistAssetsLoad()"></div>
+			<div class = "whitelist_page" ng-include = "'../assets-manage/whitelist-tatrd.html'" ng-show = "pageType == 2" onload = "whitelistTatrdLoad()"></div>
+		</div>
+		<div class = "common_modal_back" id = "whitelist_modal_back">
+			<div ng-include = "modalInfo.path" onload = "whitelistModalLoadReady()"></div>
+		</div>
+	</div>
+	<div class = "common_tab_content_div" ng-show = "pageType == 3">
+		<div class = "whitelist_page" ng-include = "traderPagePath"></div>
+	</div>
+</div>

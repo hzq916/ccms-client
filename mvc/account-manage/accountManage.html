@@ -1,0 +1,143 @@
+<div class="common_page_html common_scroll_div" ng-controller="accountManageCtrl">
+    <div class="common_normal_operate_div common_nowrap">
+
+        <input type="text" class = "common_normal_input common_line_unend_item common_search_input_length" ng-model="findAssetAccount"
+            placeholder="资产账户ID/名称/资金账号搜索">
+        <label for="">资产管理人：</label>
+        <select ng-init="currentTamgr" ng-model="currentTamgr"  class="common_dropdown common_line_unend_item" ng-change="getProducts(currentTamgr.maid);"
+              ng-options="assetManager.fullName for assetManager in allAssetManager">
+        </select>
+        <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length"   ng-click="getAssetAccountsDetail(currentTamgr)">刷新</button>
+        <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-if = "menuRight.indexOf(2002001001001) != -1"  ng-click="authorizeAssetAccount()" ng-disabled="typeof currentTamgr.maid='undefined'">授权</button>
+        <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-if = "menuRight.indexOf(2002001001008) != -1"  ng-click="exportAccountList()">导出</button>
+    </div>
+
+    <div class="common_scroll_div common_normal_data_div" >
+        <table class="common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+          <thead>
+            <tr >
+              <th class = "common_nowrap" ng-click = "clickTableHeader('maid',true)">
+                  <span ng-show = "keyName == 'maid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                  资产管理人
+              </th>
+              <th class = "common_nowrap" ng-click = "clickTableHeader('acid',true)">
+                  <span ng-show = "keyName == 'acid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                  资产账户
+              </th>
+              <th class = "common_nowrap" ng-click = "clickTableHeader('acname',true)">
+                    <span ng-show = "keyName == 'acname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                    账户名称
+                </th>
+              <th class = "common_nowrap" ng-click = "clickTableHeader('bacid',true)">
+                  <span ng-show = "keyName == 'bacid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                  经纪商资金账号
+              </th>
+              <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('caid',true)">
+                  <span ng-show = "keyName == 'caid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                  所属产品
+              </th>
+              <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('actype',true)">
+                  <span ng-show = "keyName == 'actype'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                  账户类型
+              </th>
+              <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('validamt',true)">
+                  <span ng-show = "keyName == 'validamt'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                  可用资金
+              </th>
+              <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('totalamt',true)">
+                  <span ng-show = "keyName == 'totalamt'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                  账户资金
+              </th>
+              <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('bacidcard')">
+                  <span ng-show = "keyName == 'bacidcard'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                  经纪商客户号
+              </th>
+              <!-- <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('bact_name')">
+                  <span ng-show = "keyName == 'bact_name'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                  所有者姓名
+              </th> -->
+              <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('loginstat',true)">
+                  <span ng-show = "keyName == 'loginstat'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                  登录状态
+              </th>
+              <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('loginfailcount',true)">
+                  <span ng-show = "keyName == 'loginfailcount'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                  登录失败次数
+              </th>
+              <th class = "common_nowrap" ng-click = "clickTableHeader('associate_acid',true)">
+                  <span ng-show = "keyName == 'associate_acid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                  绑定账户
+              </th>
+              <th class = "common_center_align common_nowrap">操作</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="assetAccount in allAssetAccount |myfilter : findAssetAccount | orderBy:keyName:false:sortFunction"
+              ng-class="{'unbind_assetaccount': (assetAccount.caid == -1), 'common_activeTr': currAssetAccount.acid == assetAccount.acid}" ng-click="clickAssetAccountTR(assetAccount)">
+              <td class = " common_nowrap">{{assetAccount.maname+"("+assetAccount.maid+")"}}</td>
+              <td class = " common_nowrap">{{assetAccount.assetAccountName}}</td>
+              <td class = " common_nowrap">{{assetAccount.acname}}</td>
+              <td class = " common_nowrap">{{assetAccount.bacid}}</td>
+              <td class = "common_center_align common_nowrap">
+                  <label ng-show="assetAccount.caid == -1">--</label>
+                  <label ng-show="assetAccount.caid != -1">{{assetAccount.caname+"("+assetAccount.caid+")"}}</label>
+              </td>
+              <td class = "common_center_align common_nowrap">{{assetAccount.actypeStr}}</td>
+              <td class = "common_right_align common_nowrap">{{assetAccount.validamt | number:3}}</td>
+              <td class = "common_right_align common_nowrap">{{assetAccount.totalamt | number:3}}</td>
+              <td class = "common_center_align common_nowrap">{{assetAccount.bacidcard}}</td>
+              <!-- <td class = "common_center_align common_nowrap">{{assetAccount.bact_name}}</td> -->
+              <td class = "common_center_align common_nowrap">
+                  {{ assetAccount.loginstat === '1' ? "已登录" : "未登录"}}
+              </td>
+              <td class = "common_center_align common_nowrap">{{assetAccount.loginfailcount}}</td>
+              <td class = "common_center_align common_nowrap">{{assetAccount.associate_acid}}</td>
+              <td class = "common_center_align common_nowrap">
+
+                <button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2002001001002) != -1" ng-click="operateAssetAccount(assetAccount.acid,'bindAssetAccount',assetAccount)" ng-show="assetAccount.caid == -1">
+                    绑定产品
+                </button>
+
+                <button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2002001001003) != -1" ng-click="operateAssetAccount(assetAccount.acid,'editAssetAccount',assetAccount)" ng-show="assetAccount.caid != -1">修改信息</button>
+                <label class = "account_table_option_divider" ng-if = "menuRight.indexOf(2002001001003) != -1"  ng-show="assetAccount.caid != -1">|</label>
+
+                <button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2002001001004) != -1" ng-click="setTaacctFund(assetAccount)" ng-show="assetAccount.caid != -1">资金设置</button>
+                <label class = "account_table_option_divider" ng-if = "menuRight.indexOf(2002001001004) != -1"  ng-show="assetAccount.caid != -1">|</label>
+
+                <!-- <label class = "common_table_option_label" ng-click="enterChangeTaacctFund(assetAccount)">资金调整</label>
+                <label class = "account_table_option_divider">|</label> -->
+
+                <button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2002001001005) != -1" ng-click="tradeManage(assetAccount)" ng-show="assetAccount.caid != -1">交易账户管理</button>
+                <!-- <label class = "account_table_option_divider" ng-if = "menuRight.indexOf(2002001001005) != -1" ng-show="assetAccount.caid != -1">|</label> -->
+
+                <label class = "account_table_option_divider" ng-if = "menuRight.indexOf(2002001001006) != -1"  ng-show="assetAccount.caid != -1 && assetAccount.caid != -1 && assetAccount.showResetPass">|</label>
+                <button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2002001001006) != -1" ng-click = "accountChangePass(assetAccount)" ng-show="assetAccount.caid != -1 && assetAccount.showResetPass">密码修改</button>
+                
+                <label class = "account_table_option_divider" ng-if = "menuRight.indexOf(2002001001007) != -1" ng-show="assetAccount.caid != -1 && assetAccount.caid != -1 && assetAccount.showResetPass">|</label>
+                <button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2002001001007) != -1" ng-click="accountResetPass(assetAccount)" ng-show="assetAccount.caid != -1 && assetAccount.showResetPass">重置密码</button>
+
+                
+
+                <label class = "account_table_option_divider" ng-if = "menuRight.indexOf(2002001001009) != -1 && assetAccount.actype == '1' && assetAccount.associate_acid == '0'"  ng-show="assetAccount.caid != -1">|</label>
+                <button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2002001001009) != -1 && assetAccount.actype == '1' && assetAccount.associate_acid == '0'" ng-click = "createOptionAccount(assetAccount)" ng-show="assetAccount.caid != -1">期权账户绑定</button>
+               
+                
+                <label class = "account_table_option_divider" ng-if = "menuRight.indexOf(2002001001010) != -1"  ng-show="assetAccount.caid != -1 && assetAccount.showSettingPass">|</label>
+                <button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2002001001010) != -1" ng-click = "accountSettingPassword(assetAccount)" ng-show="assetAccount.caid != -1 && assetAccount.showSettingPass">密码设置</button>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+    <div class = "common_modal_back" id = "accountManage_modal_back">
+        <div ng-include = "modalInfo.path" onload = "accountManageLoadModalReady()"></div>
+    </div>
+    <div class = "common_modal_back_lv2" id = "accountManage_modal_back2">
+			<div ng-include = "modalInfoLv2.path" onload = "accountManageLoadModal2Ready()"></div>
+		</div>
+    <div class = "common_modal_back" id = "accountManage_editTips_back">
+        <div ng-include = "tipsInfo.path" onload = "accountEditTipsLoad()"></div>
+    </div>
+</div>

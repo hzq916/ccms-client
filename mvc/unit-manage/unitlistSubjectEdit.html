@@ -1,0 +1,53 @@
+<div class="common_modal" id = "unitlist_subject_edit_modal" style = "height:250px;">
+	<div class="common_modal_title_div" id = "unitlist_subject_edit_modal_title">
+		<label class = "common_modal_title_label">{{currentSubject.dealSubject.edit ? "编辑外部资产信息" : "添加外部资产"}}</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "unitlistClodeSubjectModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class = "common_modal_body">
+		<div class="common_form_div_item_10px common_nowrap">
+			<label class = "common_normal_text unitlist_subject_form_header">产品</label>
+            <input type="text" class = "common_normal_input unitlist_subject_form_input common_line_unend_item" ng-disabled = "true" ng-model = "currentSubject.dealSubject.caname">
+			<label class = "common_normal_text unitlist_subject_form_header">资产类别</label>
+			<select class = "common_dropdown unitlist_subject_form_dropdown common_line_unend_item" ng-disabled="currentSubject.dealSubject.edit == true"  ng-model = "currentSubject.dealSubject.subjecttype" ng-change = "unitlistSubjectChangeType()">
+				<option ng-repeat = "sType in currentSubject.subjectTypeList" value="{{sType.typeid}}">{{sType.typename}}</option>
+            </select>
+			<label class = "common_required_item">*</label>
+		</div>
+		<div class="common_form_div_item_10px common_nowrap">
+			<label class = "common_normal_text unitlist_subject_form_header">产品编号</label>
+			<select class = "common_dropdown unitlist_subject_form_dropdown common_line_unend_item" ng-disabled = "currentSubject.dealSubject.subjecttype == 1" ng-options = "product.show_name for product in currentSubject.productList" ng-model = "currentSubject.dealSubject.product" ng-change = "unitlistSubjectChangeProduct()">
+
+			</select>
+			<label class = "common_normal_text unitlist_subject_form_header">资产名称</label>
+            <input type="text" class = "common_normal_input unitlist_subject_form_input common_line_unend_item" maxlength="64" ng-disabled = "currentSubject.dealSubject.targetid != '' " ng-model = "currentSubject.dealSubject.subjectname">
+			<label class = "common_required_item">*</label>
+		</div>
+		<div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text unitlist_subject_form_header">币种</label>
+			<select class = "common_dropdown unitlist_subject_form_dropdown common_line_unend_item" ng-model = "currentSubject.dealSubject.currencyid">
+                <option ng-repeat = "currency in currentSubject.currencyList" value="{{currency.currencyid}}">{{currency.curencychname+ "("+currency.briefcode+")"}}</option>
+            </select>
+			<label class = "common_normal_text unitlist_subject_form_header">金额</label>
+            <input type="text" class = "common_normal_input unitlist_subject_form_input common_line_unend_item" maxlength ="18" cms-mask="unsignedFloat" ng-model = "currentSubject.dealSubject.amt">
+			<label class = "common_required_item">*</label>
+        </div>
+		<div class="common_nowrap" ng-show = "currentSubject.dealSubject.subjecttype == 1">
+			<label class = "common_normal_text unitlist_subject_form_header">收益率</label>
+            <input type="text" class = "common_normal_input unitlist_subject_form_input common_line_unend_item" maxlength ="18" cms-mask="unsignedFloat" ng-model = "currentSubject.dealSubject.parms1">
+			<label class = "common_normal_text unitlist_subject_form_header">开始日期</label>
+            <input type="date" class = "common_form_calendar common_normal_input unitlist_subject_form_input common_line_unend_item" ng-model = "currentSubject.dealSubject.begintime" required>
+			<label class = "common_required_item">*</label>
+		</div>
+		<div class="common_nowrap" ng-show = "currentSubject.dealSubject.subjecttype == 2">
+			<label class = "common_normal_text unitlist_subject_form_header">份额</label>
+            <input type="text" class = "common_normal_input unitlist_subject_form_input common_line_unend_item" maxlength ="14" cms-mask="unsignedInt" ng-model = "currentSubject.dealSubject.totalshare">
+			<label class = "common_required_item">*</label>
+		</div>
+	</div>
+	<div class="common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "unitlistSubjectSaveSubject()">保&nbsp;存</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click = "unitlistClodeSubjectModal()">取&nbsp;消</button>
+	</div>
+</div>

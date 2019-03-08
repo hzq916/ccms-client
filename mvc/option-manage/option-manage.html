@@ -1,0 +1,205 @@
+<div class="common_page_html common_scroll_div" ng-controller = "optionManageCtrl" ng-init = "controllerInit()">
+	<div class="common_mini_subguide_div" ng-show="!showSubguide" ng-click="showSubguide=true;">
+        <div class="common_mini_guide_title_div">
+            <div class="common_menu_icon"></div>
+            单元导航
+        </div>
+    </div>
+    <div class="common_subguide_div" ng-show="showSubguide">
+        <div class = "common_guide_title_div">
+            <label class = "common_guide_title_label">单元导航</label>
+            <img src="../commonui/images/icon_lock.png" draggable="false"  class = "common_guide_close_icon" title="点击收起菜单" ng-click = "showSubguide=false;"/>
+        </div>
+        <div class=" common_guide_content_div common_scroll_div">
+			<cms-guide guide-data = "{{guideTree}}" guide-showid = "true" guide-selectleaf = "true" guide-click = "clickGuideMenu(menu)" guide-setmenu = "setGuideMenu"></cms-guide>
+        </div>
+    </div>
+	<div ng-class = "{'common_content_locked_div':showSubguide,'common_content_unlocked_div':!showSubguide}">
+		<div class = "common_page_html common_scroll_div">
+			<div class="option_manage_half_item">
+				<div class="common_normal_operate_div common_nowrap">
+					<label class="common_normal_text">状态：</label>
+					<select class = "common_normal_input common_line_unend_item" style="width:200px;" ng-disabled="currentTrid == '' " ng-model="currentStatus" ng-change="getTatrdOptionHold(1)" >
+						<option value="0">正常</option>
+						<option value="1">到期</option>
+						<option value="2">提前终止</option>
+					</select>
+					<button type="button" class = "common_normal_btn common_blue_btn common_line_unend_item common_default_length" ng-if = "menuRight.indexOf(2005007001) != -1" ng-disabled = "currentTrid == '' " ng-click="addOption()" >录入</button>
+					<button type="button" class = "common_normal_btn common_blue_btn common_default_length" ng-disabled="currentTrid == '' "  ng-click="getTatrdOptionHold(1)">刷新</button>
+				</div>
+				<div class = "option_manage_data_div_top common_scroll_div">
+					<table class = "common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+						<thead>
+							<tr>
+								<th class = "common_center_align common_nowrap">合约编码</th>
+								<th class = "common_center_align common_nowrap">对手方</th>
+								<th class = "common_center_align common_nowrap">UK编码</th>
+								<th class = "common_center_align common_nowrap">买卖方向</th>
+								<th class = "common_center_align common_nowrap">种类</th>
+								<th class = "common_center_align common_nowrap">期初价格</th>
+								<th class = "common_center_align common_nowrap">期末价格</th>
+								<th class = "common_center_align common_nowrap">持仓数量</th>
+								<th class = "common_center_align common_nowrap">名义本金</th>
+								<th class = "common_center_align common_nowrap">执行价比例</th>
+								<th class = "common_center_align common_nowrap">执行价浮动比例</th>
+								<th class = "common_center_align common_nowrap">执行价</th>
+								<th class = "common_center_align common_nowrap">开始日期</th>
+								<th class = "common_center_align common_nowrap">到期日期</th>
+								<th class = "common_center_align common_nowrap">利率</th>
+								<th class = "common_center_align common_nowrap">固定收益率</th>
+								<th class = "common_center_align common_nowrap">固定收益</th>
+								<th class = "common_center_align common_nowrap">权利金比例</th>
+								<th class = "common_center_align common_nowrap">权利金</th>
+								<th class = "common_center_align common_nowrap">保证金比例</th>
+								<th class = "common_center_align common_nowrap">保证金</th>
+								<th class = "common_center_align common_nowrap">追保线比例</th>
+								<th class = "common_center_align common_nowrap">平仓线比例</th>
+								<th class = "common_center_align common_nowrap">对冲波动率</th>
+								<th class = "common_center_align common_nowrap">盯市波动率</th>
+								<th class = "common_center_align common_nowrap">状态</th>
+								<th class = "common_center_align common_nowrap">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat = "option in tatrdOptionHolds">
+								<td class = "common_center_align common_nowrap">{{option.contract_no}}</td>
+								<td class = "common_center_align common_nowrap">{{option.counter_party}}</td>
+								<td class = "common_center_align common_nowrap">{{option.ukcode}}</td>
+								<td class = "common_center_align common_nowrap">{{option.direction == 1 ? "买" : "卖"}}</td>
+								<td class = "common_center_align common_nowrap">{{option.option_type == 1 ? "CALL" : ( option.option_type == 2 ? "PUT" : "PUT-固收")}}</td>
+								<td class = "common_right_align common_nowrap">{{option.initial_price | number: 3}}</td>
+								<td class = "common_right_align common_nowrap">{{option.final_price | number: 3}}</td>
+								<td class = "common_right_align common_nowrap">{{option.validvol | number: 2}}</td>
+								<td class = "common_right_align common_nowrap">{{option.notional | number: 2}}</td>
+								<td class = "common_right_align common_nowrap">{{option.strike_price_ratio | number: 4}}</td>
+								<td class = "common_right_align common_nowrap">{{ option.option_type == 3 ? (option.strike_float_ratio | number: 4) : "-"}}</td>
+								<td class = "common_right_align common_nowrap">{{option.strike_price | number: 3}}</td>
+								<td class = "common_center_align common_nowrap">{{option.begin_date}}</td>
+								<td class = "common_center_align common_nowrap">{{option.expire_date}}</td>
+								<td class = "common_right_align common_nowrap">{{option.interest_rate | number: 4}}</td>
+								<td class = "common_right_align common_nowrap">{{option.option_type == 3 ? (option.fixed_yield | number: 4) : "-"}}</td>
+								<td class = "common_right_align common_nowrap">{{option.option_type == 3 ? (option.fixed_income | number: 3) : "-"}}</td>
+								<td class = "common_right_align common_nowrap">{{option.option_type != 3 ? (option.premium_ratio | number: 4) : "-"}}</td>
+								<td class = "common_right_align common_nowrap">{{option.option_type != 3 ? (option.premium | number: 3) : "-"}}</td>
+								<td class = "common_right_align common_nowrap">{{option.direction == 1 ? (option.margin_ratio | number: 4) : "-"}}</td>
+								<td class = "common_right_align common_nowrap">{{option.direction == 1 ? (option.margin | number: 3) : "-"}}</td>
+								<td class = "common_right_align common_nowrap">{{option.direction == 1 ? (option.margin_call_ratio | number: 4) : "-"}}</td>
+								<td class = "common_right_align common_nowrap">{{option.direction == 1 ? (option.margin_close_ratio | number: 4) : "-"}}</td>
+								<td class = "common_right_align common_nowrap">{{option.hedging_vol | number: 4}}</td>
+								<td class = "common_right_align common_nowrap">{{option.market_vol | number: 4}}</td>
+								<td class = "common_center_align common_nowrap">{{option.status == 0 ? "正常" : (option.status == 1 ? "到期" : "提前终止")}}</td>
+								<td class = "common_center_align common_nowrap">
+									<button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2005007001) != -1" ng-disabled = "option.status != 0 " ng-click="editOption(option)" >编辑</button>
+									<label class = "common_table_operate_divider" ng-if = "menuRight.indexOf(2005007001) != -1">|</label>
+									<button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2005007001) != -1" ng-disabled = "option.status != 0 " ng-click="stopOption(option)" >终止</button>
+									<label class = "common_table_operate_divider" ng-if = "menuRight.indexOf(2005007001) != -1">|</label>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="option_manage_page_tool_div_top">
+					<cms-data-pager click-menu-item="getTatrdOptionHold(page)" all-page="{{allPage}}" current-page="currentPage"></cms-data-pager>
+				</div>
+			</div>
+			<div class="option_manage_half_item">
+				<div class="common_normal_operate_div common_nowrap">
+					<label class="common_normal_text">状态：</label>
+					<select class = "common_normal_input common_line_unend_item" style="width:200px;" ng-disabled="currentTrid == '' " ng-model="currentAuditStat" ng-change="getTatrdOptionHoldAudit(1)" >
+						<option value="0">待审核</option>
+						<option value="1">审核通过</option>
+						<option value="2">审核失败</option>
+					</select>
+					<label class="common_normal_text">类型：</label>
+					<select class = "common_normal_input common_line_unend_item" style="width:200px;" ng-disabled="currentTrid == '' " ng-model="currentAuditType" ng-change="getTatrdOptionHoldAudit(1)" >
+						<option value="0">录入</option>
+						<option value="1">修改</option>
+						<option value="2">终止</option>
+					</select>
+					<button type="button" class = "common_normal_btn common_blue_btn common_default_length" ng-disabled="currentTrid == '' " ng-click="getTatrdOptionHoldAudit(1)" >刷新</button>
+				</div>
+				<div class = "option_manage_data_div common_scroll_div">
+					<table class = "common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+						<thead>
+							<tr>
+								<th class = "common_center_align common_nowrap">合约编码</th>
+								<th class = "common_center_align common_nowrap">对手方</th>
+								<th class = "common_center_align common_nowrap">UK编码</th>
+								<th class = "common_center_align common_nowrap">买卖方向</th>
+								<th class = "common_center_align common_nowrap">种类</th>
+								<th class = "common_center_align common_nowrap">期初价格</th>
+								<th class = "common_center_align common_nowrap">期末价格</th>
+								<th class = "common_center_align common_nowrap">持仓数量</th>
+								<th class = "common_center_align common_nowrap">名义本金</th>
+								<th class = "common_center_align common_nowrap">执行价比例</th>
+								<th class = "common_center_align common_nowrap">执行价浮动比例</th>
+								<th class = "common_center_align common_nowrap">执行价</th>
+								<th class = "common_center_align common_nowrap">开始日期</th>
+								<th class = "common_center_align common_nowrap">到期日期</th>
+								<th class = "common_center_align common_nowrap">利率</th>
+								<th class = "common_center_align common_nowrap">固定收益率</th>
+								<th class = "common_center_align common_nowrap">固定收益</th>
+								<th class = "common_center_align common_nowrap">权利金比例</th>
+								<th class = "common_center_align common_nowrap">权利金</th>
+								<th class = "common_center_align common_nowrap">保证金比例</th>
+								<th class = "common_center_align common_nowrap">保证金</th>
+								<th class = "common_center_align common_nowrap">追保线比例</th>
+								<th class = "common_center_align common_nowrap">平仓线比例</th>
+								<th class = "common_center_align common_nowrap">对冲波动率</th>
+								<th class = "common_center_align common_nowrap">盯市波动率</th>
+								<th class = "common_center_align common_nowrap">类型</th>
+								<th class = "common_center_align common_nowrap">状态</th>
+								<th class = "common_center_align common_nowrap">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat = "audit in tatrdOptionHoldAudits">
+								<td class = "common_center_align common_nowrap">{{audit.contract_no}}</td>
+								<td class = "common_center_align common_nowrap">{{audit.counter_party}}</td>
+								<td class = "common_center_align common_nowrap">{{audit.ukcode}}</td>
+								<td class = "common_center_align common_nowrap">{{audit.direction == 1 ? "买" : "卖"}}</td>
+								<td class = "common_center_align common_nowrap">{{audit.option_type == 1 ? "CALL" : (audit.option_type == 2 ? "PUT" : "PUT-固收")}}</td>
+								<td class = "common_right_align common_nowrap">{{audit.initial_price | number: 3}}</td>
+								<td class = "common_right_align common_nowrap">{{audit.final_price | number: 3}}</td>
+								<td class = "common_right_align common_nowrap">{{audit.validvol | number: 2}}</td>
+								<td class = "common_right_align common_nowrap">{{audit.notional | number: 2}}</td>
+								<td class = "common_right_align common_nowrap">{{audit.strike_price_ratio | number: 4}}</td>
+								<td class = "common_right_align common_nowrap">{{audit.option_type == 3 ? (audit.strike_float_ratio | number: 4) : "-"}}</td>
+								<td class = "common_right_align common_nowrap">{{audit.strike_price | number: 3}}</td>
+								<td class = "common_center_align common_nowrap">{{audit.begin_date}}</td>
+								<td class = "common_center_align common_nowrap">{{audit.expire_date}}</td>
+								<td class = "common_right_align common_nowrap">{{audit.interest_rate | number: 4}}</td>
+								<td class = "common_right_align common_nowrap">{{audit.option_type == 3 ? (audit.fixed_yield | number: 4) : "-"}}</td>
+								<td class = "common_right_align common_nowrap">{{audit.option_type == 3 ? (audit.fixed_income | number: 3) : "-"}}</td>
+								<td class = "common_right_align common_nowrap">{{audit.option_type != 3 ? (audit.premium_ratio | number: 4) : "-"}}</td>
+								<td class = "common_right_align common_nowrap">{{audit.option_type != 3 ? (audit.premium | number: 3) : "-"}}</td>
+								<td class = "common_right_align common_nowrap">{{audit.direction == 1 ? (audit.margin_ratio | number: 4) : "-"}}</td>
+								<td class = "common_right_align common_nowrap">{{audit.direction == 1 ? (audit.margin | number: 3) : "-"}}</td>
+								<td class = "common_right_align common_nowrap">{{audit.direction == 1 ? (audit.margin_call_ratio | number: 4) : "-"}}</td>
+								<td class = "common_right_align common_nowrap">{{audit.direction == 1 ? (audit.margin_close_ratio | number: 4) : "-"}}</td>
+								<td class = "common_right_align common_nowrap">{{audit.hedging_vol | number: 4}}</td>
+								<td class = "common_right_align common_nowrap">{{audit.market_vol | number: 4}}</td>
+								<td class = "common_center_align common_nowrap">{{audit.audit_type == 0 ? "录入" : (audit.audit_type == 1 ? "修改" : "终止")}}</td>
+								<td class = "common_center_align common_nowrap">{{audit.audit_stat == 0 ? "待审核" : (audit.audit_stat == 1 ? "审核通过" : "审核失败")}}</td>
+								<td class = "common_center_align common_nowrap">
+									<!-- <button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2005007001) != -1" ng-disabled = "audit.audit_stat != 0 " ng-click="editOptionAudit(audit)" >编辑</button>
+									<label class = "common_table_operate_divider" ng-if = "menuRight.indexOf(2005007001) != -1">|</label> -->
+									<button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2005007002) != -1" ng-disabled = "audit.audit_stat != 0 " ng-click="auditOption(audit, 1)">通过</button>
+									<label class = "common_table_operate_divider" ng-if = "menuRight.indexOf(2005007002) != -1">|</label>
+									<button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2005007002) != -1" ng-disabled = "audit.audit_stat != 0 " ng-click="auditOption(audit, 2)">不通过</button>
+									<label class = "common_table_operate_divider" ng-if = "menuRight.indexOf(2005007002) != -1">|</label>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="option_manage_page_tool_div">
+					<cms-data-pager click-menu-item="getTatrdOptionHoldAudit(page)" all-page="{{allAuditPage}}" current-page="currentAuditPage"></cms-data-pager>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class = "common_modal_back" id = "option_modal_back">
+		<div ng-include = "modalInfo.path" onload = "modalLoadReady()"></div>
+	</div>
+</div>

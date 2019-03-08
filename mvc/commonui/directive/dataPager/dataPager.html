@@ -1,0 +1,11 @@
+<div class="common_page_tools" >
+    <i class=" iconfont icon-rilijiantouzuoshuang common_page_tool" style="font-size:12px; "  ng-click="goToPage(1)"  title="首页"></i>
+    <i class="iconfont icon-houtuiqianjin common_page_tool" ng-click="goToPage(currentPage -1 )" style="font-size:12px; " title="上一页"></i>
+
+    <input type="text" ng-model="currentPage" class="common_page_number" ng-keyup="pageToolsKeyUp($event)">
+    <label title="总页数">/<span ng-if="allPage < 1">1</span><span ng-if="allPage >= 1">{{allPage}}</span></label>
+    <!--<label title="总页数">/{{allPage}}</label>-->
+
+    <i class="iconfont icon-houtuiqianjin1 common_page_tool" style="font-size:12px; " ng-click="goToPage(currentPage +1)" title="下一页"></i>
+    <i class=" iconfont icon-rilijiantouyoushuang common_page_tool" ng-click="goToPage(allPage)" style="font-size:12px; " title="尾页"></i>
+</div>

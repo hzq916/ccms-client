@@ -1,0 +1,22 @@
+<div class="common_page_html common_scroll_div" ng-controller="algorithmConfigCtrl"  ng-init="addAlogrithmInit()">
+    <div class="common_page_html common_scroll_div">
+        <p class="common_check_box">
+            <input type="checkbox" class="check_right" ng-checked="allcheckedItem.checked" ng-click="clickAllChecked(allcheckedItem.checked)">
+            <label class="label_right">算法交易(全选)</label>
+        </p>
+        <p class="common_check_box" ng-repeat="item in checkList ">
+            <input type="checkbox" class="check_right" ng-checked="checkItem(item)" ng-click="clickItem(item, item['algo_type'])">
+            <label class="label_right">{{item.algo_code}}</label>
+        </p>
+        <p ng-if="menuRight.indexOf(2005004007001) != -1">
+            <i ng-if="menuRight.indexOf(2005004007001) != -1" class="plus-icon" ng-click="showAddAlogrithm()"></i>
+            <label ng-if="menuRight.indexOf(2005004007001) != -1" ng-click="showAddAlogrithm()" style="font-size: 13px;color: #14b2f3;cursor: pointer;">添加算法</label>
+        </p>
+        <p ng-if="menuRight.indexOf(2005004007002) != -1">
+            <button type="button" ng-if="menuRight.indexOf(2005004007002) != -1" class="common_normal_btn  saveEffectBtn" ng-click="saveAlgorithmEffect()">保存并生效</button>
+        </p>
+        <div class = "common_modal_back" id = "addAlgorithm_modal_back">
+            <div ng-include = "modalInfo.path" onload = "addAlgorithmLoadModalReady()"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,284 @@
+<div class = "common_page_html common_scroll_div" ng-controller = "traderWhiteListCtrl" ng-init = "twlInit()">
+	<div class="common_tab_subguide_min_div" ng-show="!showSubguide" ng-click="showSubguide=true;">
+        <div class="common_mini_guide_title_div">
+            <div class="common_menu_icon"></div>
+            单元导航
+        </div>
+    </div>
+    <div class="common_tab_subguide_div" ng-show="showSubguide">
+        <div class = "common_guide_title_div">
+            <label class = "common_guide_title_label">单元导航</label>
+            <img src="../commonui/images/icon_lock.png" draggable="false"  class = "common_guide_close_icon" title="点击收起菜单" ng-click = "showSubguide=false;"/>
+        </div>
+        <div class=" common_guide_content_div common_scroll_div">
+			<cms-guide guide-data = "{{guideTree}}" guide-showid = "true" guide-selectlevel = "3" guide-click = "twlClickMenu(menu)" guide-setmenu = "twlSetMenu"></cms-guide>
+        </div>
+    </div>
+	<div ng-class = "{'common_content_locked_div':showSubguide,'common_content_unlocked_div':!showSubguide}">
+		<div class = "common_page_html common_scroll_div" ng-hide = "currentMenu.type == 'trader'">
+			<div class="traderwhite_code_div">
+				<div class = "traderwhite_operate_div common_nowrap">
+					<input type="text" class = "common_normal_input common_line_unend_item common_search_input_length" placeholder="输入关键字过滤" ng-model = "tatrdFilterContent" ng-change = "twlFilterTatrdsa()">
+					<button type="button" class = "common_normal_btn common_blue_btn common_default_length common_line_unend_item" ng-if = "menuRight.indexOf(2002004003001) != -1" ng-click = "twlTatrdClickLoad($event)" ng-mouseenter = "twlShowLoadTip(true,1)" ng-mouseout = "twlShowLoadTip(false,1)">
+						导&nbsp;&nbsp;入
+						<span class="common_dropdown_icon" ng-mouseenter = "twlShowLoadTip(true,1)"></span>
+					</button>
+					<button type="button" class = "common_normal_btn common_blue_btn common_default_length" ng-if = "menuRight.indexOf(2002004003002) != -1" ng-click = "twlTatrdExports()">导&nbsp;&nbsp;出</button>
+				</div>
+				<div class="traderwhite_data_div common_scroll_div">
+					<table class = "common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+						<thead>
+							<tr>
+								<th class = "common_center_align common_nowrap">序号</th>
+								<th class = "common_center_align common_nowrap" ng-click = "tcClickTableHeader('briefcode')">
+									<span ng-show = "tc_keyName == 'briefcode'" ng-class = "{common_sort_icon:!tc_reverse,common_sort_desc_icon:tc_reverse}"></span>
+									证券市场
+								</th>
+								<th class = "common_center_align common_nowrap" ng-click = "tcClickTableHeader('marketcode')">
+									<span ng-show = "tc_keyName == 'marketcode'" ng-class = "{common_sort_icon:!tc_reverse,common_sort_desc_icon:tc_reverse}"></span>
+									证券代码
+								</th>
+			                    <th class = "common_center_align common_nowrap" ng-click = "tcClickTableHeader('chabbr')">
+									<span ng-show = "tc_keyName == 'chabbr'" ng-class = "{common_sort_icon:!tc_reverse,common_sort_desc_icon:tc_reverse}"></span>
+									证券名称
+								</th>
+								<th class = "common_center_align common_nowrap" ng-click = "tcClickTableHeader('tracid',true)">
+									<span ng-show = "tc_keyName == 'tracid'" ng-class = "{common_sort_icon:!tc_reverse,common_sort_desc_icon:tc_reverse}"></span>
+									交易账户
+								</th>
+								<th class = "common_center_align common_nowrap" ng-click = "tcClickTableHeader('satype',true)">
+									<span ng-show = "tc_keyName == 'satype'" ng-class = "{common_sort_icon:!tc_reverse,common_sort_desc_icon:tc_reverse}"></span>
+									券类型
+								</th>
+								<th class = "common_center_align common_nowrap" ng-click = "tcClickTableHeader('validsa',true)">
+									<span ng-show = "tc_keyName == 'validsa'" ng-class = "{common_sort_icon:!tc_reverse,common_sort_desc_icon:tc_reverse}"></span>
+									总数
+								</th>
+								<th class = "common_center_align common_nowrap" ng-click = "tcClickTableHeader('usedsa',true)">
+									<span ng-show = "tc_keyName == 'usedsa'" ng-class = "{common_sort_icon:!tc_reverse,common_sort_desc_icon:tc_reverse}"></span>
+									已用
+								</th>
+								<th class = "common_center_align common_nowrap" ng-click = "tcClickTableHeader('nextsa',true)">
+									<span ng-show = "tc_keyName == 'nextsa'" ng-class = "{common_sort_icon:!tc_reverse,common_sort_desc_icon:tc_reverse}"></span>
+									可配数
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat = "sa in tatrdsaList | orderBy:tc_keyName:false:tcSortFunction" ng-show = "sa.show" ng-class = "{true:'common_activeTr',false:''}[$index == tatrdClickTr ]" ng-click = "twlClickTatrdTr($index)">
+								<td class = "common_center_align common_nowrap">{{$index + 1}}</td>
+								<td class = "common_center_align common_nowrap">{{sa.briefcode}}</td>
+								<td class = "common_center_align common_nowrap">{{sa.marketcode}}</td>
+								<td class = "common_center_align common_nowrap">{{sa.chabbr}}</td>
+								<td class = "common_center_align common_nowrap">{{sa.tracid}}</td>
+								<td class = "common_center_align common_nowrap">{{sa.satype == 10 ? "底仓" : "预约券"}}</td>
+								<td class = "common_right_align common_nowrap">{{sa.validsa | number}}</td>
+								<td class = "common_right_align common_nowrap">{{sa.usedsa | number}}</td>
+								<td class = "common_right_align common_nowrap">{{sa.nextsa | number}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class = "traderwhite_btn_menu" ng-show = "tatrd_showMenu">
+					<div class="whitelist_btn_menu_item" ng-click = "twlClickBtnMenu(1)">
+						<label class = "whitelist_btn_menu_item_label" >覆盖式导入</label>
+					</div>
+					<div class="whitelist_btn_menu_item" ng-click = "twlClickBtnMenu(2)">
+						<label class = "whitelist_btn_menu_item_label">追加式导入</label>
+					</div>
+				</div>
+				<div class = "traderwhite_tips_div" ng-show = "tatrd_showTip">
+					<label class = "whitelist_tip_label">交易员分券导入格式为:</label>
+					<table class = "common_table" style = "width:550px;">
+						<thead>
+							<th class="common_center_align">证券代码</th>
+							<th class="common_center_align">证券名称</th>
+							<th class="common_center_align">UKCODE</th>
+							<th class="common_center_align">市场编号</th>
+							<th class="common_center_align">交易员</th>
+							<th class="common_center_align">资产账户</th>
+							<th class="common_center_align">交易账户</th>
+							<th class="common_center_align">券类型</th>
+							<th class="common_center_align">数量</th>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="common_center_align">000001</td>
+								<td class="common_center_align">平安银行</td>
+								<td class="common_center_align">1114116</td>
+								<td class="common_center_align">1</td>
+								<td class="common_center_align">681001</td>
+								<td class="common_center_align">681001</td>
+								<td class="common_center_align">6810011001</td>
+								<td class="common_center_align">预约券/底仓</td>
+								<td class="common_center_align">10000</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="traderwhite_trader_div">
+				<div class = "traderwhite_operate_div common_nowrap">
+					<input type="text" class = "common_normal_input common_line_unend_item common_search_input_length" placeholder="输入交易员编号或姓名过滤" ng-model = "codeFilterContent" ng-change = "twlFilterCodeTrader()">
+				</div>
+				<div class="traderwhite_data_div common_scroll_div">
+					<table class = "common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');" >
+						<thead>
+							<tr>
+								<th class = "common_center_align common_nowrap">序号</th>
+								<th class = "common_center_align common_nowrap" ng-click = "cClickTableHeader('traderid',true)">
+									<span ng-show = "c_keyName == 'traderid'" ng-class = "{common_sort_icon:!c_reverse,common_sort_desc_icon:c_reverse}"></span>
+									交易员编号
+								</th>
+			                    <th class = "common_center_align common_nowrap" ng-click = "cClickTableHeader('oname')">
+									<span ng-show = "c_keyName == 'oname'" ng-class = "{common_sort_icon:!c_reverse,common_sort_desc_icon:c_reverse}"></span>
+									交易员姓名
+								</th>
+								<th class = "common_center_align common_nowrap" ng-click = "cClickTableHeader('validsa',true)">
+									<span ng-show = "c_keyName == 'validsa'" ng-class = "{common_sort_icon:!c_reverse,common_sort_desc_icon:c_reverse}"></span>
+									总数
+								</th>
+								<th class = "common_center_align common_nowrap" ng-click = "cClickTableHeader('usedsa',true)">
+									<span ng-show = "c_keyName == 'usedsa'" ng-class = "{common_sort_icon:!c_reverse,common_sort_desc_icon:c_reverse}"></span>
+									已用
+								</th>
+								<th class = "common_center_align common_nowrap" ng-click = "cClickTableHeader('nextsa',true)">
+									<span ng-show = "c_keyName == 'nextsa'" ng-class = "{common_sort_icon:!c_reverse,common_sort_desc_icon:c_reverse}"></span>
+									可用
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat = "trader in codeTraders | orderBy:c_keyName:false:cSortFunction" ng-show = "trader.show" ng-class = "{true:'common_activeTr',false:''}[$index == codeClickTr ]" ng-click = "twlClickCodeTr($index)">
+								<td class = "common_center_align common_nowrap">{{$index + 1}}</td>
+								<td class = "common_center_align common_nowrap">{{trader.traderid}}</td>
+								<td class = "common_center_align common_nowrap">{{trader.oname}}</td>
+								<td class = "common_right_align" style = "width:140px;" ng-click = "twlEditCodeTraders(trader)">
+									<label ng-class = "{'common_table_modify_color':menuRight.indexOf(2002004003003) != -1}" ng-hide = "trader.editVol">{{trader.validsa | number}}</label>
+									<input type="text" class = "whitelist_table_input" ng-disabled = "menuRight.indexOf(2002004003003) == -1" ng-show = "trader.editVol" maxlength="15" ng-model = "currentCodeTrader.validsa" ng-keyup = "twlEditValidKeyup($event,1)" ng-change = "twlEditValidInput(1)" >
+								</td>
+								<td class = "common_right_align common_nowrap">{{trader.usedsa | number}}</td>
+								<td class = "common_right_align common_nowrap">{{trader.nextsa | number}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class = "common_page_html common_scroll_div" ng-show = "currentMenu.type == 'trader'">
+			<div class="traderwhite_trader_code_div">
+				<div class = "traderwhite_operate_div common_nowrap">
+					<input type="text" class = "common_normal_input common_line_unend_item common_search_input_length" placeholder="输入关键字过滤" ng-model = "traderFilterContent" ng-change = "twlFilterTradersa()">
+					<button type="button" class = "common_normal_btn common_blue_btn common_default_length common_line_unend_item"
+						ng-if = "menuRight.indexOf(2002004003001) != -1" ng-click = "twlTraderClickLoad($event)" ng-mouseenter = "twlShowLoadTip(true,2)" ng-mouseout = "twlShowLoadTip(false,2)">
+						导&nbsp;&nbsp;入
+						<span class="common_dropdown_icon" ng-mouseenter = "twlShowLoadTip(true,2)"></span>
+					</button>
+					<button type="button" class = "common_normal_btn common_blue_btn common_default_length" ng-if = "menuRight.indexOf(2002004003002) != -1" ng-click = "twlTraderExports()">导&nbsp;&nbsp;出</button>
+				</div>
+				<div class="traderwhite_data_div common_scroll_div">
+					<table class = "common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+						<thead>
+							<tr>
+								<th class = "common_center_align common_nowrap">序号</th>
+								<th class = "common_center_align common_nowrap" ng-click = "tdClickTableHeader('briefcode')">
+									<span ng-show = "td_keyName == 'briefcode'" ng-class = "{common_sort_icon:!td_reverse,common_sort_desc_icon:td_reverse}"></span>
+									证券市场
+								</th>
+								<th class = "common_center_align common_nowrap" ng-click = "tdClickTableHeader('marketcode')">
+									<span ng-show = "td_keyName == 'marketcode'" ng-class = "{common_sort_icon:!td_reverse,common_sort_desc_icon:td_reverse}"></span>
+									证券代码
+								</th>
+			                    <th class = "common_center_align common_nowrap" ng-click = "tdClickTableHeader('chabbr')">
+									<span ng-show = "td_keyName == 'chabbr'" ng-class = "{common_sort_icon:!td_reverse,common_sort_desc_icon:td_reverse}"></span>
+									证券名称
+								</th>
+								<th class = "common_center_align common_nowrap" ng-click = "tdClickTableHeader('acid',true)">
+									<span ng-show = "td_keyName == 'acid'" ng-class = "{common_sort_icon:!td_reverse,common_sort_desc_icon:td_reverse}"></span>
+									资产账户
+								</th>
+								<th class = "common_center_align common_nowrap" ng-click = "tdClickTableHeader('tracid',true)">
+									<span ng-show = "td_keyName == 'tracid'" ng-class = "{common_sort_icon:!td_reverse,common_sort_desc_icon:td_reverse}"></span>
+									交易账户
+								</th>
+								<th class = "common_center_align common_nowrap" ng-click = "tdClickTableHeader('satype',true)">
+									<span ng-show = "td_keyName == 'satype'" ng-class = "{common_sort_icon:!td_reverse,common_sort_desc_icon:td_reverse}"></span>
+									券类型
+								</th>
+								<th class = "common_center_align common_nowrap" ng-click = "tdClickTableHeader('validsa',true)">
+									<span ng-show = "td_keyName == 'validsa'" ng-class = "{common_sort_icon:!td_reverse,common_sort_desc_icon:td_reverse}"></span>
+									总数
+								</th>
+								<th class = "common_center_align common_nowrap" ng-click = "tdClickTableHeader('usedsa',true)">
+									<span ng-show = "td_keyName == 'usedsa'" ng-class = "{common_sort_icon:!td_reverse,common_sort_desc_icon:td_reverse}"></span>
+									已用
+								</th>
+								<th class = "common_center_align common_nowrap" ng-click = "tdClickTableHeader('nextsa',true)">
+									<span ng-show = "td_keyName == 'nextsa'" ng-class = "{common_sort_icon:!td_reverse,common_sort_desc_icon:td_reverse}"></span>
+									可配数
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat = "sa in tradersaList | orderBy:td_keyName:false:tdSortFunction" ng-show = "sa.show" ng-class = "{true:'common_activeTr',false:''}[$index == traderClickTr ]" ng-click = "twlClickTraderTr($index)">
+								<td class = "common_center_align common_nowrap">{{$index + 1}}</td>
+								<td class = "common_center_align common_nowrap">{{sa.briefcode}}</td>
+								<td class = "common_center_align common_nowrap">{{sa.marketcode}}</td>
+								<td class = "common_center_align common_nowrap">{{sa.chabbr}}</td>
+								<td class = "common_center_align common_nowrap">{{sa.acid}}</td>
+								<td class = "common_center_align common_nowrap">{{sa.tracid}}</td>
+								<td class = "common_center_align common_nowrap">{{sa.satype == 10 ? "底仓" : "预约券"}}</td>
+								<td class = "common_right_align common_nowrap" style = "width:140px;" ng-click = "twlEditTradersa(sa)">
+									<label ng-class = "{'common_table_modify_color':menuRight.indexOf(2002004003003) != -1}" ng-hide = "sa.editVol">{{sa.validsa | number}}</label>
+									<input type="text" class = "whitelist_table_input" ng-disabled = "menuRight.indexOf(2002004003003) == -1" ng-show = "sa.editVol" maxlength="15" ng-model = "currentTradersa.validsa" ng-keyup = "twlEditValidKeyup($event,2)" ng-change = "twlEditValidInput(2)" >
+								</td>
+								<td class = "common_right_align common_nowrap">{{sa.usedsa | number}}</td>
+								<td class = "common_right_align common_nowrap">{{sa.nextsa | number}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class = "traderwhite_btn_menu" ng-show = "trader_showMenu">
+					<div class="whitelist_btn_menu_item" ng-click = "twlClickBtnMenu(3)">
+						<label class = "whitelist_btn_menu_item_label" >覆盖式导入</label>
+					</div>
+					<div class="whitelist_btn_menu_item" ng-click = "twlClickBtnMenu(4)">
+						<label class = "whitelist_btn_menu_item_label">追加式导入</label>
+					</div>
+				</div>
+				<div class = "traderwhite_tips_div" ng-show = "trader_showTip">
+					<label class = "whitelist_tip_label">交易员分券导入格式为:</label>
+					<table class = "common_table" style = "width:550px;">
+						<thead>
+							<th class="common_center_align">证券代码</th>
+							<th class="common_center_align">证券名称</th>
+							<th class="common_center_align">ukcode</th>
+							<th class="common_center_align">市场编号</th>
+							<th class="common_center_align">交易员</th>
+							<th class="common_center_align">资产账户</th>
+							<th class="common_center_align">交易账户</th>
+							<th class="common_center_align">券类型</th>
+							<th class="common_center_align">数量</th>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="common_center_align">000001</td>
+								<td class="common_center_align">平安银行</td>
+								<td class="common_center_align">1114116</td>
+								<td class="common_center_align">1</td>
+								<td class="common_center_align">681001</td>
+								<td class="common_center_align">681001</td>
+								<td class="common_center_align">6810011001</td>
+								<td class="common_center_align">预约券/底仓</td>
+								<td class="common_center_align">10000</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<form id = "traderwhite_file_form" action="index.html" method="post" style = "display:none">
+		<input type="file" id = "traderwhite_file" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.csv">
+	</form>
+</div>

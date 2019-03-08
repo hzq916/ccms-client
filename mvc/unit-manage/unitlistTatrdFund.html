@@ -1,0 +1,53 @@
+<div class = "common_modal" style = "width:700px;height:508px;" id = "unitlist_tatrd_fund_modal">
+	<div class="common_modal_title_div" id = "unitlist_tatrd_fund_modal_title">
+		<label class = "common_modal_title_label">策略组合资金设置</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "unitlistHideModal(4)">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class = "common_modal_operate_body">
+		<div class = "unitlist_tatrd_fund_option">
+			<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "unitlistAddTatrdFund()">新&nbsp;增</button>
+			<button type="button" class = "common_green_btn common_normal_btn common_default_length" ng-click = "unitlistRefreshTatrdFund()">刷&nbsp;新</button>
+			<label class = "unitlist_tatrd_fund_info_label">汇总余额：{{currentTatrdFund.tatrd_balance | number:3}}</label>
+			<label class = "unitlist_tatrd_fund_info_label common_line_unend_item" >核算币种：{{currentTatrdFund.tatrd_curencychname + "("+currentTatrdFund.tatrd_briefcode+")"}}</label>
+		</div>
+		<div class = "unitlist_tatrd_fund_data">
+			<table class = "common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+				<thead>
+					<tr >
+						<th class = "common_center_align common_nowrap">策略组合编号</th>
+						<th class = "common_center_align common_nowrap">资产账户</th>
+						<th class = "common_center_align common_nowrap">币种</th>
+						<th class = "common_center_align common_nowrap">金额</th>
+						<th class = "common_center_align common_nowrap">可用金额</th>
+						<th class = "common_center_align common_nowrap">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat = "fl in currentTatrdFund.fundList" ng-class = "{true:'common_activeTr',false:''}[$index == fundClickTr ]" ng-click = "unitlistClickFundTr($index)">
+						<td class = "common_center_align common_nowrap">{{fl.trid}}</td>
+						<td class = "common_center_align common_nowrap">{{fl.acname + '('+fl.acid+')'}}</td>
+						<td class = "common_center_align common_nowrap">{{fl.curencychname + "("+fl.briefcode+")"}}</td>
+						<td class = "common_right_align common_nowrap" >
+							{{fl.totalamt | number:3}}
+						</td>
+						<td class = "common_right_align common_nowrap" >
+							{{fl.validamt | number:3}}
+						</td>
+						<td class = "common_center_align common_nowrap">
+							<label class = "common_table_operate_text" ng-click = "unitlistTatrdFundEdit($index)">资金调整</label>
+							<label class = "common_table_operate_divider">|</label>
+							<label class = "common_table_operate_text" ng-click = "unitlistChangeTatrdFund($index,true)">转入</label>
+							<label class = "common_table_operate_divider">|</label>
+							<label class = "common_table_operate_text" ng-click = "unitlistChangeTatrdFund($index,false)">转出</label>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class = "common_modal_back_lv2" id = "unitlist_tatrd_fund_add_back">
+		<div ng-include = "tatrdFundModalInfo.path" onload = "unitlistShowTatrdFundModalLoadReady()"></div>
+	</div>
+</div>

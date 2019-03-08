@@ -1,0 +1,45 @@
+<div class="common_modal" id="md5Manage_auth_modal" style="min-width: 400px;">
+    <div class="common_modal_title_div" id = "md5Manage_auth_modal_title">
+
+        <label class = "common_modal_title_label" >授权MD5</label>
+        <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "hideMD5Modal()">
+            <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+        </div>
+    </div>
+
+    <div class="common_modal_body">
+        <div class="common_scroll_div" style="width: 625px; height: 200px; border: 1px solid #DCDCDC;">
+            <table class="common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+                <thead>
+                    <tr>
+                        <th class = "common_nowrap">模块</th>
+                        <th class = "common_center_align common_nowrap">版本号</th>
+                        <th class = "common_center_align common_nowrap">MD5值</th>
+                        <th class = "common_center_align common_nowrap">操作员</th>
+                        <th class = "common_center_align common_nowrap">最后登录时间</th>
+                        <th class = "common_center_align common_nowrap">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="unverifiedMD5 in allUnverifiedMD5" ng-click="clickAuthTr($index)" ng-class="{'common_activeTr':currentAuthTrIndex == $index}">
+                        <td class = "common_center_align common_nowrap">{{unverifiedMD5.appname}}</td>
+                        <td class = "common_center_align common_nowrap">{{unverifiedMD5.version}}</td>
+                        <td class = "common_center_align common_nowrap">{{unverifiedMD5.md5}}</td>
+                        <td class = "common_center_align common_nowrap">{{unverifiedMD5.oname+"("+unverifiedMD5.oid+")"}}</td>
+                        <td class = "common_center_align common_nowrap">{{unverifiedMD5.lasttm}}</td>
+
+                        <td class = "common_center_align common_nowrap">
+                            <label class = "common_table_option_label" ng-click="authorizeMD5(unverifiedMD5)">授权</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="common_modal_footer">
+        <button type="button" class="common_blue_btn common_normal_btn  common_default_length common_line_unend_item"  ng-click="hideMD5Modal()">确定</button>
+        <button type="button" class="common_green_btn common_normal_btn  common_default_length" ng-click="hideMD5Modal()">取消</button>
+    </div>
+</div>

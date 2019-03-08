@@ -1,0 +1,11 @@
+<div class = "common_page_html common_scroll_div" ng-controller="laterRiskCtrl" ng-init = "laterRiskInit()">
+
+    <div class = "common_page_tab_div">
+        <button ng-repeat = "menu in laterRiskMenuList" ng-if = "menuRight.indexOf(menu.id) != -1" class = "common_page_tab_first_item" ng-class = "{true:'common_page_tab_active_item',false:'common_page_tab_item'}[menu.select]" ng-click = "laterRiskClickMenu($index)">
+            {{menu.title}}
+        </button>
+    </div>
+    <div class = "common_tab_content_div">
+        <div class = "common_tab_content_item" ng-repeat = "menu in laterRiskOpenMenuList" ng-show = "menu.active" ng-include="menu.pagePath"></div>
+    </div>
+</div>

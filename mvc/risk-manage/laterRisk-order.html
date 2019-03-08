@@ -1,0 +1,276 @@
+<div class="common_page_html common_scroll_div" ng-controller = "lrOrderCtrl" ng-init = "lrOrderInit()">
+	<div class = "common_tab_operate_div common_nowrap">
+		<label class="common_option_radio_border" ng-click = "lrOrderChangeHis(false)">
+			<label class = "common_option_radio_heart" ng-show = "!selectHis"></label>
+		</label>
+		<label class = "common_option_radio_label">当日查询</label>
+		<label class="common_option_radio_border" ng-click = "lrOrderChangeHis(true)">
+			<label class = "common_option_radio_heart" ng-show = "selectHis"></label>
+		</label>
+		<label class = "common_option_radio_label">历史查询</label>
+		<!-- <label class = "common_normal_text common_line_unend_item lrorder_operate_label">开始时间</label> -->
+		<input type="date" class = "common_form_calendar common_normal_input common_line_unend_item lrorder_operate_date_input" ng-model = "options.startDate" ng-disabled="!selectHis" required>
+		<label class = "common_normal_text common_line_unend_item">-</label>
+		<input type="date" class = "common_form_calendar common_normal_input common_line_unend_item lrorder_operate_date_input" ng-model = "options.endDate" ng-disabled="!selectHis" required>
+		<button type="button" class = "common_normal_btn common_blue_btn common_default_length common_line_unend_item" ng-click = "lrOrderGetOrder(1)">查&nbsp;询</button>
+		<button type="button" class = "common_normal_btn common_blue_btn common_default_length common_line_unend_item" ng-click = "lrOrderResetOptions()">重&nbsp;置</button>
+		<button type="button" class = "common_normal_btn common_blue_btn common_default_length common_line_unend_item" ng-if = "menuRight.indexOf(2003002001001) != -1" ng-click = "lrOrderExports()">导&nbsp;出</button>
+		<button type="button" class = "common_normal_btn common_blue_btn common_default_length common_line_unend_item" ng-click = "showOptions = !showOptions;" >{{showOptions == true ? "收起︿" : "更多条件﹀"}}</button>
+	</div>
+	<div class = "lrorder_options_div" ng-show = "showOptions">
+		<div class ="laterrisk_options_filter_label common_normal_text">查询条件:</div>
+		<div class = "lrorder_options_basic_option">
+			<div class = "lrorder_options_unit_div">
+				<label class = "laterrisk_unit_title common_normal_text">资产管理人：</label>
+				<select class = "common_dropdown lrorder_unit_dropdown" ng-model = "options.maid" ng-change = "lrOrderChangeMaid()">
+					<option ng-repeat = "tamgr in tamgrList" value="{{tamgr.maid}}">{{tamgr.maname + "("+tamgr.maid+")"}}</option>
+				</select>
+			</div>
+			<div class = "lrorder_options_unit_div">
+				<label class = "laterrisk_unit_title common_normal_text">策略组合：</label>
+				<select class = "common_dropdown lrorder_unit_dropdown" ng-model = "options.trid" ng-change = "lrOrderChangeTrid()">
+					<option ng-repeat = "tatrd in tatrdList" value = "{{tatrd.trid}}">{{tatrd.trname + "("+tatrd.trid+")"}}</option>
+				</select>
+			</div>
+			<div class = "lrorder_options_trader_option common_scroll_div">
+				<table class = "common_fixed_table">
+					<thead>
+						<th class = "common_center_align common_nowrap">选择</th>
+						<th class = "common_center_align common_nowrap">交易员ID</th>
+						<th class = "common_center_align common_nowrap">姓名</th>
+					</thead>
+					<tbody>
+						<tr ng-repeat = "trader in traderList">
+							<td class = "common_center_align common_nowrap">
+								<input type="checkbox" ng-model = "trader.select">
+							</td>
+							<td class = "common_center_align common_nowrap">{{trader.traderid}}</td>
+							<td class = "common_center_align common_nowrap">{{trader.oname}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class = "lrorder_options_taact_option common_scroll_div">
+				<table class = "common_fixed_table">
+					<thead>
+						<th class = "common_center_align common_nowrap">资产账户</th>
+					</thead>
+					<tbody>
+						<tr ng-repeat = "taact in taactList" ng-show = "taact.show">
+							<td class = "common_nowrap">
+								<img src="../commonui/images/icon_table_fold.png" draggable="false" ng-show = "taact.leaf == false && taact.fold == true" class = "laterrisk_fold_icon" ng-click = "lrOrderFoldTaactList($index)">
+								<img src="../commonui/images/icon_table_unfold.png" draggable="false" ng-show = "taact.leaf == false && taact.fold == false" class = "laterrisk_fold_icon" ng-click = "lrOrderFoldTaactList($index)">
+								<input type="checkbox" ng-class = "{true:'lrorder_leaf_checkbox',false:'lrorder_root_checkbox'}[taact.leaf]" ng-model = "taact.select" ng-change = "lrOrderSelectTaact($index)">
+								<label ng-show = "taact.leaf == false">{{taact.caname + "("+taact.caid+")"}}</label>
+								<label ng-show = "taact.leaf == true">{{taact.acname + "("+taact.acid+")"}}</label>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class = "lrorder_options_business_option">
+			<div class="lrorder_options_vertical">
+				<label class = "common_normal_text">证券代码：</label>
+				<input type="text" class = "common_normal_input lrorder_options_business_input" ng-model = "options.marketcode">
+			</div>
+			<div class="lrorder_options_vertical">
+				<label class = "common_normal_text">证券名称：</label>
+				<input type="text" class = "common_normal_input lrorder_options_business_input" ng-model = "options.cname">
+			</div>
+			<div class="lrorder_options_vertical">
+				<label class = "common_normal_text">买卖类型：</label>
+				<select class = "common_dropdown lrorder_options_business_dropdown" ng-model = "options.side">
+					<option ng-repeat = "side in sideList" value="{{side.side}}">{{side.desc}}</option>
+				</select>
+			</div>
+			<div class = "lrorder_options_filter_div">
+				<div class ="laterrisk_options_filter_label common_normal_text">业务名称：</div>
+				<div class = "lrorder_options_filter_scroll_div common_scroll_div">
+					<div class = "lrorder_options_vertical" ng-repeat = "cmd in cmdList">
+						<input type="checkbox" ng-model = "cmd.select" style = "vertical-align:middle">
+						<label class = "common_normal_text" style = "vertical-align:middle">{{cmd.cmdname}}</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class = "lrorder_options_deal_option">
+			<div class="lrorder_options_vertical">
+				<label class = "common_normal_text">系统订单号：</label>
+				<input type="text" class = "common_normal_input lrorder_options_deal_input" ng-model = "options.sysorderid">
+			</div>
+			<div class="lrorder_options_vertical">
+				<label class = "common_normal_text">券商订单号：</label>
+				<input type="text" class = "common_normal_input lrorder_options_deal_input" ng-model = "options.borderid">
+			</div>
+			<div class="lrorder_options_vertical">
+				<label class = "common_normal_text">成交价格范围：</label>
+			</div>
+			<div class="lrorder_options_vertical">
+				<input type="text" class = "common_normal_input lrorder_options_deal_short_input" cms-mask="unsignedFloat" ng-model = "options.startTradeprice">
+				<label class = "common_normal_text lrorder_options_deal_divider">—</label>
+				<input type="text" class = "common_normal_input lrorder_options_deal_short_input" cms-mask="unsignedFloat" ng-model = "options.endTradeprice">
+			</div>
+			<div class="lrorder_options_vertical">
+				<label class = "common_normal_text">成交数量范围：</label>
+			</div>
+			<div class="lrorder_options_vertical">
+				<input type="text" class = "common_normal_input lrorder_options_deal_short_input" cms-mask="unsignedInt" ng-model = "options.startTradevol">
+				<label class = "common_normal_text lrorder_options_deal_divider">—</label>
+				<input type="text" class = "common_normal_input lrorder_options_deal_short_input" cms-mask="unsignedInt" ng-model = "options.endTradevol">
+			</div>
+			<div class = "lrorder_options_filter_div">
+				<div class ="laterrisk_options_filter_label common_normal_text">订单状态：</div>
+				<div class="lrorder_options_order_stat_div">
+					<div class="lrorder_options_vertical" ng-repeat = "stat in dict_orderstat">
+						<input type="checkbox" ng-model = "stat.select" style = "vertical-align:middle">
+						<label class = "common_normal_text" style = "vertical-align:middle">{{stat.desc}}</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class = "common_scroll_div" ng-class = "{true:'lrorder_data_show_options_div',false:'lrorder_data_div'}[showOptions]">
+		<table class = "common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+			<thead>
+				<th class = "common_center_align common_nowrap">序号</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('mac')">
+					<span ng-show = "keyName == 'mac'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					MAC信息
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('lip')">
+					<span ng-show = "keyName == 'lip'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					IP地址
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('trday')">
+					<span ng-show = "keyName == 'trday'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					日期
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('traderid',true)">
+					<span ng-show = "keyName == 'traderid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					交易员ID
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('trid',true)">
+					<span ng-show = "keyName == 'trid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					策略组合
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('acid',true)">
+					<span ng-show = "keyName == 'acid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					资产账户
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('sysorderid',true)">
+					<span ng-show = "keyName == 'sysorderid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					系统订单号
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('borderid')">
+					<span ng-show = "keyName == 'borderid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					券商订单号
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('bacid')">
+					<span ng-show = "keyName == 'bacid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					资金账号
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('marketcode')">
+					<span ng-show = "keyName == 'marketcode'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					证券代码
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('cname')">
+					<span ng-show = "keyName == 'cname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					证券名称
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('showSide')">
+					<span ng-show = "keyName == 'showSide'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					买卖类型
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('cmdname')">
+					<span ng-show = "keyName == 'cmdname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					业务名称
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('orderstat')">
+					<span ng-show = "keyName == 'orderstat'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					订单状态
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('msg')">
+					<span ng-show = "keyName == 'msg'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					订单信息
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('ordertm')">
+					<span ng-show = "keyName == 'ordertm'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					发单时间
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('cancelordertm')">
+					<span ng-show = "keyName == 'cancelordertm'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					撤单时间
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('orderprice',true)">
+					<span ng-show = "keyName == 'orderprice'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					委托价格
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('ordervol',true)">
+					<span ng-show = "keyName == 'ordervol'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					委托量
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('tradevol',true)">
+					<span ng-show = "keyName == 'tradevol'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					成交量
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('cancelvol',true)">
+					<span ng-show = "keyName == 'cancelvol'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					撤单量
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('tradeprice',true)">
+					<span ng-show = "keyName == 'tradeamt'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					成交均价
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('tradeamt',true)">
+					<span ng-show = "keyName == 'tradeamt'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					成交金额
+				</th>
+				<th class = "common_center_align common_nowrap">
+					操作
+				</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat = "order in orderList | orderBy:keyName:false:sortFunction">
+					<td class = "common_center_align common_nowrap">{{$index + 1}}</td>
+					<td class = "common_center_align common_nowrap">{{order.mac}}</td>
+					<td class = "common_center_align common_nowrap">{{order.lip}}</td>
+					<td class = "common_center_align common_nowrap">{{order.trday}}</td>
+					<td class = "common_center_align common_nowrap">{{order.traderid}}</td>
+					<td class = "common_center_align common_nowrap">{{order.trid}}</td>
+					<td class = "common_center_align common_nowrap">{{order.acid}}</td>
+					<td class = "common_center_align common_nowrap">{{order.sysorderid}}</td>
+					<td class = "common_center_align common_nowrap">{{order.borderid}}</td>
+					<td class = "common_center_align common_nowrap">{{order.bacid}}</td>
+					<td class = "common_center_align common_nowrap">{{order.marketcode}}</td>
+					<td class = "common_center_align common_nowrap">{{order.cname}}</td>
+					<td class = "common_center_align common_nowrap">{{order.showSide }}</td>
+					<td class = "common_center_align common_nowrap">{{order.cmdname }}</td>
+					<td class = "common_center_align common_nowrap">{{order.orderstatname }}</td>
+					<td class = "common_center_align common_nowrap">{{order.msg }}</td>
+					<td class = "common_center_align common_nowrap">{{order.ordertm }}</td>
+					<td class = "common_center_align common_nowrap">{{order.cancelordertm }}</td>
+					<td class = "common_right_align common_nowrap">{{order.orderprice | number:3 }}</td>
+					<td class = "common_right_align common_nowrap">{{order.ordervol | number:0 }}</td>
+					<td class = "common_right_align common_nowrap">{{order.tradevol | number:0 }}</td>
+					<td class = "common_right_align common_nowrap">{{order.cancelvol | number:0 }}</td>
+					<td class = "common_right_align common_nowrap">{{order.tradeprice | number:3 }}</td>
+					<td class = "common_right_align common_nowrap">{{order.tradeamt | number:3 }}</td>
+					<td class = "common_center_align common_nowrap">
+						<button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2003002001002) != -1" ng-disabled = "order.orderstat == 8 || order.orderstat == 5
+							|| order.orderstat == 6 || order.orderstat == 9 || order.orderstat == 40  || order.canModify == 0" ng-click = "lrOrderModifyOrder(order)">改单</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="lrorder_page_tool_div">
+		<cms-data-pager click-menu-item="goToPage(page)" all-page="{{allPage}}" current-page="currentPage"></cms-data-pager>
+	</div>
+
+	<div class = "common_modal_back" id = "lrorder_modal_back">
+        <div ng-include = "modalInfo.path" onload = "lrOrderModalLoadReady()"></div>
+    </div>
+
+</div>

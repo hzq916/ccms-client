@@ -1,0 +1,53 @@
+<div class = "common_modal " id = "unitlist_productchange_modal">
+	<div class="common_modal_title_div" id = "unitlist_productchange_modal_title">
+		<label class = "common_modal_title_label">产品通道管理</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "unitlistHideModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class="common_modal_body">
+		<div class = "unitlist_tacap_form_item">
+			<label class = "unitlist_prochannel_form_header">产品编号：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item unitlist_tacap_input"  ng-disabled = "true" ng-model = "currentTacap.caid">
+			<label class = "unitlist_form_item_tips" ng-hide = "true">*</label>
+		</div>
+		<div class = "unitlist_tacap_form_item">
+			<label class = "unitlist_prochannel_form_header">交易服务：</label>
+			<select class="common_dropdown common_line_unend_item  unitlist_tatrd_dropdown" ng-model = "currentTacap.risk_url">
+				<option ng-repeat="omsService in omsServices" value="{{omsService.serviceid}}">{{omsService.servicename}}</option>
+			</select>
+			<label class = "unitlist_form_item_tips">*</label>
+		</div>
+		<div class = "unitlist_tacap_form_item">
+			<label class = "unitlist_prochannel_form_header">行情服务：</label>
+			<select class="common_dropdown common_line_unend_item unitlist_tatrd_dropdown" ng-model = "currentTacap.sds_url">
+				<option ng-repeat="sdsService in sdsServices" value="{{sdsService.serviceid}}">{{sdsService.servicename}}</option>
+			</select>
+			<label class = "unitlist_form_item_tips">*</label>
+		</div>
+		<!-- <div class = "unitlist_tacap_form_item">
+			<label class = "unitlist_prochannel_form_header">交易地址：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item unitlist_tacap_input" cms-mask="unsignedFloat" maxlength="15" placeholder="127.0.0.1" ng-change = "unitlistCanSaveProductChannel()" ng-model = "currentTacap.risk_address">
+			<label class = "unitlist_form_item_tips">*</label>
+		</div>
+		<div class = "unitlist_tacap_form_item">
+			<label class = "unitlist_prochannel_form_header">交易端口：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item unitlist_tacap_input" cms-mask="unsignedInt" maxlength="5" placeholder="0~65535" ng-change = "unitlistCanSaveProductChannel()" ng-model = "currentTacap.risk_port">
+			<label class = "unitlist_form_item_tips">*</label>
+		</div>
+		<div class = "unitlist_tacap_form_item">
+			<label class = "unitlist_prochannel_form_header">行情地址：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item unitlist_tacap_input" cms-mask="unsignedFloat" maxlength="15" placeholder="127.0.0.1" ng-change = "unitlistCanSaveProductChannel()" ng-model = "currentTacap.sds_address">
+			<label class = "unitlist_form_item_tips">*</label>
+		</div>
+		<div class = "unitlist_tacap_form_item">
+			<label class = "unitlist_prochannel_form_header">行情端口：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item unitlist_tacap_input" cms-mask="unsignedInt" maxlength="5" placeholder="0~65535" ng-change = "unitlistCanSaveProductChannel()" ng-model = "currentTacap.sds_port">
+			<label class = "unitlist_form_item_tips">*</label>
+		</div> -->
+	</div>
+	<div class="common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length"  ng-click = "unitlistSaveEditProductChannel()">保存</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click = "unitlistHideModal()">取消</button>
+	</div>
+</div>

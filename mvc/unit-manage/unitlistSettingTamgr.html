@@ -1,0 +1,65 @@
+<div class = "common_modal " id = "unitlist_setting_tamgr_modal" style = "height:auto;" >
+	<div class="common_modal_title_div" id = "unitlist_setting_tamgr_modal_title">
+		<label class = "common_modal_title_label">{{"资产管理人参数设置"}}</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "unitlistHideModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class="common_modal_body">
+		<div class = "unitlist_tamgr_form_item">
+			<label class = "unitlist_tamgr_form_header  unitlist_setting_tamgr_form_header">资产管理人编号：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item unitlist_tamgr_input" maxlength="4" cms-mask="unsignedInt" placeholder="1~9999" ng-disabled = "currentSettingTamgr.setting" ng-model = "currentSettingTamgr.maid">
+			<label class = "unitlist_form_item_tips" ng-hide = "currentSettingTamgr.edit">*</label>
+		</div>
+		<div class = "unitlist_tamgr_form_item">
+			<label class = "unitlist_tamgr_form_header  unitlist_setting_tamgr_form_header">资产管理人简称：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item unitlist_tamgr_input" maxlength="32" placeholder="" ng-disabled="currentSettingTamgr.setting"   ng-model = "currentSettingTamgr.maname">
+			<label class = "unitlist_form_item_tips">*</label>
+		</div>
+		<div class = "unitlist_tamgr_form_item">
+			<label class = "unitlist_tamgr_form_header  unitlist_setting_tamgr_form_header">策略组合数量限制：</label>
+			<input type="text" ng-disabled="!(menuRight.indexOf(2001002018) != -1)" class = "common_normal_input common_line_unend_item unitlist_tamgr_input" maxlength="128" placeholder="" ng-model = "currentSettingTamgr.cap_trd_qty_limit" ng-keyup="checkInputNum($event,1)">
+			<label class = "unitlist_form_item_tips">*</label>
+        </div>
+        <!-- <div class = "unitlist_tamgr_form_item">
+			<label class = "unitlist_tamgr_form_header  unitlist_setting_tamgr_form_header">交易员数量限制：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item unitlist_tamgr_input" maxlength="128" placeholder="" ng-model = "currentSettingTamgr.malname">
+			<label class = "unitlist_form_item_tips">*</label>
+        </div> -->
+        <!-- <div class = "unitlist_tamgr_form_item">
+			<label class = "unitlist_tamgr_form_header  unitlist_setting_tamgr_form_header">撤单笔数比例限制生效值：</label>
+			<input type="text" ng-disabled="!(menuRight.indexOf(2001002018) != -1)"  class = "common_normal_input common_line_unend_item unitlist_tamgr_input" maxlength="128" placeholder="" ng-model = "currentSettingTamgr.cancel_checknum" ng-keyup="checkInputNum($event,2)">
+			<label class = "unitlist_form_item_tips">*</label>
+        </div>
+        <div class = "unitlist_tamgr_form_item">
+			<label class = "unitlist_tamgr_form_header  unitlist_setting_tamgr_form_header">撤单金额比例限制生效值：</label>
+			<input type="number"  ng-disabled="!(menuRight.indexOf(2001002018) != -1)"  class = "common_normal_input common_line_unend_item unitlist_tamgr_input" maxlength="128" placeholder=""   ng-model = "currentSettingTamgr.cancel_checkamt">
+			<label class = "unitlist_form_item_tips">*</label>
+		</div> -->
+		<div class = "unitlist_tamgr_form_item">
+			<label class = "unitlist_tamgr_form_header  unitlist_setting_tamgr_form_header">终端绑定：</label>
+			<select ng-selected="!(menuRight.indexOf(2001002018) != -1)" class="common_dropdown common_line_unend_item unitlist_tamgr_dropdown" ng-model = "currentSettingTamgr.oper_station_chk" >
+				<option ng-repeat = "ucl in unitTeminalBind" value = "{{ucl.binding}}">{{ucl.desc}}</option>
+			</select>
+			<label class = "unitlist_form_item_tips" >*</label>
+		</div>
+		<div class = "unitlist_tamgr_form_item">
+			<label class = "unitlist_tamgr_form_header  unitlist_setting_tamgr_form_header">资金账户单一绑定开关：</label>
+			<select ng-disabled="!(menuRight.indexOf(2001002018) != -1)" class="common_dropdown common_line_unend_item unitlist_tamgr_dropdown" ng-model = "currentSettingTamgr.acid_bacid_relation">
+				<option ng-repeat="uso in unitStatOptions" value="{{uso.stat}}">{{uso.desc}}</option>
+			</select>
+			<label class = "unitlist_form_item_tips">*</label>
+        </div>
+        <!-- <div class = "">
+			<label class = "unitlist_tamgr_form_header  unitlist_setting_tamgr_form_header">投顾下单：</label>
+			<select ng-selected="!(menuRight.indexOf(2001002018) != -1)" class="common_dropdown common_line_unend_item unitlist_tamgr_dropdown" ng-model = "currentSettingTamgr.investment_advisor_order">
+				<option ng-repeat="uso in unitStatOptions" value="{{uso.stat}}">{{uso.desc}}</option>
+			</select>
+			<label class = "unitlist_form_item_tips">*</label>
+		</div> -->
+	</div>
+	<div class="common_modal_footer" style="margin-top: 10px;">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "unitlistSaveSettingTamgr()">确定</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click = "unitlistHideModal()">取消</button>
+	</div>
+</div>

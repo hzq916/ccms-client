@@ -1,0 +1,19 @@
+<div class="board_framework" >
+    <div class="board_box">
+        <div class="board_key" ng-click="addChar(numberKey)" ng-repeat="numberKey in numberKeys">{{shiftState ? numberKey.shift:numberKey.normal}}</div>
+        <div class="board_key special_key" ng-click="deleteLastCode()">BackSpace</div>
+    </div>
+
+    <div class="board_box">
+        <div class="board_key" ng-click="addChar(charKey)" ng-repeat="charKey in charKeys">{{shiftState ? charKey.shift:charKey.normal}}</div>
+        <div class="board_key shift_key" ng-click="changeShiftState()" ng-class="{'shift_temp':shiftState == 1,'shift_forever':shiftState == 2}">Shift</div>
+        <div class="board_key special_key" ng-click="changeCapsLock()" ng-class="{'shift_forever': capsLock}">CapsLock</div>
+    </div>
+
+    <div class="board_box">
+        <div class="board_key" ng-click="addLetter(letterKey)" ng-repeat="letterKey in letterKeys">{{(shiftState&&capsLock||(shiftState+capsLock==0)) ? letterKey.normal:letterKey.shift}}</div>
+
+    </div>
+
+
+</div>

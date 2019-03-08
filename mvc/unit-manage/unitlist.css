@@ -1,0 +1,255 @@
+.unitlist_option_div {
+	position: absolute;
+	top: 14px;
+	left: 13px;
+	right: 9px;
+	height: 26px;
+	vertical-align: middle;
+}
+.unitlist_data_div {
+	position: absolute;
+	top: 51px;
+	left: 13px;
+	right: 9px;
+	bottom: 10px;
+	border: 1px solid #DCDCDC;
+}
+.unitlist_fold_icon {
+	cursor: pointer;
+	vertical-align: middle;
+	width: 12px;
+	height: 12px;
+}
+.unitlist_unit_icon {
+	vertical-align: middle;
+	width: 12px;
+	height: 12px;
+}
+.unitlist_lv1_item {
+	margin-left: 0;
+}
+.unitlist_lv2_item {
+	margin-left: 17px;
+}
+.unitlist_lv3_item {
+	margin-left: 34px;
+}
+.unitlist_lv4_item {
+	margin-left: 49px;
+}
+.unitlist_table_maid_label {
+	display: inline-block;
+	min-width: 135px;
+	vertical-align: middle;
+}
+.unitlist_table_caid_label {
+	display: inline-block;
+	min-width: 120px;
+	vertical-align: middle;
+}
+.unitlist_table_trid_label {
+	display: inline-block;
+	min-width: 105px;
+	vertical-align: middle;
+}
+.unitlist_table_add_label {
+	display: inline-block;
+	width: 40px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	vertical-align: middle;
+}
+.unitlist_table_add_label:hover {
+	width: 105px;
+}
+.unitlist_tamgr_form_item {
+	margin-bottom: 10px;
+}
+.unitlist_tamgr_form_header {
+	font-size: 12px;
+	display: inline-block;
+	width: 100px;
+}
+.unitlist_setting_tamgr_form_header {
+	width: 160px;
+}
+.unitlist_tamgr_input {
+	width: 290px;
+}
+.unitlist_tamgr_dropdown {
+	width: 302px;
+}
+.unitlist_form_item_tips {
+	color: red;
+	font-size: 12px;
+	vertical-align: middle;
+}
+.unitlist_freeze_modal_content {
+	text-align:center;
+	font-size:12px;
+	color:rgb(101,101,101);
+}
+.unitlist_tacap_form_item {
+	margin-bottom: 10px;
+}
+.unitlist_tacap_form_header {
+	font-size: 12px;
+	display: inline-block;
+	width: 100px;
+}
+.unitlist_tacap_input {
+	width: 290px;
+}
+.unitlist_tatrd_tail_input {
+	width: 300px;
+}
+.unitlist_tacap_dropdown {
+	width: 302px;
+}
+.unitlist_tatrd_form_item {
+	margin-bottom: 6px;
+}
+.unitlist_tatrd_form_header {
+	font-size: 12px;
+	display: inline-block;
+	width: 100px;
+}
+.unitlist_tatrd_input {
+	width: 290px;
+}
+.unitlist_tatrd_dropdown {
+	width: 302px;
+}
+
+.unitlist_tatrd_fund_option {
+	padding-bottom: 10px;
+}
+
+.unitlist_tatrd_fund_data {
+	width: 660px;
+	height: 400px;
+	border: 1px solid rgba(34,36,38,.15);
+	overflow: auto;
+}
+.unitlist_tatrd_fund_data::-webkit-scrollbar {
+	width: 7px;
+	height: 7px;
+}
+.unitlist_tatrd_fund_data::-webkit-scrollbar-thumb {
+	width: 7px;
+	background-color: rgba(197,198,192,0.5);
+	border-radius: 7px;
+	-webkit-box-shadow: inset 0 0 3px rgba(0,0,0,.3);
+}
+.unitlist_tatrd_fund_editable_label {
+	color: #009dff;
+	cursor: pointer;
+	-webkit-user-select: none;
+}
+.unitlist_tatrd_fund_table_input {
+	outline: none;
+	border: 1px solid #cbcbcb;
+	width: 117px;
+	height: 15px;
+	font-size: 12px;
+	text-align: right;
+	color:#656565;
+}
+.unitlist_tatrd_fund_table_input:focus {
+	border: 1px solid lightsteelblue;
+}
+
+.unitlist_tatrd_fund_info_label {
+	height: 26px;
+	float: right;
+	font-style: "宋体";
+	font-size: 12px;
+	line-height: 26px;
+	color:red;
+	text-align: right;
+}
+
+.unitlist_connect_data_div {
+	width: 640px;
+	height: 360px;
+	border: 1px solid #dcdcdc;
+}
+
+
+.table_dropdown {
+    outline: none;
+    width: 76px;
+    height: 23px;
+    padding-left: 5px;
+    border-radius: 2px;
+    border: 1px solid #cbcbcb;
+    line-height: 40px;
+}
+
+.table_normal_input{
+    height: 19px;
+    width: 100px;
+}
+.table_tail_input{
+    position: relative;
+    display: inline-block;
+}
+
+.table_tail_input input{
+    height: 19px;
+    width: 100px;
+    margin: 0;
+    font-size: 12px;
+    line-height: 18px;
+    padding-left: 5px;
+    padding-right: 20px;
+    outline: none;
+    border-radius: 2px;
+    border: 1px solid #DCDCDC;
+}
+
+.table_tail_input label {
+    position: absolute;
+    top: 0;
+    right: 3px;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: right;
+    cursor: default;
+}
+
+.futures_load_tips {
+	position: absolute;
+	left: 20px;
+	top: 78px;
+	background-color: rgb(221,221,221);
+	border-radius: 5px;
+	z-index: 1001;
+	padding: 2px;
+}
+.futures_load_tips_label {
+	font-size: 12px;
+	color:rgb(144,143,143);
+}
+
+.unitlist_subject_data_div {
+	width: 720px;
+	height: 360px;
+	border: 1px solid #dcdcdc;
+}
+
+.unitlist_subject_form_header {
+	display: inline-block;
+	width: 60px;
+}
+.unitlist_subject_form_input {
+	width: 175px;
+}
+.unitlist_subject_form_dropdown {
+	width: 187px;
+}
+.unitlist_prochannel_form_header {
+	font-size: 12px;
+	display: inline-block;
+	width: 70px;
+}

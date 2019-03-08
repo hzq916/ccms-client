@@ -1,0 +1,71 @@
+<div class = "common_page_html common_scroll_div" ng-controller = "channelCtrl" ng-init = "channelInit()">
+	<div class = "common_tab_operate_div common_nowrap">
+		<input type="text" class = "common_normal_input common_line_unend_item common_search_input_length" placeholder = "通道编号/名称/类型/经纪商" ng-model = "searchContent" ng-change = "channelFilterChannel()">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-if = "menuRight.indexOf(2005004003001) != -1"  ng-click = "channelAddChannel()">新建通道</button>
+		<button type="button" class = "common_green_btn common_normal_btn common_default_length"  ng-click = "channelGetChannel()">刷新</button>
+	</div>
+	<div class = "common_tab_data_div common_scroll_div">
+		<table class = "common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+			<thead >
+				<tr >
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('chid',true)">
+						<span ng-show = "keyName == 'chid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+						通道编号
+					</th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('chname')">
+						<span ng-show = "keyName == 'chname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+						通道名称
+					</th>
+                    <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('bid',true)">
+						<span ng-show = "keyName == 'bid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+						经纪商名称
+					</th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('serviceid',true)">
+						<span ng-show = "keyName == 'serviceid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+						服务
+					</th>
+                    <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('typename')">
+						<span ng-show = "keyName == 'typename'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+						通道类型
+					</th>
+                    <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('ip')">
+						<span ng-show = "keyName == 'ip'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+						通讯地址
+					</th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('port',true)">
+						<span ng-show = "keyName == 'port'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+						通讯端口
+					</th>
+                    <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('cfg')">
+						<span ng-show = "keyName == 'cfg'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+						属性配置
+					</th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('stat')">
+						<span ng-show = "keyName == 'stat'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+						状态
+					</th>
+					<th class = "common_center_align common_nowrap">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat = "cl in channelList | orderBy:keyName:false:sortFunction" ng-show = "cl.show" ng-class = "{true:'common_activeTr',false:''}[$index == clickTr ]" ng-click = "channelClickTr($index)">
+					<td class = "common_center_align common_nowrap">{{cl.chid}}</td>
+					<td class = "common_center_align common_nowrap">{{cl.chname}}</td>
+					<td class = "common_center_align common_nowrap">{{cl.bname + "("+cl.bid+")"}}</td>
+					<td class = "common_center_align common_nowrap">{{cl.servicename + "("+cl.serviceid+")"}}</td>
+					<td class = "common_center_align common_nowrap">{{cl.typename}}</td>
+					<td class = "common_center_align common_nowrap">{{cl.ip}}</td>
+					<td class = "common_center_align common_nowrap">{{cl.port}}</td>
+					<td class = "common_center_align common_nowrap">{{cl.cfg}}</td>
+					<td class = "common_center_align common_nowrap">{{cl.show_stat}}</td>
+					<td class = "common_center_align common_nowrap">
+						<button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2005004003002) != -1" ng-click = "channelEditChannel(cl)">编辑</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class = "common_modal_back" id = "channel_modal_back">
+        <div ng-include = "modalInfo.path" onload = "channelLoadModalReady()"></div>
+    </div>
+</div>

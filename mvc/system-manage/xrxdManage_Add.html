@@ -1,0 +1,39 @@
+<div class = "common_modal" id = "xrxdManage_Add_modal" >
+	<div class="common_modal_title_div" id = "xrxdManage_Add_modal_title">
+		<label class = "common_modal_title_label">{{xrxdInfo.dlg_title}}</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "xrxdManage_HideModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class="common_modal_body">
+		<div class = "common_form_div_item_10px">
+			<label class = "common_form_pre_label">股权登记日：</label>
+			<input type="date" class = "common_form_calendar common_normal_input common_line_unend_item common_form_suf_input" ng-model="xrxdInfo.date">
+		</div>
+		<div class = "common_form_div_item_10px">
+			<label class = "common_form_pre_label">证券代码：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item common_form_suf_input" ng-disabled="xrxdInfo.operateType=='alt'" ng-change="selSecuritiesName(xrxdInfo.marketcode)"  ng-model="xrxdInfo.marketcode">
+		</div>
+		<div class = "common_form_div_item_10px">
+			<label class = "common_form_pre_label">证券名称：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item common_form_suf_input" ng-disabled="true" ng-model="xrxdInfo.chabbr">
+		</div>
+		<div class = "common_form_div_item_10px">
+			<label class = "common_form_pre_label">基准股数：</label>
+			<select class="common_dropdown common_line_unend_item xrxdManage_Add_dropdown " style="width: 232px;" ng-options = "base_vol for base_vol in xrxd_baseVol_selList" ng-model = "xrxdInfo.base_vol"></select>
+		</div>
+		<div class = "common_form_div_item_10px">
+			<label class = "common_form_pre_label">送转股数：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item common_form_suf_input" cms-mask="unsignedFloat"  ng-model="xrxdInfo.xr_vol">
+		</div>
+		<div >
+			<label class = "common_form_pre_label">派息(元)：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item common_form_suf_input" cms-mask="unsignedFloat"  ng-model="xrxdInfo.xd_amt">
+		</div>
+
+	</div>
+	<div class="common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "xrxdManageOperatorConfirm(xrxdInfo.operateType)">确定</button>
+		<button type="button" class = "common_green_btn common_normal_btn common_default_length" ng-click = "xrxdManage_HideModal()">取消</button>
+	</div>
+</div>

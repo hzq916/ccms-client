@@ -1,0 +1,91 @@
+<div class="common_page_html common_scroll_div" ng-controller="fundsDataSyncHistoryCtrl" ng-init="fundsDataSyncHistoryInit()">
+    <div class="common_operate_div common_nowrap">
+        <input type="text" class="common_normal_input common_line_unend_item common_search_input_length" placeholder="请输入关键字进行过滤>>"
+            ng-model="filterContent" ng-change="operLogFilter()">
+        <label class="common_form_date_label">日期：</label>
+        <input type="date" class="common_normal_input  common_form_calendar common_form_calendar_width common_line_unend_item" ng-model="begin_date"
+            ng-change="changeStartDate()">
+        <label class="common_line_unend_item">-</label>
+        <input type="date" class="common_normal_input  common_form_calendar common_form_calendar_width common_line_unend_item" ng-model="end_date"
+            ng-change="changeEndDate()">
+        <button type="button" class="common_green_btn common_normal_btn common_default_length" ng-if="menuRight.indexOf(2002005005) != -1" ng-click="refreshOperatorLogDataTable()">查 询</button>
+    </div>
+    <div class="alarmMessage_data_div common_scroll_div">
+        <table class="common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH')">
+            <thead>
+                <tr>
+                    <th class="common_center_align common_nowrap">
+                        <span ng-show="keyName == 'sno'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        ID
+                    </th>
+                    <th class="common_center_align common_nowrap">
+                        <span ng-show="keyName == 'operdate'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        操作时间
+                    </th>
+                    <th class="common_center_align common_nowrap">
+                        <span ng-show="keyName == 'ip'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        IP地址
+                    </th>
+                    <th class="common_center_align common_nowrap">
+                        <span ng-show="keyName == 'mac'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        MAC信息
+                    </th>
+                    <!-- <th class="common_center_align common_nowrap">
+                        <span ng-show="keyName == 'oper_type'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        操作类型
+                    </th> -->
+                    <th class="common_center_align common_nowrap">
+                        <span ng-show="keyName == 'oid'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        操作员ID
+                    </th>
+                    <th class="common_center_align common_nowrap">
+                        <span ng-show="keyName == 'oper_obj'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        操作对象
+                    </th>
+                    <th class="common_center_align common_nowrap">
+                        <!-- <span ng-show = "keyName == 'oper_obj'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span> -->
+                        操作详情
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="cell in operatorLogDataList" ng-show="cell.show" ng-class="{true:'common_activeTr',false:''}[$index == curClickedIndex ]"
+                    ng-click="itemClicked($index)">
+                    <td class="common_center_align common_nowrap">
+                        <label>{{cell.sno}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{cell.opertime}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{cell.ip}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{cell.mac}}</label>
+                    </td>
+                    <!-- <td class="common_center_align common_nowrap">
+                        <label>{{cell.oper_type}}</label>
+                    </td> -->
+                    <td class="common_center_align common_nowrap">
+                        <label>{{cell.oid}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{cell.oper_obj}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <button class="common_table_operate_text" ng-click="clickCheckDetail(cell.sno, cell.opertime)">查看</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <cms-data-pager click-menu-item="goToPage(page)" all-page="{{allPage}}" current-page="currentPage"></cms-data-pager>
+
+    <div class="common_modal_back" id="fundsDataSyncHistory_modal_back">
+        <div ng-include="modalInfo.path" onload="fundsDataSyncHistoryLoadModalReady()"></div>
+    </div>
+
+    <!-- <div class="common_modal_back_lv2" id="fundsDataSyncHistory_modal_back2">
+            <div ng-include="modalInfo2.path" onload="fundsDataSyncHistoryLoadModalReady2()"></div>
+        </div> -->
+</div>

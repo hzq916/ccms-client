@@ -1,0 +1,45 @@
+<div class = "common_modal" id = "unitlist_tatrd_fund_add_modal">
+	<div class="common_modal_title_div" id = "unitlist_tatrd_fund_add_modal_title">
+		<label class = "common_modal_title_label">新增策略组合资金</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "unitlistHideTatrdFundModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class = "common_modal_body">
+		<div class = "unitlist_tatrd_form_item">
+			<label class = "unitlist_tatrd_form_header">策略组合编号：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item unitlist_tatrd_input"  ng-disabled = "true" ng-model = "currentTatrdFund.trid">
+		</div>
+		<div class = "unitlist_tatrd_form_item">
+			<label class = "unitlist_tatrd_form_header">资产账户：</label>
+			<select class="common_dropdown common_line_unend_item unitlist_tatrd_dropdown" ng-model = "currentTatrdFund.acid">
+				<option ng-repeat="al in currentTatrdFund.acidList" value="{{al.acid}}">{{al.acname +"("+al.acid+")"}}</option>
+			</select>
+			<label class = "unitlist_form_item_tips">*</label>
+		</div>
+		<div class = "unitlist_tatrd_form_item">
+			<label class = "unitlist_tatrd_form_header">币种：</label>
+			<select class="common_dropdown common_line_unend_item unitlist_tacap_dropdown" ng-model = "currentTatrdFund.currencyid" >
+				<option ng-repeat = "ucl in unitCurrencyList" value = "{{ucl.currencyid}}">{{ucl.curencychname+ "("+ucl.briefcode+")"}}</option>
+			</select>
+			<label class = "unitlist_form_item_tips">*</label>
+		</div>
+		<div class = "unitlist_tatrd_form_item">
+			<label class = "unitlist_tatrd_form_header">金额：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item unitlist_tatrd_input" maxlength="18" ng-model = "currentTatrdFund.totalamt" ng-change="unitlistRefreshShare(1)">
+			<label class = "unitlist_form_item_tips">*</label>
+		</div>
+		<div class = "unitlist_tatrd_form_item">
+			<label class = "unitlist_tatrd_form_header">同步更新份额：</label>
+			<input type="checkbox" class = "common_line_unend_item"  ng-model = "currentTatrdFund.changeShare" ng-change="unitlistRefreshShare(1)">
+		</div>
+		<div class = "">
+			<label class = "unitlist_tatrd_form_header">当前份额：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item unitlist_tatrd_input" ng-disabled="true"  ng-model = "currentTatrdFund.current_totalshare">
+		</div>
+	</div>
+	<div class = "common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "unitlistAddTatrdFundSure()">保&nbsp;存</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click = "unitlistHideTatrdFundModal()">取&nbsp;消</button>
+	</div>
+</div>

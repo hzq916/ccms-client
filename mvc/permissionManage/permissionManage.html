@@ -1,0 +1,87 @@
+<div class="common_page_html common_scroll_div" ng-controller="permissionManageCtrl">
+    <div class="permissionManage_module_div">
+        <!-- <label class="common_page_tab_unend_item  common_page_tab_active_item" >权限等级列表</label> -->
+
+        <div class="common_normal_operate_div">
+            <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length "   ng-click="refresh()">刷新</button>
+            <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length " ng-if = "menuRight.indexOf(2001003001) != -1"   ng-click="clickAddRole()" >新建</button>
+            <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length " ng-if = "menuRight.indexOf(2001003002) != -1"  ng-click="clickEditRole()" >编辑</button>
+            <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length " ng-if = "menuRight.indexOf(2001003003) != -1"   ng-click="clickDelRole(currentRole)" >删除</button>
+
+        </div>
+        <div class="common_scroll_div common_normal_data_div" >
+            <table class="common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+              <thead>
+                <tr >
+                  <th class = "common_nowrap">资产管理人</th>
+                  <th class = "common_center_align common_nowrap" >岗位角色</th>
+                  <th class = "common_center_align common_nowrap">备注</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="role in allRole " ng-class="{'common_activeTr':currentRoleIndex == $index}" ng-click="clickRoleTr(role,$index)"
+                    ng-show="role.show">
+                  <td class = " common_nowrap " >
+                      <img src="../commonui/images/icon_table_fold.png" draggable="false" class="fold-item" ng-show="role.isTitle && !role.showChildren" ng-click="clickFold(role)">
+                      <img src="../commonui/images/icon_table_unfold.png" draggable="false" class="fold-item" ng-show="role.isTitle && role.showChildren" ng-click="clickFold(role)">
+                      <label for="" ng-show="role.isTitle"> {{role.maname+"("+role.maid+")" }}</label>
+                  </td>
+                  <td class = " common_nowrap common_center_align" >{{role.rolename}}</td>
+                  <td class = " common_nowrap common_center_align" >{{role.roledesc}}</td>
+
+                </tr>
+              </tbody>
+            </table>
+        </div>
+    </div>
+    <div ng-if="rightClick" class="permissionManage_module_div">
+        <!-- <label class="common_page_tab_unend_item  common_page_tab_active_item" >功能权限列表</label> -->
+        <div class="common_normal_operate_div">
+            <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length "  style="width: 85px" ng-if = "menuRight.indexOf(2001003004) != -1"  ng-click="clickChangeRoleRight()" ng-show="!changeRoleRight" >配置菜单权限</button>
+            <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length "  ng-click="saveChangeRight()" ng-show="changeRoleRight" >保存</button>
+            <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length "  ng-click="cancelChange()" ng-show="changeRoleRight"  >取消</button>
+            <input type="checkbox" ng-checked="allRightChecked" style = "vertical-align:middle" ng-show="changeRoleRight" value="useable" ng-click="clickAllCheckBox()" >
+            <label style="padding: 4px;vertical-align:middle" ng-show="changeRoleRight">全选</label>
+            <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length "  ng-if = "menuRight.indexOf(2001003006) != -1" ng-click="importRoleRight()" ng-show="!changeRoleRight">导入</button>
+            <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length "  ng-if = "menuRight.indexOf(2001003005) != -1" ng-click="exportRoleRight()" ng-show="!changeRoleRight">导出</button>
+        </div>
+        <div class="common_scroll_div common_normal_data_div" >
+            <table class="common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+              <thead>
+                <tr >
+                  <th class = "common_nowrap">功能</th>
+                  <th class = "common_center_align common_nowrap" >权限</th>
+                  <!--<th class = "common_center_align common_nowrap">最小权限级别</th>-->
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="right in allRight " ng-class="{'common_activeTr':currentRightIndex == $index}" ng-show="right.show && $index != 0">
+                  <td class = " common_nowrap " >
+                      <label ng-class="{'tier_0':right.tier==1, 'tier_1':right.tier==2, 'tier_2':right.tier==3, 'tier_3':right.tier==4, 'tier_4':right.tier==5}"></label>
+                      <img src="../commonui/images/icon_table_fold.png" draggable="false" class="fold-item"
+                            ng-show="!right.showChildren && right.children.length" ng-click="clickFold(right)">
+                      <img src="../commonui/images/icon_table_unfold.png" draggable="false" class="fold-item"
+                            ng-show="right.showChildren && right.children.length " ng-click="clickFold(right)">
+                      <label ng-class="{'img_width':right.children.length == 0}">{{right.menuprompt}}</label>
+
+                  </td>
+                  <td class = " common_nowrap common_center_align" >
+                      <!--<input type="checkbox" ng-checked="right.assigntype == 1 || right.assigntype == 3" style = "vertical-align:middle;" ng-disabled="changeRoleRight == false"
+                      value="visible" ng-click="clickVisibleCheckBox(right)" >
+                      <label style="padding: 4px; vertical-align:middle;">可见</label>-->
+                      <input type="checkbox" ng-checked="right.assigntype == 1" style = "vertical-align:middle;" ng-disabled="changeRoleRight == false"
+                       value="useable" ng-click="clickUseableCheckBox(right)" >
+                      <label style="padding: 4px;vertical-align:middle;">可用</label>
+                  </td>
+                  <!--<td class = " common_nowrap common_center_align" >{{right.min_rightStr+"("+right.min_rightlv+")"}}</td>-->
+                </tr>
+              </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class = "common_modal_back" id = "permissionManage_modal_back">
+        <div ng-include = "modalInfo.path" onload = "permissionManageLoadModalReady()"></div>
+    </div>
+
+</div>

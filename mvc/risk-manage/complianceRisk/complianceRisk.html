@@ -1,0 +1,108 @@
+<div class="common_page_html common_scroll_div" ng-controller="preTradeRiskCtrl" ng-init = "preriskInit()">
+    <div class="common_mini_subguide_div" ng-show="!showSubguide" ng-click="showSubguide=true;">
+        <div class="common_mini_guide_title_div">
+            <div class="common_menu_icon"></div>
+            单元导航
+        </div>
+    </div>
+    <div class="common_subguide_div" ng-show="showSubguide">
+        <div class = "common_guide_title_div">
+            <label class = "common_guide_title_label">单元导航</label>
+            <img src="../commonui/images/icon_lock.png" draggable="false"  class = "common_guide_close_icon" title="点击收起菜单" ng-click = "showSubguide=false;"/>
+        </div>
+        <div class=" common_guide_content_div common_scroll_div">
+			<cms-guide guide-data = "{{guideTree}}" guide-showid = "true" guide-selectleaf = "true" guide-click = "preriskClickMenu(menu)" guide-setmenu = "preriskSetMenu"></cms-guide>
+        </div>
+    </div>
+
+    <div ng-class = "{'common_content_locked_div':showSubguide,'common_content_unlocked_div':!showSubguide}">
+        <div class = "common_page_html common_scroll_div">
+            <div class="common_normal_operate_div common_nowrap">
+                <input type="text" class = "common_normal_input common_line_unend_item common_search_input_length" placeholder="风控规则过滤" ng-model = "filterContent" ng-change = "preriskFilterRisk()">
+                <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length "
+                        ng-if = "menuRight.indexOf(2003005001) != -1 && currentMenu.type == 'acid'" ng-click="preriskAddRisk()" >新增</button>
+                <button type="button" class = "common_green_btn common_normal_btn common_default_length " ng-click="preriskRefreshRisk()" >刷新</button>
+            </div>
+            <div class="common_normal_data_div common_scroll_div">
+                <table class="common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+                  <thead>
+                    <tr >
+                      <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('riskname')">
+                          <span ng-show = "keyName == 'riskname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                          风控规则
+                      </th>
+                      <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('show_celltype')">
+                          <span ng-show = "keyName == 'show_celltype'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                          单元类型
+                      </th>
+                      <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('cellid',true)">
+                          <span ng-show = "keyName == 'cellid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                          单元编号
+                      </th>
+                      <!-- <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('ukcode',true)">
+                          <span ng-show = "keyName == 'ukcode'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                          UKCODE
+                      </th> -->
+                      <!-- <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('show_catglv1')">
+                          <span ng-show = "keyName == 'show_catglv1'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                          主要分类
+                      </th> -->
+                      <!-- <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('show_catglv2')">
+                          <span ng-show = "keyName == 'show_catglv2'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                          次级分类
+                      </th> -->
+                      <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('show_value1')">
+                          <span ng-show = "keyName == 'show_value1'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                          风控触发值
+                      </th>
+                      <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('show_value2')">
+                          <span ng-show = "keyName == 'show_value2'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                          风控预警值
+                      </th>
+                      <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('show_value3')">
+                          <span ng-show = "keyName == 'show_value3'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                          生效阀值
+                      </th>
+                      <!-- <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('num_check',true)">
+                          <span ng-show = "keyName == 'num_check'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                          风控是否计数
+                      </th> -->
+                      <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('riskstat',true)">
+                          <span ng-show = "keyName == 'riskstat'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                          风控状态
+                      </th>
+                      <th class = "common_center_align common_nowrap">操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <tr ng-repeat = "cfg in riskCfgvalues | orderBy:keyName:false:sortFunction" ng-show = "cfg.show">
+                          <td class = "common_nowrap">{{cfg.riskname}}</td>
+                          <td class = "common_center_align common_nowrap">{{cfg.show_celltype}}</td>
+                          <td class = "common_center_align common_nowrap">{{cfg.cellid}}</td>
+                          <!-- <td class = "common_center_align common_nowrap">{{cfg.ukcode == 0 ? "-" : (cfg.ukcode == 1 ? "*" : cfg.ukcode)}}</td> -->
+                          <!-- <td class = "common_center_align common_nowrap">{{cfg.show_catglv1}}</td> -->
+                          <!-- <td class = "common_center_align common_nowrap">{{cfg.show_catglv2}}</td> -->
+                          <td class = "common_center_align common_nowrap">{{ cfg.riskid === '35' ? '-' : cfg.show_value1}}</td>
+                          <td class = "common_center_align common_nowrap">{{ cfg.riskid === '35' ? '-' : cfg.show_value2}}</td>
+                          <td class = "common_center_align common_nowrap" ng-show="cfg.riskid === '38' || cfg.riskid === '39' || cfg.riskid === '62' || cfg.riskid === '63'">{{cfg.show_value3}}</td>
+                          <td class = "common_center_align common_nowrap" ng-show="cfg.riskid === '35' || cfg.riskid === '36' || cfg.riskid === '37' || cfg.riskid === '41'">-</td>
+                          <!-- <td class = "common_center_align common_nowrap">{{cfg.num_check == 1 ? "是" : "否"}}</td> -->
+                          <td class = "common_center_align common_nowrap">{{cfg.riskstat == 1 ? "启用" : "不启用"}}</td>
+                          <td class = "common_center_align common_nowrap">
+                              <button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2003005002) != -1"
+                                     ng-click = "preriskEditRisk(cfg)">编辑</button>
+                              <label class = "common_table_operate_divider" ng-if = "menuRight.indexOf(2003005002) != -1">|</label>
+                              <button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2003005003) != -1"
+                                     ng-click = "preriskDeleteRisk(cfg)">删除</button>
+                              <label class = "common_table_operate_divider" ng-if = "menuRight.indexOf(2003005003) != -1">|</label>
+                          </td>
+                      </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class = "common_modal_back" id = "complianceRisk_modal_back">
+        <div ng-include = "modalInfo.path" onload = "preriskModalLoadReady()"></div>
+    </div>
+</div>

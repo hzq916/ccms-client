@@ -1,0 +1,48 @@
+<div class="common_modal " id = "lrorder_modify_modal">
+	<div class="common_modal_title_div" id = "lrorder_modify_modal_title">
+        <label class = "common_modal_title_label">改单</label>
+        <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "lrOrderCloseModal()">
+            <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+        </div>
+    </div>
+	<div class = "common_modal_body">
+		<div class="common_form_div_item_10px common_nowrap">
+			<label class = "common_normal_text lrorder_form_header">系统订单号：</label>
+            <input type="text" class = "common_normal_input lrorder_form_input common_line_unend_item" ng-disabled="true" ng-model = "currentOrder.sysorderid">
+        </div>
+		<div class="common_form_div_item_10px common_nowrap">
+			<label class = "common_normal_text lrorder_form_header">证券代码：</label>
+            <input type="text" class = "common_normal_input lrorder_form_input common_line_unend_item" ng-disabled="true" ng-model = "currentOrder.marketcode">
+        </div>
+		<div class="common_form_div_item_10px common_nowrap">
+			<label class = "common_normal_text lrorder_form_header">买卖类型：</label>
+            <input type="text" class = "common_normal_input lrorder_form_input common_line_unend_item" ng-disabled="true" ng-model = "currentOrder.showSide">
+        </div>
+		<div class="common_form_div_item_10px common_nowrap">
+			<label class = "common_normal_text lrorder_form_header">委托数量：</label>
+            <input type="text" class = "common_normal_input lrorder_form_input common_line_unend_item" ng-disabled="true" ng-model = "currentOrder.ordervol">
+        </div>
+		<div class="common_form_div_item_10px common_nowrap">
+			<label class = "common_normal_text lrorder_form_header">委托价格：</label>
+            <input type="text" class = "common_normal_input lrorder_form_input common_line_unend_item" ng-disabled="true" ng-model = "currentOrder.orderprice">
+        </div>
+		<div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text lrorder_form_header">订单状态：</label>
+            <select class = "common_normal_input lrorder_form_dropdown common_line_unend_item" ng-model = "currentOrder.orderstat">
+                <option ng-repeat = "stat in modifyOrderStats" value="{{stat.typeid}}">{{stat.typename}}</option>
+            </select>
+        </div>
+		<div class="common_form_div_item_10px common_nowrap">
+			<label class = "common_normal_text lrorder_form_header">成交数量：</label>
+            <input type="number" step="1" class = "common_normal_input lrorder_form_input common_line_unend_item" cms-mask="unsignedInt" maxlength="11" ng-model = "currentOrder.tradevol">
+        </div>
+		<div class="common_form_div_item_10px common_nowrap">
+			<label class = "common_normal_text lrorder_form_header">成交均价：</label>
+            <input type="number"  step="0.001" class = "common_normal_input lrorder_form_input common_line_unend_item" cms-mask="unsignedFloat" maxlength="18" ng-model = "currentOrder.tradeprice">
+        </div>
+	</div>
+	<div class="common_modal_footer">
+        <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length " ng-click="lrOrderModifyOrderSure()">确定</button>
+        <button type="button" class="common_gray_btn common_normal_btn common_line_unend_item common_default_length" ng-click="lrOrderCloseModal()">取消</button>
+    </div>
+</div>

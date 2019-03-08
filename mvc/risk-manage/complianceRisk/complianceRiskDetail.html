@@ -1,0 +1,93 @@
+<div class = "common_modal " id = "complianceRisk_edit_modal">
+    <div class="common_modal_title_div" id = "complianceRisk_edit_modal_title">
+        <label class = "common_modal_title_label">{{currentRiskInfo.title}}</label>
+        <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "preriskCloseModal()">
+            <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+        </div>
+    </div>
+    <div class="common_modal_body">
+        <div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text prerisk_form_header">{{currentRiskInfo.header}}</label>
+            <input type="text" class = "common_normal_input prerisk_form_input" ng-disabled = "true" ng-model = "currentRiskInfo.cellid">
+        </div>
+        <div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text prerisk_form_header">风控规则：</label>
+            <select class = "common_normal_input prerisk_form_dropdown common_line_unend_item" ng-disabled = "currentRiskInfo.edit" ng-model = "currentRiskInfo.riskid" ng-change="changeShowBox()">
+                <option ng-repeat = "risk in riskIndexs" value="{{risk.riskid}}">{{risk.riskname}}</option>
+            </select>
+            <label class = "common_required_item">*</label>
+        </div>
+        <!-- <div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text prerisk_form_header">ukcode：</label>
+            <input type="text" class = "common_normal_input prerisk_form_input common_line_unend_item" cms-mask="unsignedInt" maxlength="11" placeholder="0表示不需要设置，1表示全部" ng-model = "currentRiskInfo.ukcode">
+            <label class = "common_required_item">*</label>
+        </div> -->
+        <!-- <div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text prerisk_form_header">Ukey主要分类：</label>
+            <select class = "common_normal_input prerisk_form_dropdown common_line_unend_item" ng-options = "catg.name for catg in riskCatgs" ng-model = "currentRiskInfo.catglv1" ng-change = "preriskChangeCatglv1()"></select>
+            <label class = "common_required_item">*</label>
+        </div> -->
+        <!-- <div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text prerisk_form_header">Ukey次级分类：</label>
+            <select class = "common_normal_input prerisk_form_dropdown common_line_unend_item" ng-model = "currentRiskInfo.catg_lv2">
+                <option ng-repeat = "catg in currentRiskInfo.catglv1.children" value="{{catg.value}}">{{catg.name}}</option>
+            </select>
+            <label class = "common_required_item">*</label>
+        </div> -->
+        <div class="common_form_div_item_10px common_nowrap" ng-show="isShowOperator">
+            <label class = "common_normal_text prerisk_form_header">风控运算符：</label>
+            <select class = "common_normal_input prerisk_form_dropdown common_line_unend_item" ng-model = "currentRiskInfo.operate">
+                <option value=">">></option>
+                <option value=">=">>=</option>
+                <option value="=">=</option>
+                <option value="<"><</option>
+                <option value="<="><=</option>
+            </select>
+            <label class = "common_required_item">*</label>
+        </div>
+        <div class="common_form_div_item_10px common_nowrap" ng-show="isShowValue1">
+            <label class = "common_normal_text prerisk_form_header">风控触发值：</label>
+            <input type="text" class = "common_normal_input prerisk_form_input common_line_unend_item" cms-mask="unsignedFloat" ng-model = "currentRiskInfo.value1">
+            <label class = "common_required_item">*</label>
+        </div>
+        <div class="common_form_div_item_10px common_nowrap" ng-show="isShowValue2">
+            <label class = "common_normal_text prerisk_form_header">风控预警值：</label>
+            <input type="text" class = "common_normal_input prerisk_form_input common_line_unend_item" cms-mask="unsignedFloat" ng-model = "currentRiskInfo.value2">
+            <label class = "common_required_item">*</label>
+        </div>
+        <div class="common_form_div_item_10px common_nowrap" ng-show="isShowWeiTuoTime">
+            <label class = "common_normal_text prerisk_form_header">委托次数生效阀值：</label>
+            <input type="text" class = "common_normal_input prerisk_form_input common_line_unend_item" cms-mask="unsignedFloat" ng-model = "currentRiskInfo.defaultWeiTuoTime">
+            <label class = "common_required_item">*</label>
+        </div>
+        <div class="common_form_div_item_10px common_nowrap" ng-show="isShowWithDrawalAmount">
+                <label class = "common_normal_text prerisk_form_header">撤单金额生效阀值：</label>
+                <input type="text" class = "common_normal_input prerisk_form_input common_line_unend_item" cms-mask="unsignedFloat" ng-model = "currentRiskInfo.defaultWithDrawalAmount">
+                <label class = "common_required_item">*</label>
+            </div>
+        <!-- <div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text prerisk_form_header">风控是否计数：</label>
+            <select class = "common_normal_input prerisk_form_dropdown common_line_unend_item" ng-model = "currentRiskInfo.num_check">
+                <option value="1">计数</option>
+                <option value="0">不计数</option>
+            </select>
+            <label class = "common_required_item">*</label>
+        </div> -->
+        <div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text prerisk_form_header">风控启用状态：</label>
+            <select class = "common_normal_input prerisk_form_dropdown common_line_unend_item" ng-model = "currentRiskInfo.riskstat">
+                <option value="1">启用</option>
+                <option value="0">不启用</option>
+            </select>
+            <label class = "common_required_item">*</label>
+        </div>
+        <div class="common_form_div_item_10px common_nowrap" ng-show="isShowWeiTuoTime || isShowWithDrawalAmount" style="color: red;text-align: center;margin-top: 20px;">
+            {{configInfoTips}}
+        </div>
+    </div>
+    <div class="common_modal_footer">
+        <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length " ng-click="preriskEditRiskSure()">确定</button>
+        <button type="button" class="common_gray_btn common_normal_btn common_line_unend_item common_default_length" ng-click="preriskCloseModal()">取消</button>
+    </div>
+
+</div>

@@ -1,0 +1,70 @@
+<div class = "common_page_html common_scroll_div" ng-controller = "brokerManageCtrl" ng-init = "brokerManageInit()">
+    <div class = "common_tab_operate_div common_nowrap">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item" ng-if = "menuRight.indexOf(2005004001001) != -1" ng-click = "showAddBrokerDlg()" >添加经纪商</button>
+		<button type="button" class = "common_green_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "refreshBrokerDataTable()" >刷 新</button>
+	</div>
+	<div class = "common_tab_data_div common_scroll_div">
+		<table class = "common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH')">
+			<thead >
+				<tr >
+					<th class = "common_center_align common_nowrap">序号</th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('bid',true)">
+                        <span ng-show = "keyName == 'bid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        经纪商ID
+                    </th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('bname')">
+                        <span ng-show = "keyName == 'bname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        经纪商简称
+                    </th>
+                    <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('blname')">
+                        <span ng-show = "keyName == 'blname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        经纪商全称
+                    </th>
+                    <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('clear_begintime')">
+                        <span ng-show = "keyName == 'clear_begintime'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        清算开始时间
+                    </th>
+                    <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('clear_endtime')">
+                        <span ng-show = "keyName == 'clear_endtime'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        清算结束时间
+                    </th>
+                    <th class = "common_center_align common_nowrap">
+                        操作
+                    </th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="cell in brokerDataList | orderBy:keyName:false:sortFunction" ng-show="cell.show" ng-class = "{true:'common_activeTr',false:''}[$index == curClickedIndex ]" ng-click="itemClicked($index)">
+					<td class = "common_center_align common_nowrap">
+						<label >{{$index + 1}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<label  >{{cell.bid}}</label>
+					</td>
+                    <td class = "common_center_align common_nowrap">
+						<label  >{{cell.bname}}</label>
+                    </td>
+                    <td class = "common_center_align common_nowrap">
+						<label  >{{cell.blname}}</label>
+                    </td>
+                    <td class = "common_center_align common_nowrap">
+						<label  >{{cell.clear_begintime}}</label>
+					</td>
+                    <td class = "common_center_align common_nowrap">
+						<label  >{{cell.clear_endtime}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2005004001002) != -1" ng-click = "showAltBrokerDlg(cell)">修改</button>
+						<label class = "common_table_operate_divider" ng-if = "menuRight.indexOf(2005004001002) != -1" >|</label>
+						<button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2005004001003) != -1"  ng-click = "showDelBrokerDlg(cell)">删除</button>
+                        <label class = "common_table_operate_divider" ng-if = "menuRight.indexOf(2005004001003) != -1" >|</label>
+                    </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class = "common_modal_back" id = "brokerManage_modal_back">
+        <div ng-include = "modalInfo.path" onload = "brokerManageLoadModalReady()"></div>
+	</div>
+</div>

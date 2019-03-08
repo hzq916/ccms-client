@@ -1,0 +1,55 @@
+.board_framework{
+    width: 416px;
+    /*height: 120px;*/
+    z-index: 100;
+    background-color: rgb(49,188,244);
+    -webkit-box-shadow: 0 0 10px rgba(40,40,40,0.5);
+    -webkit-user-select: none;
+    -webkit-app-region:no-drag;
+}
+
+.board_box{
+    color: white;
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    font-size: 16px;
+
+}
+
+.board_key{
+    width: 26px;
+    height: 26px;
+
+    display: inline-block;
+
+    margin: 2px;
+    border: 1px solid #DCDCDC;
+    text-align: center;
+    line-height: 24px;
+}
+
+.board_key:hover{
+    cursor: pointer;
+    font-weight: bold;
+    background-color: rgb(33,150,243);
+}
+
+.board_key.special_key{
+    width: 58px;
+    font-size: 12px;
+}
+
+.board_key.shift_key{
+    font-size: 12px;
+}
+
+.shift_temp{
+    background-color: rgb(33,150,243);
+}
+
+.shift_forever{
+    background-color: rgb(45,124,181);
+}

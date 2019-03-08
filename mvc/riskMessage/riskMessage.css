@@ -1,0 +1,16 @@
+.riskMessage_data_div {
+    height: calc(100% - 76px);
+    margin:  0px 10px 0px 5px ;
+    border: 1px solid #DCDCDC;
+}
+.blue_level{
+    color:blue;
+}
+
+.orange_level{
+    color: rgb(204, 203, 107);
+}
+
+.red_level{
+    color:red;
+}

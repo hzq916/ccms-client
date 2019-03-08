@@ -1,0 +1,51 @@
+<div class = "common_modal" id = "whitelist_add_security_valid_modal">
+	<div class="common_modal_title_div" id = "whitelist_add_security_valid_modal_title">
+		<label class = "common_modal_title_label">手动添加可配券</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "whitelistHideModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class = "common_modal_body">
+		<div class = "common_form_div_item_10px">
+			<label class = "whitelist_form_header">资产账户：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item whitelist_form_input" ng-disabled = "true" ng-model = "currentSecurity.show_acid" >
+		</div>
+		<div class = "common_form_div_item_10px">
+			<label class = "whitelist_form_header">交易账户：</label>
+			<select class="common_dropdown common_line_unend_item whitelist_form_dropdown" ng-model = "currentSecurity.tracid" >
+				<option ng-repeat = "tl in tatractList" value = "{{tl.tracid}}">{{tl.tracname+ "("+tl.tracid+")"}}</option>
+			</select>
+			<label class = "common_required_item" >*</label>
+		</div>
+		<div class = "common_form_div_item_10px">
+			<label class = "whitelist_form_header">证券市场：</label>
+			<select class="common_dropdown common_line_unend_item whitelist_form_dropdown" ng-model = "currentSecurity.marketid" ng-change = "whitelistAddTatractSaWincodeChange()" >
+				<option ng-repeat = "ml in marketList" value = "{{ml.marketid}}">{{ml.marketchname+ "("+ml.briefcode+")"}}</option>
+			</select>
+			<label class = "common_required_item" >*</label>
+		</div>
+		<div class = "common_form_div_item_10px">
+			<label class = "whitelist_form_header">证券代码：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item whitelist_form_input" placeholder = "exp：000001" ng-model = "currentSecurity.marketcode" ng-change = "whitelistAddTatractSaWincodeChange()">
+			<label class = "common_required_item" >*</label>
+		</div>
+		<div class = "common_form_div_item_10px">
+			<label class = "whitelist_form_header">证券名称：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item whitelist_form_input" ng-disabled= "true" ng-model = "currentSecurity.chabbr">
+		</div>
+		<div class = "common_form_div_item_10px">
+			<label class = "whitelist_form_header">可配券数量：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item whitelist_form_input" maxlength = "18" cms-mask="unsignedFloat" ng-model = "currentSecurity.validsa" ng-change = "whitelistTatractValidSaChange()">
+			<label class = "common_required_item" >*</label>
+		</div>
+		<div class = "common_form_div_item_10px">
+			<label class = "whitelist_form_header">计划券数量：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item whitelist_form_input" maxlength="18" cms-mask="unsignedFloat" ng-model = "currentSecurity.plansa">
+			<label class = "common_required_item" >*</label>
+		</div>
+	</div>
+	<div class="common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "whitelistTatractAddSaSure()">确定</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click = "whitelistHideModal()">取消</button>
+	</div>
+</div>

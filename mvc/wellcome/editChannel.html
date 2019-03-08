@@ -1,0 +1,71 @@
+<div class = "common_modal " id = "wellcome_channel_edit_modal" style = "height:394px;" >
+	<div class="common_modal_title_div" id = "wellcome_channel_edit_modal_title">
+		<label class = "common_modal_title_label">{{currentChannel.edit == true ? "编辑通道信息" : "新建通道"}}</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "wellcomeCloseModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class = "common_modal_body">
+		<div class = "common_form_div_item_10px">
+			<label class = "wellcome_channel_form_header">通道编号：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item wellcome_channel_input" cms-mask="unsignedInt" ng-disabled = "currentChannel.edit" maxlength="11" placeholder="只能是正整数" ng-model = "currentChannel.chid">
+			<label class = "common_required_item" ng-hide = "currentChannel.edit">*</label>
+		</div>
+		<div class = "common_form_div_item_10px">
+			<label class = "wellcome_channel_form_header">通道名称：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item wellcome_channel_input" maxlength="128" ng-model = "currentChannel.chname">
+			<label class = "common_required_item">*</label>
+		</div>
+		<div class = "common_form_div_item_10px" >
+			<label class = "wellcome_channel_form_header">经纪商：</label>
+			<select class="common_dropdown common_line_unend_item wellcome_channel_dropdown" ng-model = "currentChannel.bid">
+				<option ng-repeat="bl in brokerList" value="{{bl.bid}}">{{bl.bname + "("+bl.bid+")"}}</option>
+			</select>
+			<label class = "common_required_item">*</label>
+		</div>
+		<div class = "common_form_div_item_10px" ng-if="!currentChannel.edit">
+			<label class = "wellcome_channel_form_header">服务ID：</label>
+			<input type="text" class = "common_normal_input wellcome_channel_input" ng-disabled = "true" ng-model = "currentChannel.service_name">
+		</div>
+		<div class = "common_form_div_item_10px" ng-if="currentChannel.edit" >
+			<label class = "wellcome_channel_form_header">服务：</label>
+			<select class="common_dropdown common_line_unend_item wellcome_channel_dropdown"  ng-model = "currentChannel.serviceid">
+				<option ng-repeat="service in currentChannel.services" value="{{service.serviceid}}">{{service.servicename + "("+service.serviceid+")"}}</option>
+			</select>
+			<label class = "common_required_item">*</label>
+		</div>
+		<div class = "common_form_div_item_10px" >
+			<label class = "wellcome_channel_form_header">通道类型：</label>
+			<select class="common_dropdown common_line_unend_item wellcome_channel_dropdown" ng-model = "currentChannel.chtype">
+				<option ng-repeat="ctl in channelTypeList" value="{{ctl.typeid}}">{{ctl.typename}}</option>
+			</select>
+			<label class = "common_required_item">*</label>
+		</div>
+		<div class = "common_form_div_item_10px">
+			<label class = "wellcome_channel_form_header">通讯IP：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item wellcome_channel_input" cms-mask="unsignedFloat" maxlength="15" ng-model = "currentChannel.ip">
+			<label class = "common_required_item">*</label>
+		</div>
+		<div class = "common_form_div_item_10px">
+			<label class = "wellcome_channel_form_header">通讯端口：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item wellcome_channel_input" cms-mask="unsignedInt" maxlength="5" placeholder="0~65535" ng-model = "currentChannel.port">
+			<label class = "common_required_item">*</label>
+		</div>
+		<div class = "">
+			<label class = "wellcome_channel_form_header">属性配置：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item wellcome_channel_input" ng-model = "currentChannel.cfg">
+			<label class = "common_required_item">*</label>
+		</div>
+		<div class = "" ng-if = "false">
+			<label class = "wellcome_channel_form_header">启用标志：</label>
+			<select class="common_dropdown common_line_unend_item wellcome_channel_dropdown" ng-model = "currentChannel.stat">
+				<option value="0">不启用</option>
+				<option value="1">启用</option>
+			</select>
+		</div>
+	</div>
+	<div class = "common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_default_length common_line_unend_item" ng-click = "wellcomeEditChannelSure()">确定</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click = "wellcomeCloseModal()">取消</button>
+	</div>
+</div>

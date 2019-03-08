@@ -1,0 +1,76 @@
+.lrtatract_operate_div {
+	position: absolute;
+	top: 0;
+	left: 13px;
+	right: 9px;
+	height: 26px;
+}
+.lrtatract_options_div {
+	position: absolute;
+	top: 36px;
+	left: 5px;
+	right: 9px;
+	height: 260px;
+	border: 1px solid #dcdcdc;
+}
+.lrtatract_options_taact_option {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	bottom: 5px;
+	width: 300px;
+}
+.lrtatract_options_target_option {
+	position: absolute;
+	top: 10px;
+	left: 330px;
+	bottom: 5px;
+	width: 300px;
+}
+.lrtatract_options_vertical {
+	margin-bottom: 5px;
+}
+.lrtatract_maid_dropdown {
+	width: 220px;
+}
+.lrtatract_options_taact_table_div {
+	position: absolute;
+	top: 36px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border: 1px solid #DCDCDC;
+}
+.lrtatract_market_dropdown {
+	width: 140px;
+}
+.lrtatract_code_input {
+	width: 220px;
+}
+.lrtatract_options_volume_label {
+	display: inline-block;
+	width: 65px;
+	text-align: right;
+}
+.lrtatract_volume_dropdown {
+	width: 68px;
+}
+.lrtatract_volume_input {
+	width: 150px;
+}
+.lrtatract_data_div {
+	position: absolute;
+	left: 5px;
+	right: 9px;
+	top: 36px;
+	bottom: 10px;
+	border: 1px solid #DCDCDC;
+}
+.lrtatract_data_show_options_div {
+	position: absolute;
+	left: 5px;
+	right: 9px;
+	top: 300px;
+	bottom: 10px;
+	border: 1px solid #DCDCDC;
+}

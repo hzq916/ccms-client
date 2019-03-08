@@ -1,0 +1,20 @@
+<div class="common_modal" id="strategyServer_del_modal" style="width:300px;">
+    <div class="common_modal_title_div" id = "strategyServer_del_modal_title">
+        <label class = "common_modal_title_label">删除策略</label>
+        <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "hideStrategyServerModal()">
+            <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+        </div>
+    </div>
+
+    <div class="common_modal_body" style="text-align:center;">
+        确定要删除
+        <label class="common_table_option_label">{{operateStrategy.stname+"("+operateStrategy.stgid+")"}}</label>
+
+        吗?
+    </div>
+
+    <div class="common_modal_footer">
+        <button type="button" class="common_blue_btn common_normal_btn  common_default_length common_line_unend_item" ng-click="deleteStrategyServer()">确定</button>
+        <button type="button" class="common_gray_btn common_normal_btn  common_default_length" ng-click="hideStrategyServerModal()">取消</button>
+    </div>
+</div>

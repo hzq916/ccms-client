@@ -1,0 +1,38 @@
+.supplement_form_header {
+	display: inline-block;
+	width: 90px;
+}
+.supplement_form_input {
+	width: 275px;
+}
+.supplement_form_dropdown {
+	width: 287px;
+}
+.supplement_data_div {
+	position: absolute;
+	top: 46px;
+	left: 5px;
+	right: 9px;
+	bottom: 40px;
+	border: 1px solid #DCDCDC;
+}
+.supplement_page_tool_div {
+	position: absolute;
+	left: 5px;
+	right: 9px;
+	bottom: 10px;
+	height: 28px;
+}
+.supplement_load_tips {
+	position: absolute;
+	top: 40px;
+	left: 10px;
+	background-color: rgb(221,221,221);
+	border-radius: 5px;
+	z-index: 51;
+	padding: 2px;
+}
+.supplement_tip_label {
+	font-size: 12px;
+	color:rgb(144,143,143);
+}

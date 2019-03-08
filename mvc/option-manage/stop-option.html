@@ -1,0 +1,17 @@
+<div class = "common_modal " style = "min-width:300px;" id = "option_stop_modal" >
+	<div class="common_modal_title_div" id = "option_stop_modal_title">
+		<label class = "common_modal_title_label">终止期权</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "closeModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class = "common_modal_body">
+		<div class = "option_modal_content">
+			你确定要提前终止该期权吗？
+		</div>
+	</div>
+	<div class = "common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "editOptionSure()">确定</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click = "closeModal()">取消</button>
+	</div>
+</div>

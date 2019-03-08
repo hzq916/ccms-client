@@ -1,0 +1,119 @@
+<div class = "common_page_html common_scroll_div" ng-controller="tradeAccountManageCtrl">
+
+    <div class="common_mini_subguide_div"
+      ng-show="!showSubguide" ng-click="showSubguide=true;">
+        <div class="common_mini_guide_title_div">
+            <div class="common_menu_icon"></div>
+            账户导航
+        </div>
+    </div>
+
+    <div class="common_subguide_div" ng-show="showSubguide">
+        <div class = "common_guide_title_div">
+            <label class = "common_guide_title_label">账户导航</label>
+            <img src="../commonui/images/icon_lock.png" draggable="false"  class = "common_guide_close_icon" title="点击收起菜单" ng-click = "showSubguide=false;"/>
+        </div>
+        <div class=" common_guide_content_div common_scroll_div">
+            <cms-guide guide-data = "{{guideTree}}" guide-showid = "true" guide-selectleaf = "true" guide-click = "clickAssetAccount(menu)" guide-setmenu = "setGuideMenu" ></cms-guide>
+        </div>
+    </div>
+
+    <div ng-class = "{'common_content_locked_div':showSubguide,'common_content_unlocked_div':!showSubguide}" >
+        <div class="common_page_html common_scroll_div">
+            <div class="common_normal_operate_div common_nowrap" >
+                <input type="text" class = "common_normal_input common_line_unend_item common_search_input_length" ng-model="findStockCode" placeholder="请输入交易账户ID或名称">
+                <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-if = "menuRight.indexOf(2002002001) != -1" ng-disabled="!currentAssetAccount.acid" ng-click="createTradeAccount()">新建</button>
+                <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length  "  ng-click="refresh()">刷新</button>
+            </div>
+            <div class="common_scroll_div common_normal_data_div" >
+                <table class="common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+                  <thead>
+                    <tr >
+                      <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('tracid',true)" >
+                          <span ng-show = "keyName == 'tracid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                          交易账户
+                      </th>
+                      <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('marketchname')" >
+                          <span ng-show = "keyName == 'marketchname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                          市场
+                      </th>
+                      <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('trcode')">
+                          <span ng-show = "keyName == 'trcode'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                          交易编码
+                      </th>
+                      <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('curencychname')">
+                          <span ng-show = "keyName == 'curencychname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                          币种
+                      </th>
+                      <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('hedgeflagStr')" ng-show="currentAssetAccount.actype == 3">
+                          <span ng-show = "keyName == 'hedgeflagStr'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                          投机套保标志
+                      </th>
+                      <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('chid',true)">
+                          <span ng-show = "keyName == 'chid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                          服务
+                      </th>
+                      <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('actypeStr')">
+                          <span ng-show = "keyName == 'actypeStr'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                          账户类型
+                      </th>
+                      <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('stateStr')">
+                          <span ng-show = "keyName == 'stateStr'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                          状态
+                      </th>
+
+                      <th>操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="tradeAccount in allTradeAccount | filter: filterTradeAccount | orderBy:keyName:false:sortFunction " ng-click="clickTradeAccountTr(tradeAccount)"
+                        ng-class="{'common_activeTr': currentTradeAccount.tracid == tradeAccount.tracid}">
+                      <td class = " common_nowrap" >
+                          {{tradeAccount.tracname+"("+tradeAccount.tracid+")"}}
+                      </td>
+                      <td class = " common_nowrap common_center_align" >{{tradeAccount.marketchname+"("+tradeAccount.briefcode+")"}}</td>
+                      <td class = " common_nowrap common_center_align" >{{tradeAccount.trcode}}</td>
+                      <td class = " common_nowrap common_center_align" >{{tradeAccount.curencychname+"("+tradeAccount.briefcode+")"}}</td>
+                      <td class = " common_nowrap common_center_align" ng-show="tradeAccount.actype == 3">
+                          {{tradeAccount.hedgeflagStr}}
+                      </td>
+                      <td class = " common_nowrap common_center_align" >{{tradeAccount.servicename+"("+tradeAccount.chid+")"}}</td>
+                      <td class = " common_nowrap common_center_align" >{{tradeAccount.actypeStr}}</td>
+                      <td class = " common_nowrap common_center_align" >{{tradeAccount.stateStr}}</td>
+
+                      <td class = "common_center_align common_nowrap">
+                        <button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2002002002) != -1" ng-click="clickTradeAccount(tradeAccount)" >
+                            修改
+                        </button>
+                        <label class = "common_table_operate_divider" ng-if = "menuRight.indexOf(2002002002) != -1"  ng-show = "tradeAccount.actype == 1 || tradeAccount.actype == 2">|</label>
+                        <button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2002002003) != -1" ng-show = "tradeAccount.actype == 1 || tradeAccount.actype == 2" ng-click="clickTradeAccountStockFee(tradeAccount)" >
+                            股票费率
+                        </button>
+                        <label class = "common_table_operate_divider" ng-if = "menuRight.indexOf(2002002003) != -1"  ng-show = "tradeAccount.actype == 3">|</label>
+                        <button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2002002004) != -1" ng-show = "tradeAccount.actype == 3" ng-click = "setFuturesMargin(tradeAccount)">保证金率</button>
+                        <label class = "common_table_operate_divider" ng-if = "menuRight.indexOf(2002002004) != -1"  ng-show = "tradeAccount.actype == 3">|</label>
+                        <button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2002002005) != -1" ng-show = "tradeAccount.actype == 3" ng-click = "setFuturesOrder(tradeAccount)">申报费</button>
+                        <label class = "common_table_operate_divider" ng-if = "menuRight.indexOf(2002002005) != -1" ng-show = "tradeAccount.actype == 3">|</label>
+                        <button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2002002006) != -1" ng-show = "tradeAccount.actype == 3" ng-click = "setFuturesFeerate(tradeAccount)">期货费率</button>
+                        <label class = "common_table_operate_divider" ng-if = "menuRight.indexOf(2002002006) != -1"  ng-show = "tradeAccount.actype == 3">|</label>
+                        <button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2002002007) != -1" ng-show = "tradeAccount.actype == 3" ng-click = "setFuturesDelayFeerate(tradeAccount)">递延费率</button>
+                        <label class = "common_table_operate_divider" ng-if = "menuRight.indexOf(2002002007) != -1"  ng-show = "tradeAccount.actype == 3">|</label>
+                    </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class = "common_modal_back" id = "tract_modal_back">
+        <div ng-include = "dialogModalInfo.path" onload = "showTractModalLoadReady()"></div>
+    </div>
+    <!-- <div class="common_modal_footer">
+		<button type="button" class="common_blue_btn common_normal_btn common_line_unend_item" ng-click="addAssetAccount()">确定</button>
+		<button type="button" class="common_green_btn common_normal_btn" ng-click="accountHideModal()">取消</button>
+	</div> -->
+
+
+</div>

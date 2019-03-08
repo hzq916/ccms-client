@@ -1,0 +1,57 @@
+{
+	"marketConfiguration": [
+		{
+			"station_id": 0,
+			"station_name": "系统内网",
+			"station_maid": "8",
+			"station_user": "9999",
+			"station_psw": "888888",
+			"station_addr": "172.24.50.10",
+			"station_port": "8001",
+			"station_default": "0",
+			"system_station": "0"
+		},
+		{
+			"station_id": 1,
+			"station_name": "47",
+			"station_maid": "8",
+			"station_user": "9999",
+			"station_psw": "888888",
+			"station_addr": "172.24.13.47",
+			"station_port": "8002",
+			"station_default": "1",
+			"system_station": "0"
+		}
+	],
+	"netInfoCfg": {
+		"path": "F:\\testdata",
+		"excelType": "xlsx",
+		"applyAll": true,
+		"previousExportDate": "2018-03-28T05:38:05.577Z",
+		"autoExport": false,
+		"exportTime1": "1969-12-31T16:02:00.000Z",
+		"exportTime2": "1969-12-31T17:01:00.000Z"
+	},
+	"unitPositionCfg": {
+		"path": "F:\\testdata",
+		"excelType": "xlsx",
+		"applyAll": true,
+		"previousExportDate": "2018-03-28T05:38:05.579Z",
+		"autoExport": false,
+		"exportTime1": "1969-12-31T16:02:00.000Z",
+		"exportTime2": "1969-12-31T17:01:00.000Z"
+	},
+	"tradingRecordCfg": {
+		"path": "F:\\testdata",
+		"excelType": "xlsx",
+		"applyAll": true,
+		"previousExportDate": "2018-03-28T05:38:05.577Z",
+		"autoExport": false,
+		"exportTime1": "1969-12-31T16:02:00.000Z",
+		"exportTime2": "1969-12-31T17:01:00.000Z"
+	},
+	"lockScreenCfg": {
+		"time": 180,
+		"isOpen": false
+	}
+}

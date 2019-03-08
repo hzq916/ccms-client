@@ -1,0 +1,385 @@
+<div class = "common_page_html common_scroll_div" ng-controller = "wellcomeCtrl" ng-init = "wellcomeInit()">
+	<div class="wellcome_products">
+		<!-- <div class="wellcome_product_item"> -->
+			<!-- <div class = "wellcome_product_item_icon">
+				<img class = "wellcome_product_item_icon_img" draggable="false" src="../commonui/images/product.png" alt="机构">
+			</div> -->
+			<!-- <div class="wellcome_product_item_desc"> -->
+				<div style="margin-left: 15px;margin-bottom: 10px;font-weight: bold;">系统数据统计</div>
+				<div style="margin-left: 15px;margin-bottom: 10px;">
+						<span>
+								<span style="display: inline-block;width: 100px;width: 130px;">资产管理人数量</span>
+								<span style="display: inline-block;width: 130px; margin-left: 50px;">{{basicInfo[3].status_info.number}}</span>
+						</span>
+						<!-- <span>	
+								<span style="display: inline-block;width: 130px; margin-left: 50px;">当前在线用户数</span>
+								<span style="display: inline-block;width: 130px; margin-left: 50px;">{{basicInfo[0].status_info.number}}</span>
+						</span> -->
+				</div>
+				
+			<!-- </div> -->
+		<!-- </div> -->
+		<!-- <div class="wellcome_product_item"> -->
+			<!-- <div class = "wellcome_product_item_icon">
+				<img class = "wellcome_product_item_icon_img" draggable="false" src="../commonui/images/product.png" alt="产品">
+			</div> -->
+			<!-- <div class="wellcome_product_item_desc"> -->
+				
+			<!-- </div> -->
+		<!-- </div> -->
+		<!-- <div class="wellcome_product_item"> -->
+			<!-- <div class = "wellcome_product_item_icon">
+				<img class = "wellcome_product_item_icon_img" draggable="false" src="../commonui/images/product.png" alt="资金账号">
+			</div> -->
+			<!-- <div class="wellcome_product_item_desc"> -->
+				<div style="margin-left: 15px;margin-bottom: 10px;">
+						<span>
+								<span style="display: inline-block;width: 130px;">产品数量</span>
+								<span style="display: inline-block;width: 130px; margin-left: 50px;">{{basicInfo[2].status_info.number}}</span>
+						</span>
+						<!-- <span>
+								<span style="display: inline-block;width: 130px; margin-left: 50px;">当日最大在线用户数</span>
+								<span style="display: inline-block;width: 130px; margin-left: 50px;">{{basicInfo[1].status_info.number}}</span>
+						</span> -->
+				</div>
+				
+			<!-- </div> -->
+		<!-- </div> -->
+		<!-- <div class="wellcome_product_item"> -->
+			<!-- <div class = "wellcome_product_item_icon">
+				<img class = "wellcome_product_item_icon_img" draggable="false" src="../commonui/images/product.png" alt="通道">
+			</div> -->
+			<!-- <div class="wellcome_product_item_desc"> -->
+				<div style="margin-left: 15px;margin-bottom: 10px;">
+						<span>
+								<span style="display: inline-block;width: 130px;">资金账户数量</span>
+								<span style="display: inline-block;width: 130px; margin-left: 50px;">{{basicInfo[4].status_info.number}}</span>
+						</span>
+				</div>
+				
+			<!-- </div> -->
+		<!-- </div> -->
+		<!-- <div class="wellcome_product_item"> -->
+			<!-- <div class = "wellcome_product_item_icon">
+				<img class = "wellcome_product_item_icon_img" draggable="false" src="../commonui/images/product.png" alt="用户">
+			</div> -->
+			<!-- <div class="wellcome_product_item_desc"> -->
+				
+			<!-- </div> -->
+		<!-- </div> -->
+	</div>
+
+	<div class="wellcome_servers">
+		<div class="wellcome_server_item" ng-repeat = "server in servers" ng-click = "wellcomeClickServer(server)">
+			<div class="wellcome_server_card">
+				<div class="wellcome_server_title">
+					{{server.servername}}
+					<img class="wellcome_server_edit" src="../commonui/images/edit.png" draggable="false" title="编辑服务器" ng-click="wellcomeEditServer(server,$event)" ng-if="menuRight.indexOf(2001001002) != -1">
+				</div>
+				<div class="wellcome_server_item_icon">
+					<img class = "wellcome_server_item_icon_img" draggable="false" src="../commonui/images/server.png" alt="{{server.servername}}">
+				</div>
+				<div class = "wellcome_server_delete" title="删除服务器" ng-click="wellcomeDeleteServer(server,$event)" ng-if="menuRight.indexOf(2001001003) != -1">
+					<img class = "wellcome_server_item_icon_img" draggable="false" src="../commonui/images/delete.png">
+				</div>
+			</div>
+			<div class = "wellcome_server_item_content">
+				<div class="wellcome_server_item_content_filter">
+					<div class="common_form_div_item_10px" >
+						<label class = "wellcome_server_header_label common_line_unend_item">运行状态</label>
+						<label class = "wellcome_server_value_label " ng-class = "{true:'wellcome_server_online_color',false:'wellcome_server_offline_color'}[server.stat == 1]">{{server.stat == 1 ? "在线" : "离线"}}</label>
+					</div>
+					<div class="common_form_div_item_10px" >
+						<label class = "wellcome_server_header_label common_line_unend_item">运行时间</label>
+						<label class = "wellcome_server_value_label wellcome_server_normal_color" >
+							{{ server.stat == 1 ? (server.runtime_hour + " : " + (server.runtime_minute < 10 ? "0" + "" + server.runtime_minute : server.runtime_minute ) + " : " + (server.runtime_second < 10 ? "0" + "" + server.runtime_second : server.runtime_second ) ) : "- : - : -"}}
+						</label>
+					</div>
+					<div class="common_form_div_item_10px" >
+						<label class = "wellcome_server_header_label common_line_unend_item">CPU使用率</label>
+						<label class = "wellcome_server_value_label wellcome_server_normal_color" >{{server.cpu}}</label>
+					</div>
+					<div class="common_form_div_item_10px" >
+						<label class = "wellcome_server_header_label common_line_unend_item">内存占有</label>
+						<label class = "wellcome_server_value_label wellcome_server_normal_color" >{{server.memory}}</label>
+					</div>
+					<div class="" >
+						<label class = "wellcome_server_header_label common_line_unend_item">活动进程</label>
+						<label class = "wellcome_server_value_label wellcome_server_online_color" >{{server.activeService}}</label>
+						<label class = "wellcome_server_value_label wellcome_server_normal_color" >{{" / " + server.totalService}}</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="wellcome_server_add" ng-click="wellcomeAddServer()" ng-if="menuRight.indexOf(2001001001) != -1" title="添加服务器">
+			<div class="wellcome_server_add_icon">
+				<img class = "wellcome_server_item_icon_img" draggable="false" src="../commonui/images/add.png" alt="{{server.servername}}">
+			</div>
+		</div>
+	</div>
+
+	<div class="wellcome_services" ng-show = "showServerInfo">
+		<div class = "common_title_indicate">{{currentServer.servername + "(" + currentServer.ip+ ")" + " - 服务详情"}}</div>
+		<div style="height:10px;"></div>
+		<div class="common_form_div_item_10px common_nowrap">
+			<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click="wellcomeAddService()" ng-if="menuRight.indexOf(2001001004) != -1">添加</button>
+			<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click="wellcomeMoveService()" ng-if="menuRight.indexOf(2001001007) != -1">转移</button>
+		</div>
+		<div class = "wellcome_service_div common_scroll_div">
+			<table class = "common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+				<thead>
+					<tr>
+						<th class="common_center_align common_nowrap"></th>
+						<th class="common_center_align common_nowrap">编号</th>
+						<th class="common_center_align common_nowrap">名称</th>
+						<th class="common_center_align common_nowrap">父服务</th>
+						<th class="common_center_align common_nowrap">模块</th>
+						<th class="common_center_align common_nowrap">类型</th>
+						<th class="common_center_align common_nowrap">状态</th>
+						<th class="common_center_align common_nowrap">端口</th>
+						<th class="common_center_align common_nowrap">操作</th>
+						<th class="common_center_align common_nowrap">启动时间</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat =" service in servicelist" ng-show="service.show">
+						<td class="common_center_align common_nowrap">
+							<input type="checkbox" ng-model="service.checked" ng-if = "!service.leaf">
+						</td>
+						<td class="common_center_align common_nowrap">
+							<img class="common_fold_icon" draggable="false" src="../commonui/images/icon_table_fold.png" ng-show=" !service.leaf && service.hasChild && service.fold" ng-click="wellcomeUnfoldService(service,$index)">
+							<img class="common_fold_icon" draggable="false" src="../commonui/images/icon_table_unfold.png" ng-show=" !service.leaf && service.hasChild && !service.fold" ng-click="wellcomeFoldService(service,$index)">
+							<label ng-if = "!service.leaf" ng-class="{'common_lv2_item':!service.hasChild, 'common_lv1_item': service.hasChild}" > {{service.serviceid}}</label>
+							<label ng-if = "service.leaf" class="common_lv3_item">{{service.chid}}</label>
+						</td>
+						<td class="common_center_align common_nowrap">
+							<label ng-if = "!service.leaf">{{service.servicename}}</label>
+							<label ng-if = "service.leaf">{{service.chname}}</label>
+						</td>
+						<td class="common_center_align common_nowrap">
+							<label ng-if = "!service.leaf">{{service.parentid == 0 ? "-" : service.parentid}}</label>
+							<label ng-if = "service.leaf">-</label>
+						</td>
+						<td class="common_center_align common_nowrap">
+							<label ng-if = "!service.leaf">{{service.modulename + "(" + service.modulecode + ")"}}</label>
+							<label ng-if = "service.leaf">
+								-
+							</label>
+						</td>
+						<td class="common_center_align common_nowrap">
+							<label ng-if = "!service.leaf">{{ service.moduleid != sdsModuleid && service.moduleid != omsModuleid ? "-" : (service.servicetype == 1 ? "正式服务" : "模拟服务")}}</label>
+							<label ng-if = "service.leaf">
+								-
+							</label>
+						</td>
+						<td class="common_center_align common_nowrap">
+							<label ng-if = "!service.leaf" ng-class="{'wellcome_server_info_normal_color': service.stat == 1, 'wellcome_server_info_warnning_color': service.stat != 1}">
+								{{service.stat == 1 ? "在线" : (service.stat == 0 ? "离线" : "异常")}}
+							</label>
+							<label ng-if = "service.leaf">
+								{{service.stat == 1 ? "已连接" : (service.stat == 0 ? "未连接" : "无效")}}
+							</label>
+						</td>
+						<td class="common_center_align common_nowrap">
+							<span ng-repeat="port in service.ports" class="wellcome_service_port_span"
+								  ng-class="{'wellcome_server_info_normal_color': port.stat == 1, 'wellcome_server_info_warnning_color': port.stat != 1}"
+								  title = "{{port.portname}}" ng-if = "!service.leaf">
+								  {{port.port}}
+							</span>
+							<label ng-if = "service.leaf">
+								-
+							</label>
+						</td>
+						<td class="common_center_align common_nowrap">
+							<button class = "common_table_operate_text" ng-if = "!service.leaf" ng-click="wellcomeEditService(service)" ng-if="menuRight.indexOf(2001001005) != -1">修改</button>
+							<label class = "common_table_operate_divider" ng-if = "!service.leaf">|</label>
+							<button class = "common_table_operate_text" ng-if = "!service.leaf" ng-click="wellcomeDeleteService(service)" ng-if="menuRight.indexOf(2001001006) != -1">删除</button>
+	                        <label class = "common_table_operate_divider" ng-if = "!service.leaf">|</label>
+							<button class = "common_table_operate_text" ng-if = "!service.leaf && (service.moduleid == sdsModuleid || service.moduleid == ogsModuleid )" ng-click="wellcomeAddChannel(service)" ng-if="menuRight.indexOf(2001001008) != -1">外部通道</button>
+	                        <label class = "common_table_operate_divider" ng-if = "!service.leaf && (service.moduleid == sdsModuleid || service.moduleid == ogsModuleid )">|</label>
+							<button class = "common_table_operate_text" ng-if = "service.leaf" ng-click="wellcomeEditChannel(service)" ng-if="menuRight.indexOf(2001001009) != -1">编辑</button>
+	                        <label class = "common_table_operate_divider" ng-if = "service.leaf">|</label>
+						</td>
+						<td class="common_center_align common_nowrap">
+							<label ng-if = "!service.leaf">{{service.runtime}}</label>
+
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="wellcome_server_info" ng-show = "showServerInfo">
+		<div class = "common_title_indicate">{{currentServer.servername + "(" + currentServer.ip+ ")" + " - 参数信息"}}</div>
+		<div class="wellcome_server_info_content">
+			<div class="wellcome_server_info_item" >
+				<div class="wellcome_server_info_item_icon">
+					<img class = "wellcome_server_info_item_icon_img" draggable="false" src="../commonui/images/cpu.png" alt="cpu">
+				</div>
+				<div class = "wellcome_server_info_item_desc">
+					<div class="wellcome_server_info_item_desc_content">
+						<div class="wellcome_server_item_22px">
+							<label class = "wellcome_server_info_label common_line_unend_item" >运行状态</label>
+							<label class = "wellcome_server_info_value" ng-class = "{'wellcome_server_info_color':currentServer.cpu_stat == 0,'wellcome_server_info_normal_color':currentServer.cpu_stat== 1,'wellcome_server_info_warnning_color':currentServer.cpu_stat== 2,'wellcome_server_info_danger_color':currentServer.cpu_stat== 3 || currentServer.cpu_stat == 4}" >
+							{{currentServer.show_cpu_stat}}
+						    </label>
+						</div>
+						<div class="wellcome_server_item_22px" >
+							<label class = "wellcome_server_info_label common_line_unend_item" >利用率</label>
+							<label class = "wellcome_server_info_label" >{{currentServer.cpuInfo.usage + " %"}}</label>
+						</div>
+						<div class="wellcome_server_item_22px" >
+							<label class = "wellcome_server_info_label common_line_unend_item" >用户占比</label>
+							<label class = "wellcome_server_info_label" >{{currentServer.cpuInfo.user + " %"}}</label>
+						</div>
+						<div class="wellcome_server_item_22px" >
+							<label class = "wellcome_server_info_label common_line_unend_item" >系统占比</label>
+							<label class = "wellcome_server_info_label" >{{currentServer.cpuInfo.system  + " %"}}</label>
+						</div>
+						<div class="wellcome_server_item_22px" >
+							<label class = "wellcome_server_info_label common_line_unend_item" >IO等待比</label>
+							<label class = "wellcome_server_info_label" >{{currentServer.cpuInfo.iowait + " %"}}</label>
+						</div>
+						<div class="wellcome_server_item_22px" >
+							<label class = "wellcome_server_info_label common_line_unend_item" >空闲比</label>
+							<label class = "wellcome_server_info_label" >{{currentServer.cpuInfo.idel + " %"}}</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="wellcome_server_info_item" >
+				<div class="wellcome_server_info_item_icon">
+					<img class = "wellcome_server_info_item_icon_img" draggable="false" src="../commonui/images/memory.png" alt="memory">
+				</div>
+				<div class = "wellcome_server_info_item_desc">
+					<div class = "wellcome_server_info_item_desc_content">
+						<div class="wellcome_server_item_22px">
+							<label class = "wellcome_server_info_label common_line_unend_item" >运行状态</label>
+							<label class = "wellcome_server_info_value" ng-class = "{'wellcome_server_info_color':currentServer.memory_stat== 0,'wellcome_server_info_normal_color':currentServer.memory_stat== 1,'wellcome_server_info_warnning_color':currentServer.memory_stat== 2,'wellcome_server_info_danger_color':currentServer.memory_stat== 3 || currentServer.memory_stat == 4}" >
+							{{currentServer.show_memory_stat}}
+						    </label>
+						</div>
+						<div class="wellcome_server_item_22px" >
+							<label class = "wellcome_server_info_label common_line_unend_item" >内存容量</label>
+							<label class = "wellcome_server_info_label" >{{currentServer.memoryInfo.MemTotal + " KB"}}</label>
+						</div>
+						<div class="wellcome_server_item_22px" >
+							<label class = "wellcome_server_info_label common_line_unend_item" >已用内存</label>
+							<label class = "wellcome_server_info_label" >{{currentServer.memoryInfo.MemUsage + " KB"}}</label>
+						</div>
+						<div class="wellcome_server_item_22px" >
+							<label class = "wellcome_server_info_label common_line_unend_item" >可用内存</label>
+							<label class = "wellcome_server_info_label" >{{currentServer.memoryInfo.MemFree + " KB"}}</label>
+						</div>
+						<div class="wellcome_server_item_22px" >
+							<label class = "wellcome_server_info_label common_line_unend_item" >内存占用比</label>
+							<label class = "wellcome_server_info_label" >{{currentServer.memoryInfo.MemUsage_p + " %"}}</label>
+						</div>
+						<div class="wellcome_server_item_22px" >
+							<label class = "wellcome_server_info_label common_line_unend_item" >交换区容量</label>
+							<label class = "wellcome_server_info_label" >{{currentServer.memoryInfo.SwapTotal + " KB"}}</label>
+						</div>
+						<div class="wellcome_server_item_22px" >
+							<label class = "wellcome_server_info_label common_line_unend_item" >已用交换区</label>
+							<label class = "wellcome_server_info_label" >{{currentServer.memoryInfo.SwapUsage + " KB"}}</label>
+						</div>
+						<div class="wellcome_server_item_22px" >
+							<label class = "wellcome_server_info_label common_line_unend_item" >可用交换区</label>
+							<label class = "wellcome_server_info_label" >{{currentServer.memoryInfo.SwapFree + " KB"}}</label>
+						</div>
+						<div class="wellcome_server_item_22px" >
+							<label class = "wellcome_server_info_label common_line_unend_item" >交换区占用比</label>
+							<label class = "wellcome_server_info_label" >{{currentServer.memoryInfo.SwapUsage_p + " %"}}</label>
+						</div>
+						<div class="wellcome_server_item_22px" >
+							<label class = "wellcome_server_info_label common_line_unend_item" >缓存区</label>
+							<label class = "wellcome_server_info_label" >{{currentServer.memoryInfo.Cached + " KB"}}</label>
+						</div>
+						<div class="wellcome_server_item_22px" >
+							<label class = "wellcome_server_info_label common_line_unend_item" >缓冲区</label>
+							<label class = "wellcome_server_info_label" >{{currentServer.memoryInfo.Buffers + " KB"}}</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="wellcome_server_info_item" >
+				<div class="wellcome_server_info_item_icon">
+					<img class = "wellcome_server_info_item_icon_img" draggable="false" src="../commonui/images/disk.png" alt="disk">
+				</div>
+				<div class = "wellcome_server_info_item_desc">
+					<div class="wellcome_server_info_item_desc_content">
+						<div class="wellcome_server_item_22px">
+							<label class = "wellcome_server_info_label common_line_unend_item" >运行状态</label>
+							<label class = "wellcome_server_info_value" ng-class = "{'wellcome_server_info_color':currentServer.disk_stat== 0,'wellcome_server_info_normal_color':currentServer.disk_stat== 1,'wellcome_server_info_warnning_color':currentServer.disk_stat== 2,'wellcome_server_info_danger_color':currentServer.disk_stat== 3 || currentServer.disk_stat == 4}" >
+							{{currentServer.show_disk_stat}}
+						    </label>
+						</div>
+						<div class="wellcome_server_item_22px" ng-repeat = "diskinfo in currentServer.diskInfos">
+							<label class = "wellcome_server_info_label common_line_unend_item" >{{diskinfo.diskName}}</label>
+							<label class = "wellcome_server_info_label" >{{diskinfo.params.usedper + " %"}}</label>
+							<span class = "wellcome_server_info_memory_detail" ng-click = "wellcomeCheckMemoryDetail(diskinfo)">{{diskinfo.showDetail ? "︿" : "﹀"}}</span>
+							<div class = "wellcome_server_info_memory_detail_page" ng-show = "diskinfo.showDetail">
+								<div class="wellcome_server_item_10px">
+									<label class = "wellcome_server_info_label common_line_unend_item" >硬盘名称</label>
+									<label class = "wellcome_server_info_label" >{{diskinfo.diskName}}</label>
+								</div>
+								<div class="wellcome_server_item_10px">
+									<label class = "wellcome_server_info_label common_line_unend_item" >硬盘容量</label>
+									<label class = "wellcome_server_info_label" >{{diskinfo.params.size + " M"}}</label>
+								</div>
+								<div class="wellcome_server_item_10px">
+									<label class = "wellcome_server_info_label common_line_unend_item" >已用大小</label>
+									<label class = "wellcome_server_info_label" >{{diskinfo.params.used + " M"}}</label>
+								</div>
+								<div class="wellcome_server_item_10px">
+									<label class = "wellcome_server_info_label common_line_unend_item" >可用大小</label>
+									<label class = "wellcome_server_info_label" >{{diskinfo.params.avail + " M"}}</label>
+								</div>
+								<div class="">
+									<label class = "wellcome_server_info_label common_line_unend_item" >使用占比</label>
+									<label class = "wellcome_server_info_label" >{{diskinfo.params.usedper + " %"}}</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="wellcome_server_info_item" >
+				<div class="wellcome_server_info_item_icon">
+					<img class = "wellcome_server_info_item_icon_img" draggable="false" src="../commonui/images/network.png" alt="ntework">
+				</div>
+				<div class = "wellcome_server_info_item_desc">
+					<div class="wellcome_server_info_item_desc_content">
+						<div class="wellcome_server_item_22px">
+							<label class = "wellcome_server_info_label common_line_unend_item" >运行状态</label>
+							<label class = "wellcome_server_info_value" ng-class = "{'wellcome_server_info_color':currentServer.network_stat== 0,'wellcome_server_info_normal_color':currentServer.network_stat== 1,'wellcome_server_info_warnning_color':currentServer.network_stat== 2,'wellcome_server_info_danger_color':currentServer.network_stat== 3 || currentServer.network_stat == 4}" >
+							{{currentServer.show_network_stat}}
+						    </label>
+						</div>
+						<div class="wellcome_server_item_22px common_nowrap"  ng-repeat = "networkinfo in currentServer.networkInfos">
+							<div class = "wellcome_server_info_network_name_div common_line_unend_item">
+								<label class = "wellcome_server_info_label">{{networkinfo.networkName}}</label>
+							</div>
+							<div class="wellcome_server_info_network_name_div">
+								<div class="wellcome_server_item_10px">
+									<label class = "wellcome_server_info_label common_line_unend_item" >发送流量</label>
+									<label class = "wellcome_server_info_label" >{{networkinfo.params.tran_bytes + " KB"}}</label>
+								</div>
+								<div class="">
+									<label class = "wellcome_server_info_label common_line_unend_item" >接收流量</label>
+									<label class = "wellcome_server_info_label" >{{networkinfo.params.recv_bytes + " KB"}}</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="common_modal_back" id="wellcome_modal_back">
+		<div ng-include = "modalInfo.path" onload = "wellcomeLoadModalReady()"></div>
+	</div>
+
+</div>

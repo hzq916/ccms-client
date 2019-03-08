@@ -1,0 +1,172 @@
+<div class="common_page_html common_scroll_div" ng-controller = "lrTraderCtrl" ng-init = "lrTraderInit()">
+	<div class = "common_tab_operate_div common_nowrap">
+		<button type="button" class = "common_normal_btn common_blue_btn common_default_length common_line_unend_item" ng-click = "lrTraderGetHold()">查&nbsp;询</button>
+		<button type="button" class = "common_normal_btn common_blue_btn common_default_length common_line_unend_item" ng-click = "lrTraderResetOptions()">重&nbsp;置</button>
+		<button type="button" class = "common_normal_btn common_blue_btn common_default_length common_line_unend_item" ng-click = "showOptions = !showOptions;" >{{showOptions == true ? "收起︿" : "更多条件﹀"}}</button>
+	</div>
+	<div class="lrtrader_options_div" ng-show = "showOptions">
+		<div class ="laterrisk_options_filter_label common_normal_text">查询条件:</div>
+		<div class = "lrtrader_options_trader_option">
+			<div class = "lrtrader_options_vertical">
+				<label class = "laterrisk_unit_title common_normal_text">资产管理人：</label>
+				<select class = "common_dropdown lrtrader_unit_dropdown" ng-model = "options.maid" ng-change = "lrTraderChangeMaid()">
+					<option ng-repeat = "tamgr in tamgrList" value="{{tamgr.maid}}">{{tamgr.maname + "("+tamgr.maid+")"}}</option>
+				</select>
+			</div>
+			<div class = "lrtrader_options_vertical">
+				<label class = "laterrisk_unit_title common_normal_text">策略组合：</label>
+				<select class = "common_dropdown lrtrader_unit_dropdown" ng-model = "options.trid" ng-change = "lrTraderChangeTrid()">
+					<option ng-repeat = "tatrd in tatrdList" value = "{{tatrd.trid}}">{{tatrd.trname + "("+tatrd.trid+")"}}</option>
+				</select>
+			</div>
+			<div class = "lrtrader_options_trader_table common_scroll_div">
+				<table class = "common_fixed_table">
+					<thead>
+						<th class = "common_center_align common_nowrap">选择</th>
+						<th class = "common_center_align common_nowrap">交易员ID</th>
+						<th class = "common_center_align common_nowrap">交易员姓名</th>
+					</thead>
+					<tbody>
+						<tr ng-repeat = "trader in traderList">
+							<td class = "common_center_align common_nowrap">
+								<input type="checkbox" ng-model = "trader.select">
+							</td>
+							<td class = "common_center_align common_nowrap">{{trader.traderid}}</td>
+							<td class = "common_center_align common_nowrap">{{trader.oname}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="lrtrader_options_target_option">
+			<div class="lrtrader_options_vertical">
+				<label class = "common_normal_text lrtrader_options_volume_label">证券代码：</label>
+				<input type="text" class = "common_normal_input lrtrader_options_code_input" ng-model = "options.marketcode">
+			</div>
+			<div class="lrtrader_options_vertical">
+				<label class = "common_normal_text lrtrader_options_volume_label">证券名称：</label>
+				<input type="text" class = "common_normal_input lrtrader_options_code_input" ng-model = "options.cname">
+			</div>
+			<div class="lrtrader_options_vertical">
+				<label class = "common_normal_text lrtrader_options_volume_label">今仓数量(绝对值)：</label>
+				<select class = "common_dropdown lrtrader_options_volume_dropdown" ng-model = "options.totalvolOption">
+					<option ng-repeat = "option in rangeOptions" value="{{option.option}}">{{option.option}}</option>
+				</select>
+				<input type="text" class = "common_normal_input lrtrader_options_volume_input" cms-mask="unsignedInt" ng-model = "options.totalvol">
+			</div>
+			<div class="lrtrader_options_vertical">
+				<label class = "common_normal_text lrtrader_options_volume_label">交易股数：</label>
+				<select class = "common_dropdown lrtrader_options_volume_dropdown" ng-model = "options.tradevolOption">
+					<option ng-repeat = "option in rangeOptions" value="{{option.option}}">{{option.option}}</option>
+				</select>
+				<input type="text" class = "common_normal_input lrtrader_options_volume_input" cms-mask="unsignedInt" ng-model = "options.tradevol">
+			</div>
+			<div class="lrtrader_options_vertical">
+				<label class = "common_normal_text lrtrader_options_volume_label">平隔夜仓盈亏：</label>
+				<select class = "common_dropdown lrtrader_options_volume_dropdown" ng-model = "options.overnight_plOption">
+					<option ng-repeat = "option in rangeOptions" value="{{option.option}}">{{option.option}}</option>
+				</select>
+				<input type="text" class = "common_normal_input lrtrader_options_volume_input" cms-mask="unsignedFloat" ng-model = "options.overnight_pl">
+			</div>
+			<div class="lrtrader_options_vertical">
+				<label class = "common_normal_text lrtrader_options_volume_label">平仓盈亏：</label>
+				<select class = "common_dropdown lrtrader_options_volume_dropdown" ng-model = "options.closeplOption">
+					<option ng-repeat = "option in rangeOptions" value="{{option.option}}">{{option.option}}</option>
+				</select>
+				<input type="text" class = "common_normal_input lrtrader_options_volume_input" cms-mask="unsignedFloat" ng-model = "options.closepl">
+			</div>
+		</div>
+	</div>
+	<div class = "common_scroll_div" ng-class = "{true:'lrtrader_data_show_options_div',false:'lrtrader_data_div'}[showOptions]">
+		<table class = "common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+			<thead>
+				<th class = "common_center_align common_nowrap">序号</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('trday')">
+					<span ng-show = "keyName == 'trday'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					更新日期
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('traderid',true)">
+					<span ng-show = "keyName == 'traderid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					交易员ID
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('oname')">
+					<span ng-show = "keyName == 'oname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					交易员姓名
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('acid',true)">
+					<span ng-show = "keyName == 'acid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					资产账户
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('acname')">
+					<span ng-show = "keyName == 'acname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					资产账户名称
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('marketcode')">
+					<span ng-show = "keyName == 'marketcode'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					证券代码
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('cname')">
+					<span ng-show = "keyName == 'cname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					证券名称
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('overnightvol',true)">
+					<span ng-show = "keyName == 'overnightvol'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					隔夜仓数量
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('totalvol',true)">
+					<span ng-show = "keyName == 'totalvol'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					今仓数量
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('holdcost',true)">
+					<span ng-show = "keyName == 'holdcost'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					今仓成本
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('overnight_pl',true)">
+					<span ng-show = "keyName == 'overnight_pl'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					平隔夜仓盈亏
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('closepl',true)">
+					<span ng-show = "keyName == 'closepl'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					平仓盈亏
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('trdfee',true)">
+					<span ng-show = "keyName == 'trdfee'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					当日策略组合费用
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('tractfee',true)">
+					<span ng-show = "keyName == 'tractfee'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					当日资产账户费用
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('buyvol',true)">
+					<span ng-show = "keyName == 'buyvol'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					今买入数
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('sellvol',true)">
+					<span ng-show = "keyName == 'sellvol'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					今卖出数
+				</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat = "hold in traderHolds | orderBy:keyName:false:sortFunction">
+					<td class = "common_center_align common_nowrap">{{$index + 1}}</td>
+					<td class = "common_center_align common_nowrap">{{hold.trday}}</td>
+					<td class = "common_center_align common_nowrap">{{hold.traderid}}</td>
+					<td class = "common_center_align common_nowrap">{{hold.oname}}</td>
+					<td class = "common_center_align common_nowrap">{{hold.acid}}</td>
+					<td class = "common_center_align common_nowrap">{{hold.acname}}</td>
+					<td class = "common_center_align common_nowrap">{{hold.marketcode}}</td>
+					<td class = "common_center_align common_nowrap">{{hold.cname}}</td>
+					<td class = "common_right_align common_nowrap">{{hold.overnightvol | number:0}}</td>
+					<td class = "common_right_align common_nowrap">{{hold.totalvol | number:0}}</td>
+					<td class = "common_right_align common_nowrap">{{hold.holdcost | number:3}}</td>
+					<td class = "common_right_align common_nowrap">{{hold.overnight_pl | number:3}}</td>
+					<td class = "common_right_align common_nowrap">{{hold.closepl | number:3}}</td>
+					<td class = "common_right_align common_nowrap">{{hold.trdfee | number:3}}</td>
+					<td class = "common_right_align common_nowrap">{{hold.tractfee | number:3}}</td>
+					<td class = "common_right_align common_nowrap">{{hold.buyvol | number:0}}</td>
+					<td class = "common_right_align common_nowrap">{{hold.sellvol | number:0}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

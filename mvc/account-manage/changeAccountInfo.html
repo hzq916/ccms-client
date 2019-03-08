@@ -1,0 +1,62 @@
+<div class = "common_modal " id = "accountManage_changeAccountInfo_modal">
+        <div class="common_modal_title_div" id = "accountManage_changeAccountInfo_modal_title">
+            <label class = "common_modal_title_label">修改资金账号信息</label>
+            <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "accountHideModal2()">
+                <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+            </div>
+        </div>
+    
+    
+        <div class="common_modal_body">
+            <table class="common_operate_table">
+                <tbody>
+                    <tr>
+                        <td>资产管理人ID：</td>
+                        <td>
+                            <!-- <select ng-init="currentTamgrObj.currentTamgr" ng-model="currentTamgrObj.currentTamgr" class="common_dropdown authorizeAssetAccount_select " 
+                            ng-options="assetManager.fullName for assetManager in allAssetManager">
+                            </select> -->
+                            <select disabled="disabled" class="common_dropdown authorizeAssetAccount_select">
+                                    <option>{{currAccount.maname+"("+currAccount.maid+")"}}</option>
+                                </select>
+    
+                        </td>
+                        <td><label class="common_required_item">*</label></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>经纪商ID：</td>
+                        <td>
+                            <select ng-model="accountChangeInfo.bid" class="common_dropdown authorizeAssetAccount_select ">
+                                <option ng-repeat="broker in brokers" value="{{broker.bid}}">{{broker.bname+"("+broker.bid+")"}}</option>
+                            </select>
+                        </td>
+                        <td><label class="common_required_item">*</label></td>
+                    </tr>
+                    <tr>
+                        <td>经纪商资金账号：</td>
+                        <td>
+                            <input  step="1" maxlength="64" class="common_normal_input authorizeAssetAccount_input" ng-model="accountChangeInfo.bacid" value="">
+                        </td>
+                        <td><label class="common_required_item">*</label></td>
+                    </tr>
+    
+                    <tr>
+                        <td>经纪商客户号：</td>
+                        <td>
+                            <input  step="1" maxlength="64" class="common_normal_input authorizeAssetAccount_input" ng-model="accountChangeInfo.bacidcard" value="">
+                        </td>
+                        <td><label class="common_required_item">*</label></td>
+                    </tr>
+    
+    
+                </tbody>
+            </table>
+        </div>
+    
+        <div class="common_modal_footer">
+            <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length " ng-click="confirmAccountInfo()">确定</button>
+            <button type="button" class="common_gray_btn common_normal_btn  common_default_length" ng-click="accountHideModal2()">取消</button>
+        </div>
+    </div>
+    

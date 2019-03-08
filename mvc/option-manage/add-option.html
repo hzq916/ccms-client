@@ -1,0 +1,146 @@
+<div class = "common_modal" id = "option_add_modal" style="height: 502px;">
+	<div class="common_modal_title_div" id = "option_add_modal_title">
+        <label class = "common_modal_title_label">{{currentOption.opreateType == 1 ? "录入期权" : (currentOption.opreateType == 2 ? "修改录入" : "编辑期权" )}}</label>
+        <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "closeModal()">
+            <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+        </div>
+    </div>
+	<div class = "common_modal_body">
+		<div class="option_form_item_div">
+			<div class="common_form_div_item_10px common_nowrap">
+	            <label class = "common_normal_text add_option_form_header">合约编码:</label>
+	            <input type="text" class = "common_normal_input option_form_input common_line_unend_item" ng-model="currentOption.contract_no" maxlength="32" >
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_form_div_item_10px common_nowrap">
+	            <label class = "common_normal_text add_option_form_header">UK编码:</label>
+	            <input type="text" class = "common_normal_input option_form_input common_line_unend_item" ng-model="currentOption.ukcode" maxlength="32" cms-mask="unsignedInt" ng-change="checkUkcode()">
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_form_div_item_10px common_nowrap">
+	            <label class = "common_normal_text add_option_form_header">开始日期:</label>
+	            <input type="date" class = "common_normal_input common_form_calendar option_form_input common_line_unend_item" ng-model="currentOption.begin_date" >
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_form_div_item_10px common_nowrap">
+	            <label class = "common_normal_text add_option_form_header">期权种类:</label>
+				<select class = "common_dropdown option_form_dropdown common_line_unend_item" ng-model="currentOption.option_type" ng-change="changeOptionType()">
+	                <option value="1">CALL</option>
+					<option value="2">PUT</option>
+					<option value="3">PUT-固收</option>
+	            </select>
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_form_div_item_10px common_nowrap">
+	            <label class = "common_normal_text add_option_form_header">期初价格:</label>
+	            <input type="text" class = "common_normal_input option_form_input common_line_unend_item" ng-model="currentOption.initial_price" maxlength="18" cms-mask="unsignedFloat" ng-change="initialPriceChange()">
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_form_div_item_10px common_nowrap">
+	            <label class = "common_normal_text add_option_form_header">持仓数量:</label>
+	            <input type="text" class = "common_normal_input option_form_input common_line_unend_item" ng-model="currentOption.validvol" maxlength="17" cms-mask="unsignedFloat" ng-change="validvolChange()">
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_form_div_item_10px common_nowrap">
+	            <label class = "common_normal_text add_option_form_header">执行价比例:</label>
+	            <input type="text" class = "common_normal_input option_form_input common_line_unend_item" ng-model="currentOption.strike_price_ratio" maxlength="18" cms-mask="unsignedFloat" ng-change="strikePriceRatioChange()">
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_form_div_item_10px common_nowrap" ng-show="currentOption.option_type == 3">
+	            <label class = "common_normal_text add_option_form_header">执行价浮动比例:</label>
+	            <input type="text" class = "common_normal_input option_form_input common_line_unend_item" ng-model="currentOption.strike_float_ratio" maxlength="18" cms-mask="unsignedFloat">
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_form_div_item_10px common_nowrap" ng-show="currentOption.option_type != 3">
+	            <label class = "common_normal_text add_option_form_header">权利金比例:</label>
+	            <input type="text" class = "common_normal_input option_form_input common_line_unend_item" ng-model="currentOption.premium_ratio" maxlength="18" cms-mask="unsignedFloat" ng-change="premiumRatioChange()">
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_form_div_item_10px common_nowrap" ng-show="currentOption.direction == 1">
+	            <label class = "common_normal_text add_option_form_header">保证金比例:</label>
+	            <input type="text" class = "common_normal_input option_form_input common_line_unend_item" ng-model="currentOption.margin_ratio" maxlength="18" cms-mask="unsignedFloat" ng-change="marginRatioChange()" >
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_form_div_item_10px common_nowrap" ng-show="currentOption.direction == 1">
+	            <label class = "common_normal_text add_option_form_header">追保线比例:</label>
+	            <input type="text" class = "common_normal_input option_form_input common_line_unend_item" ng-model="currentOption.margin_call_ratio" maxlength="18" cms-mask="unsignedFloat" >
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_nowrap">
+	            <label class = "common_normal_text add_option_form_header">对冲波动率:</label>
+	            <input type="text" class = "common_normal_input option_form_input common_line_unend_item" ng-model="currentOption.hedging_vol" maxlength="18" cms-mask="unsignedFloat">
+				<label class = "common_required_item">*</label>
+	        </div>
+		</div>
+		<div class="option_form_item_div" style="margin-left: 10px;">
+			<div class="common_form_div_item_10px common_nowrap">
+	            <label class = "common_normal_text add_option_form_header">对手方:</label>
+	            <input type="text" class = "common_normal_input option_form_input common_line_unend_item" ng-model="currentOption.counter_party" maxlength="32" >
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_form_div_item_10px common_nowrap">
+	            <label class = "common_normal_text add_option_form_header">买卖方向:</label>
+				<select class = "common_dropdown option_form_dropdown common_line_unend_item" ng-model="currentOption.direction" >
+	                <option value="1">买</option>
+					<option value="2">卖</option>
+	            </select>
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_form_div_item_10px common_nowrap">
+	            <label class = "common_normal_text add_option_form_header">到期日期:</label>
+	            <input type="date" class = "common_normal_input common_form_calendar option_form_input common_line_unend_item" ng-model="currentOption.expire_date" >
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_form_div_item_10px common_nowrap">
+	            <label class = "common_normal_text add_option_form_header">利率:</label>
+	            <input type="text" class = "common_normal_input option_form_input common_line_unend_item" ng-model="currentOption.interest_rate" maxlength="18" cms-mask="unsignedFloat">
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_form_div_item_10px common_nowrap">
+	            <label class = "common_normal_text add_option_form_header">期末价格:</label>
+	            <input type="text" class = "common_normal_input option_form_input common_line_unend_item" ng-model="currentOption.final_price" maxlength="17" cms-mask="unsignedFloat" >
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_form_div_item_10px common_nowrap">
+	            <label class = "common_normal_text add_option_form_header">名义本金:</label>
+	            <input type="text" class = "common_normal_input option_form_input common_line_unend_item" ng-model="currentOption.notional" maxlength="17" cms-mask="unsignedFloat" ng-change="notionalChange()" >
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_form_div_item_10px common_nowrap">
+	            <label class = "common_normal_text add_option_form_header">执行价:</label>
+	            <input type="text" class = "common_normal_input option_form_input common_line_unend_item" ng-model="currentOption.strike_price" maxlength="18" cms-mask="unsignedFloat" ng-change="strikePriceChange()">
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_form_div_item_10px common_nowrap" ng-show="currentOption.option_type == 3">
+	            <label class = "common_normal_text add_option_form_header">固定收益率:</label>
+	            <input type="text" class = "common_normal_input option_form_input common_line_unend_item" ng-model="currentOption.fixed_yield" maxlength="18" cms-mask="unsignedFloat" >
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_form_div_item_10px common_nowrap" ng-show="currentOption.option_type != 3">
+	            <label class = "common_normal_text add_option_form_header">权利金:</label>
+	            <input type="text" class = "common_normal_input option_form_input common_line_unend_item" ng-model="currentOption.premium" maxlength="18" cms-mask="unsignedFloat" ng-change="premiumChange()">
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_form_div_item_10px common_nowrap" ng-show="currentOption.direction == 1 ">
+	            <label class = "common_normal_text add_option_form_header">保证金:</label>
+	            <input type="text" class = "common_normal_input option_form_input common_line_unend_item" ng-model="currentOption.margin" maxlength="18" cms-mask="unsignedFloat" ng-change="marginChange()">
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_form_div_item_10px common_nowrap" ng-show="currentOption.direction == 1">
+	            <label class = "common_normal_text add_option_form_header">追平线比例:</label>
+	            <input type="text" class = "common_normal_input option_form_input common_line_unend_item" ng-model="currentOption.margin_close_ratio" maxlength="18" cms-mask="unsignedFloat" >
+				<label class = "common_required_item">*</label>
+	        </div>
+			<div class="common_nowrap">
+	            <label class = "common_normal_text add_option_form_header">盯市波动率:</label>
+	            <input type="text" class = "common_normal_input option_form_input common_line_unend_item" ng-model="currentOption.market_vol" maxlength="18" cms-mask="unsignedFloat">
+				<label class = "common_required_item">*</label>
+	        </div>
+		</div>
+	</div>
+	<div style="height: 72px;" ng-if="currentOption.direction == 2"></div>
+	<div class="common_modal_footer">
+        <button type="button" class = " common_blue_btn common_normal_btn common_line_unend_item common_default_length " ng-click = "editOptionSure()" >确定</button>
+        <button type="button" class="common_gray_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "closeModal()">取消</button>
+    </div>
+</div>

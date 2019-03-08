@@ -1,0 +1,24 @@
+.strategyServer_code_div {
+	position: absolute;
+	left: 5px;
+	top: 0;
+	bottom: 10px;
+	width: calc(60% - 14px);
+}
+
+.strategyServer_operate_div {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 26px;
+}
+
+.strategyServer_data_div {
+	position: absolute;
+	top: 36px;
+	left: 5px;
+	right: 15px;
+	bottom: 10px;
+	border: 1px solid #dcdcdc;
+}

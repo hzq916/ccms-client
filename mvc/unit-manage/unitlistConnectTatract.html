@@ -1,0 +1,41 @@
+<div class="common_modal" id = "unitlist_connect_modal">
+	<div class="common_modal_title_div" id = "unitlist_connect_modal_title">
+		<label class = "common_modal_title_label">关联交易账户</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "unitlistHideModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class="common_modal_operate_body">
+		<div class = "common_form_div_item_10px common_nowrap">
+			<label class = "common_normal_text">快速搜索：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item" style = "width:200px;" placeholder = "请输入账户编号" ng-model = "currentTatrd.searchContent" ng-change = "unitlistTatrdConnectTatractFilter()">
+			<label class = "common_normal_text" style = "float:right;line-height:26px;">当前策略组合：{{currentTatrd.trid}}</label>
+		</div>
+		<div class = "unitlist_connect_data_div common_scroll_div">
+			<table class = "common_fixed_table">
+				<thead>
+					<th class = "common_center_align common_nowrap">关联状态</th>
+					<th class = "common_center_align common_nowrap">资产账户编号</th>
+					<th class = "common_center_align common_nowrap">交易账户编号</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat = "tatract in currentTatrd.tatractArray" ng-show = "tatract.show">
+						<td class = "common_center_align common_nowrap">
+							<input type="checkbox" ng-model = "tatract.mapping">
+						</td>
+						<td class = "common_center_align common_nowrap">
+							{{tatract.acname + "("+tatract.acid+")"}}
+						</td>
+						<td class = "common_center_align common_nowrap">
+							{{tatract.tracname + "("+tatract.tracid+")"}}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "unitlistConnectTatractSure()">保存</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click = "unitlistHideModal()">取消</button>
+	</div>
+</div>

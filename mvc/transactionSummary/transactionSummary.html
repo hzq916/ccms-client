@@ -1,0 +1,170 @@
+<div class="common_page_html common_scroll_div" ng-controller="transactionSummaryCtrl">
+    <div class="common_normal_operate_div common_nowrap">
+        <div style="margin-bottom: 10px;">
+            <label class=" common_line_unend_item" style="margin-left: 10px;">
+                <div style="display: inline-block;width: 285px;">
+                    <label class="common_form_pre_label" style="text-align: right;">起始时间：</label>
+                    <input type="date" class="common_normal_input  common_form_calendar common_form_calendar_width " style="width: 165px;" ng-model="begin_date">
+                </div>
+                <div style="display: inline-block;width: 285px;">
+                    <label class="common_form_pre_label" style="text-align: right;">截止时间：</label>
+                    <input type="date" class="common_normal_input  common_form_calendar common_form_calendar_width " style="width: 165px;" ng-model="end_date">
+                </div>
+            </label>
+            <!-- <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-if="menuRight.indexOf(2005008005) != -1"
+                name="button" ng-click="exportCustomStrategyData()">导出设置</button> -->
+        </div>
+        <div>
+            <div style="display: inline-block;width: 285px;">
+                <label class="common_form_pre_label" style="margin-left: 10px;text-align: right;">资产管理人：</label>
+                <select class="common_dropdown common_line_unend_item operMacBind_Add_dropdown " style="width: 177px;" ng-model="selectedTamgr"
+                    ng-change="changOutSideTamgr()">
+                    <option ng-repeat="tamgr in  selectedTamgrAll" value="{{tamgr.maid}}">{{tamgr.maname}}</option>
+                </select>
+            </div>
+            <div style="display: inline-block;width: 285px;">
+                <label class="common_form_pre_label" style="margin-left: 10px;text-align: right;">产品：</label>
+                <select class="common_dropdown common_line_unend_item operMacBind_Add_dropdown " style="width: 177px;" ng-model="selectedProduct"
+                    ng-change="changOutSideProduct()">
+                    <option ng-repeat="product in  selectedProductAll" value="{{product.caid}}">{{product.caname}}</option>
+                </select>
+            </div>
+            <div style="display: inline-block;width: 285px;">
+                <label class="common_form_pre_label" style="margin-left: 10px;text-align: right;">资金账户：</label>
+                <select class="common_dropdown common_line_unend_item operMacBind_Add_dropdown " style="width: 137px;" ng-model="selectedSttrategy"
+                    ng-change="changOutSideStrategy()">
+                    <option ng-repeat="strategy in selectedSttrategyAll" value="{{strategy.acid}}">{{strategy.acname}}</option>
+                </select>
+            </div>
+            <div style="display: inline-block;">
+                    <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-if="menuRight.indexOf(2005008001) != -1"
+                    style="margin-left: 10px;" name="button" ng-click="getTransactionSummary()">查询</button>
+                <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-if="menuRight.indexOf(2005008005) != -1"
+                    name="button" ng-click="exportCustomStrategyData()"  ng-mouseover="TransactionFeeShowTips(true)"  ng-mouseout="TransactionFeeShowTips(false)">导出</button>
+            </div>
+        </div>
+        <div style="margin-top: 10px;">
+            <span>总成交金额：</span><span>{{transationSummaryList.allamtSum | number:2}}</span>  <span style="margin-left: 20px;">总费用：</span><span style="margin-right: 20px;">{{transationSummaryList.tractfeeSum | number:2}}</span>  <span>总平仓盈亏：</span><span>{{transationSummaryList.holdcloseplSum | number:2}}</span>
+        </div>
+        <div style="margin-top: 10px;">
+            <span>总买入数量：</span><span>{{transationSummaryList.buyvolSum |number:0}}</span>  <span style="margin-left: 20px;">总卖出数量：</span><span style="margin-right: 20px;">{{transationSummaryList.sellvolSum |number:0}}</span>  <span>总卖出成交金额：</span><span>{{transationSummaryList.sellamtSum |number:2}}</span>
+        </div>
+    </div>
+    <div class="common_scroll_div common_normal_data_div" style="top: 140px;">
+        <table class="common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+            <thead>
+                <tr>
+                    <th class="common_nowrap" ng-click="clickTableHeader('appname')">
+                        <span ng-show="keyName == 'appname'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        资产管理人
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('version')">
+                        <span ng-show="keyName == 'version'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        产品
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('md5')">
+                        <span ng-show="keyName == 'md5'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        资产账户
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('md5')">
+                        <span ng-show="keyName == 'md5'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        资金账号
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('md5')">
+                        <span ng-show="keyName == 'md5'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        账户类型
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('md5')">
+                        <span ng-show="keyName == 'md5'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        创建日期
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('md5')">
+                        <span ng-show="keyName == 'md5'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        总成交金额
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('md5')">
+                        <span ng-show="keyName == 'md5'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        总成交数量
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('md5')">
+                        <span ng-show="keyName == 'md5'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        买入数量
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('md5')">
+                        <span ng-show="keyName == 'md5'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        买入成交金额
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('md5')">
+                        <span ng-show="keyName == 'md5'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        卖出数量
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('md5')">
+                        <span ng-show="keyName == 'md5'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        卖出成交金额
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('md5')">
+                        <span ng-show="keyName == 'md5'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        总费用
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('md5')">
+                        <span ng-show="keyName == 'md5'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        平仓盈亏
+                    </th>
+                    <!-- <th class = "common_center_align common_nowrap">操作</th> -->
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="singleCustomStrategy in alltransationSummaryData  | orderBy:keyName:false:sortFunction" ng-class="{'common_activeTr':singleCustomStrategy.selected}">
+                    <!-- <td class="common_center_align common_nowrap">{{$index+1}}</td> -->
+                    <td class="common_center_align common_nowrap">{{singleCustomStrategy.maname}}({{singleCustomStrategy.maid}})</td>
+                    <td class="common_center_align common_nowrap">{{singleCustomStrategy.caname}}({{singleCustomStrategy.caid}})</td>
+                    <td class="common_center_align common_nowrap">{{singleCustomStrategy.acname}}({{singleCustomStrategy.acid}})</td>
+                    <td class="common_center_align common_nowrap">{{singleCustomStrategy.bacid}}</td>
+                    <td class="common_center_align common_nowrap">{{singleCustomStrategy.actype}}</td>
+                    <td class="common_center_align common_nowrap">{{singleCustomStrategy.createtime}}</td>
+                    <td class="common_center_align common_nowrap">{{singleCustomStrategy.allamt |number:2}}</td>
+                    <td class="common_center_align common_nowrap">{{singleCustomStrategy.allvol |number:0}}</td>
+                    <td class="common_center_align common_nowrap">{{singleCustomStrategy.buyvol |number:0}}</td>
+                    <td class="common_center_align common_nowrap">{{singleCustomStrategy.buyamt |number:2}}</td>
+                    <td class="common_center_align common_nowrap">{{singleCustomStrategy.sellvol |number:0}}</td>
+                    <td class="common_center_align common_nowrap">{{singleCustomStrategy.sellamt |number:2}}</td>
+                    <td class="common_center_align common_nowrap">{{singleCustomStrategy.tractfee |number:2}}</td>
+                    <td class="common_center_align common_nowrap">{{singleCustomStrategy.holdclosepl |number:2}}</td>
+                    <!-- <td class = "common_center_align common_nowrap">
+                        <button class = "common_table_operate_text" ng-click="clickchangeCustomStrategy(singleCustomStrategy)" ng-if="menuRight.indexOf(2005008002) != -1">修改</button>
+                        <label class = "common_table_operate_divider" >|</label>
+                        <button class = "common_table_operate_text" ng-click="clickchangeScript(singleCustomStrategy)" ng-if="menuRight.indexOf(2005008003) != -1">启动脚本</button>
+                        <label class = "common_table_operate_divider" >|</label>
+                        <button class = "common_table_operate_text" ng-click="clickstopScript(singleCustomStrategy)" ng-if="menuRight.indexOf(2005008004) != -1">关闭脚本</button>
+                    </td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- <div class="common_page_tools" >
+        <label class="common_page_tool" ng-click="goToPage(1)">首页</label>
+        <label class="common_page_tool" ng-click="goToPage(currentPage -1 )">
+            上一页
+            <i class="iconfont icon-houtuiqianjin"></i>
+        </label>
+        <input type="text" ng-model="currentPage" class="common_page_number" ng-keyup="pageToolsKeyUp($event)">
+        <label title="总页数">/{{allPage}}</label>
+        <label class="common_page_tool" ng-click="goToPage(currentPage +1)">
+            下一页
+            <i class="iconfont icon-houtuiqianjin1"></i>
+        </label>
+        <label class="common_page_tool" ng-click="goToPage(allPage)">尾页</label>
+
+    </div> -->
+
+    <!-- <div class="option_manage_page_tool_div">
+        <cms-data-pager click-menu-item="getCustomStrategyData(page)" all-page="{{allcustomStrategyPage}}" current-page="currentcustomStrategyPagePage"></cms-data-pager>
+    </div> -->
+
+    <div class="common_modal_back" id="transactionSummary_modal_back">
+        <div ng-include="modalInfo.path" onload="customStrategyLoadModalReady()"></div>
+    </div>
+
+</div>

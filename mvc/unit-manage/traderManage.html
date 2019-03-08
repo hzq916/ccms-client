@@ -1,0 +1,62 @@
+<div class = "common_page_html common_scroll_div" ng-controller = "traderManageCtrl" ng-init = "tmInit()">
+	<div class="common_mini_subguide_div" ng-show="!showSubguide" ng-click="showSubguide=true;">
+        <div class="common_mini_guide_title_div">
+            <div class="common_menu_icon"></div>
+            单元导航
+        </div>
+    </div>
+    <div class="common_subguide_div" ng-show="showSubguide">
+        <div class = "common_guide_title_div">
+            <label class = "common_guide_title_label">单元导航</label>
+            <img src="../commonui/images/icon_lock.png" draggable="false" class = "common_guide_close_icon" title="点击收起菜单" ng-click = "showSubguide=false;"/>
+        </div>
+        <div class=" common_guide_content_div common_scroll_div">
+			<cms-guide guide-data = "{{guideList}}" guide-showid = "true" guide-selectleaf = "false" guide-click = "tmClickMenu(menu)" guide-setmenu = "tmSetMenu"></cms-guide>
+        </div>
+    </div>
+	<div ng-class = "{'common_content_locked_div':showSubguide,'common_content_unlocked_div':!showSubguide}">
+		<div class = "common_page_html common_scroll_div">
+			<div class = "common_normal_operate_div common_nowrap">
+				<input type="text" class = "common_normal_input common_line_unend_item common_search_input_length" placeholder = ">>请输入关键字过滤" ng-model = "searchContent" ng-change = "tmFilterTrader()" >
+				<button type="button" class = "common_blue_btn common_normal_btn common_default_length" ng-click = "tmRefresh()" >刷&nbsp;&nbsp;新</button>
+			</div>
+			<div class = "common_normal_data_div common_scroll_div">
+				<table class = "common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+					<thead>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('traderid',true)">
+							<span ng-show = "keyName == 'traderid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							交易员编号
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('oname')">
+							<span ng-show = "keyName == 'oname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							交易员姓名
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('trid',true)">
+							<span ng-show = "keyName == 'trid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							策略组合
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('stat')">
+							<span ng-show = "keyName == 'stat'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							状态
+						</th>
+						<th class = "common_center_align common_nowrap">操作</th>
+					</thead>
+					<tbody>
+						<tr ng-repeat = "trader in traderList | orderBy:keyName:false:sortFunction" ng-show = "trader.show">
+							<td class = "common_center_align common_nowrap">{{trader.traderid}}</td>
+							<td class = "common_center_align common_nowrap">{{trader.oname}}</td>
+							<td class = "common_center_align common_nowrap">{{trader.trid}}</td>
+							<td class = "common_center_align common_nowrap">{{trader.stat == "1" ? "可用" : "不可用"}}</td>
+							<td class = "common_center_align common_nowrap">
+								<button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2001005001) != -1" ng-click = "tmFreezeTrader(trader)">{{trader.stat == "1" ? "冻结" : "解冻"}}</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="common_modal_back" id = "tm_modal_back">
+		<div ng-include = "modalInfo.path" onload = "tmModalLoadReady()"></div>
+	</div>
+</div>

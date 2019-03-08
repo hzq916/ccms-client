@@ -1,0 +1,17 @@
+<div class = "common_modal " style = "width:350px;" id = "wellcome_delete_server_modal" >
+	<div class="common_modal_title_div" id = "wellcome_delete_server_modal_title">
+		<label class = "common_modal_title_label">删除服务器</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "wellcomeCloseModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class = "common_modal_body">
+		<div class = "wellcome_delete_server_modal_content">
+			删除服务器可能导致不可预料的影响, 你确定要删除 {{currentEditServer.servername + "(" + currentEditServer.ip + ")"}} 吗？
+		</div>
+	</div>
+	<div class = "common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "wellcomeDeleteServerSure()">确定</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click = "wellcomeCloseModal()">取消</button>
+	</div>
+</div>

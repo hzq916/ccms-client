@@ -1,0 +1,66 @@
+<div class="common_page_html common_scroll_div" ng-controller="md5ManageCtrl">
+    <div class="common_normal_operate_div common_nowrap">
+        <input type="text" ng-model="searchFeild" class="common_normal_input common_line_unend_item common_search_input_length" placeholder="请输入要查询的模块或版本号" ng-keyup="seachUkcode($event)">
+        <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-if = "menuRight.indexOf(2005006001) != -1" name="button" ng-click="clickAuthMD5()">授权</button>
+        <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-if = "menuRight.indexOf(2005006002) != -1" name="button" ng-click="clickAddMD5()">添加</button>
+        <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length" name="button" ng-click="resetMD5()">刷新</button>
+    </div>
+
+    <div class="common_scroll_div common_normal_data_div" >
+        <table class="common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+            <thead>
+                <tr>
+                    <th class = "common_nowrap" ng-click = "clickTableHeader('appname')">
+                        <span ng-show = "keyName == 'appname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        模块
+                    </th>
+                    <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('version')">
+                        <span ng-show = "keyName == 'version'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        版本号
+                    </th>
+                    <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('md5')">
+                        <span ng-show = "keyName == 'md5'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        MD5值
+                    </th>
+                    <th class = "common_center_align common_nowrap">操作</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="versionMD5 in allVersionMd5 | filter:filterMd5 | orderBy:keyName:false:sortFunction" ng-dblclick="clickEditMD5(versionMD5)"
+                        ng-click="clickTr(versionMD5)" ng-class="{'common_activeTr':versionMD5.selected}">
+                    <td class = "common_center_align common_nowrap">{{versionMD5.appname}}</td>
+                    <td class = "common_center_align common_nowrap">{{versionMD5.version}}</td>
+                    <td class = "common_center_align common_nowrap">{{versionMD5.md5}}</td>
+                    <td class = "common_center_align common_nowrap">
+                        <button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2005006003) != -1" ng-click="clickEditMD5(versionMD5)">修改</button>
+                        <label class = "common_table_operate_divider" ng-if = "menuRight.indexOf(2005006003) != -1">|</label>
+                        <button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2005006004) != -1" ng-click="clickDelMD5(versionMD5)">删除</button>
+                        <label class = "common_table_operate_divider" ng-if = "menuRight.indexOf(2005006004) != -1">|</label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- <div class="common_page_tools" >
+        <label class="common_page_tool" ng-click="goToPage(1)">首页</label>
+        <label class="common_page_tool" ng-click="goToPage(currentPage -1 )">
+            上一页
+            <i class="iconfont icon-houtuiqianjin"></i>
+        </label>
+        <input type="text" ng-model="currentPage" class="common_page_number" ng-keyup="pageToolsKeyUp($event)">
+        <label title="总页数">/{{allPage}}</label>
+        <label class="common_page_tool" ng-click="goToPage(currentPage +1)">
+            下一页
+            <i class="iconfont icon-houtuiqianjin1"></i>
+        </label>
+        <label class="common_page_tool" ng-click="goToPage(allPage)">尾页</label>
+
+    </div> -->
+
+    <div class = "common_modal_back" id = "md5Manage_modal_back">
+        <div ng-include = "modalInfo.path" onload = "md5ManageLoadModalReady()"></div>
+    </div>
+
+</div>

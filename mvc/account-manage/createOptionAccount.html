@@ -1,0 +1,40 @@
+<div class="common_modal" id = "createOptionAccount_modal" >
+    <div class="common_modal_title_div" id = "createOptionAccount_modal_title">
+        <label class = "common_modal_title_label">股票期权账户绑定</label>
+        <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "accountHideModal()">
+            <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+        </div>
+    </div>
+    <div class = "common_modal_body">
+        <div class="common_form_div_item_10px">
+            <label class="common_form_pre_label">经纪商ID：</label>
+            <div class="password_div">
+                <select ng-model="copyAccount.bid" class="common_dropdown authorizeAssetAccount_select ">
+                    <option ng-repeat="broker in brokers" value="{{broker.bid}}">{{broker.bname+"("+broker.bid+")"}}</option>
+                </select>
+            </div>
+
+            <label class = "common_required_item" style="margin-left: 15px;">*</label>
+        </div>
+        <div class="common_form_div_item_10px">
+            <label class="common_form_pre_label">资金账号：</label>
+            <div class="password_div">
+                <input type="text" step="1" maxlength="50" class="common_normal_input authorizeAssetAccount_input" ng-model="copyAccount.bacid" value="">
+            </div>
+
+            <label class = "common_required_item" style="margin-left: 15px;">*</label>
+        </div>
+        <!--<div class="common_form_div_item_10px" ng-if="copyAccount.associate_acid != '0'">
+            <label class="common_form_pre_label">期权账户：</label>
+            <div class="password_div">
+                <input type="text" step="1" maxlength="50" class="common_normal_input authorizeAssetAccount_input"  ng-disabled="true" ng-model="copyAccount.associate_acid" value="">
+            </div>
+
+            <label class = "common_required_item" style="margin-left: 15px;">*</label>
+        </div>-->
+    </div>
+    <div class = "common_modal_footer">
+        <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length " ng-click = "showOptionTips()">确定</button>
+        <button type="button" class = "common_gray_btn common_normal_btn  common_default_length" ng-click = "accountHideModal()">取消</button>
+    </div>
+</div>

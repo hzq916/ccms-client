@@ -1,0 +1,163 @@
+<div class="whitelist_assets_page">
+	<div class = "whitelist_option_div common_nowrap">
+		<button type="button" class = "common_normal_btn common_blue_btn whitelist_86_btn common_line_unend_item" ng-if="menuRight.indexOf(2002004002001) != -1" ng-click = "whitelistTatrdClickFirst($event)" ng-mouseenter = "whitelistShowLoadTip(true,3)" ng-mouseout = "whitelistShowLoadTip(false,3)">
+			导入可配券
+			<span class="common_dropdown_icon" ng-mouseenter = "whitelistShowLoadTip(true,3)"></span>
+		</button>
+		<button type="button" class = "common_normal_btn common_blue_btn whitelist_86_btn common_line_unend_item" ng-if="menuRight.indexOf(2002004002002) != -1" ng-click = "whitelistTatrdClickSecond($event)" ng-mouseenter = "whitelistShowLoadTip(true,4)" ng-mouseout = "whitelistShowLoadTip(false,4)">
+			导入计划券
+			<span class="common_dropdown_icon" ng-mouseenter = "whitelistShowLoadTip(true,4)"></span>
+		</button>
+		<button type="button" class = "common_normal_btn common_green_btn common_line_unend_item" ng-if="menuRight.indexOf(2002004002003) != -1" ng-disabled="tatrdLoadAble"  ng-click = "whitelistExports(3)" >导出可配券</button>
+		<button type="button" class = "common_normal_btn common_green_btn common_line_unend_item" ng-if="menuRight.indexOf(2002004002004) != -1" ng-disabled="tatrdLoadAble" ng-click = "whitelistExports(4)">导出计划券</button>
+		<button type="button" class = "common_normal_btn common_green_btn common_default_length " ng-disabled = "tatrdLoadAble" ng-click = "whitelistRefreshSa(2)">刷新</button>
+		<div class = "whitelist_first_btn_menu" ng-show = "tatrd_showFirstMenu">
+			<div class="whitelist_btn_menu_item" ng-click = "whitelistTatrdClickSelect(1)">
+				<label class = "whitelist_btn_menu_item_label" >覆盖式导入</label>
+			</div>
+			<div class="whitelist_btn_menu_item" ng-click = "whitelistTatrdClickSelect(2)">
+				<label class = "whitelist_btn_menu_item_label">追加式导入</label>
+			</div>
+		</div>
+		<div class = "whitelist_second_btn_menu" ng-show = "tatrd_showSecondMenu">
+			<div class="whitelist_btn_menu_item" ng-click = "whitelistTatrdClickSelect(3)">
+				<label class = "whitelist_btn_menu_item_label">覆盖式导入</label>
+			</div>
+			<div class="whitelist_btn_menu_item" ng-click = "whitelistTatrdClickSelect(4)">
+				<label class = "whitelist_btn_menu_item_label">追加式导入</label>
+			</div>
+		</div>
+		<div class= "whitelist_first_tip" ng-show = "tatrd_showFirstTip">
+			<label class = "whitelist_tip_label">导入数据表正确格式为:</label>
+			<table class = "common_table" style = "width:410px;">
+				<thead>
+					<th class="common_center_align">交易账户</th>
+					<th class="common_center_align">策略组合</th>
+					<th class="common_center_align">UKCODE</th>
+					<th class="common_center_align">市场编号</th>
+					<th class="common_center_align">证券代码</th>
+					<th class="common_center_align">证券名称</th>
+					<th class="common_center_align">数量</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="common_center_align">100010001</td>
+						<td class="common_center_align">100010001</td>
+						<td class="common_center_align">1114116</td>
+						<td class="common_center_align">1</td>
+						<td class="common_center_align">000001</td>
+						<td class="common_center_align">平安银行</td>
+						<td class="common_center_align">10000</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class = "whitelist_second_tip" ng-show = "tatrd_showSecondTip">
+			<label class = "whitelist_tip_label">导入数据表正确格式为:</label>
+			<table class = "common_table" style = "width:410px;">
+				<thead>
+					<th class="common_center_align">交易账户</th>
+					<th class="common_center_align">策略组合</th>
+					<th class="common_center_align">UKCODE</th>
+					<th class="common_center_align">市场编号</th>
+					<th class="common_center_align">证券代码</th>
+					<th class="common_center_align">证券名称</th>
+					<th class="common_center_align">数量</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="common_center_align">100010001</td>
+						<td class="common_center_align">100010001</td>
+						<td class="common_center_align">1114116</td>
+						<td class="common_center_align">1</td>
+						<td class="common_center_align">000001</td>
+						<td class="common_center_align">平安银行</td>
+						<td class="common_center_align">10000</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<form id = "whitelist_tatrd_form" action="index.html" method="post" style = "display:none">
+			<input type="file" id = "whitelist_tatrd_file" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.csv">
+		</form>
+	</div>
+	<div class = "whitelist_option_div_lv2 common_nowrap">
+		<input type="text" class = "common_normal_input common_line_unend_item common_search_input_length" placeholder="请输入要查询证券代码或名称" ng-model = "$parent.tatrd_searchContent"  ng-change = "whitelistFilterTatrdSa()">
+		<label class = "whitelist_option_label">券类型：</label>
+		<label class="whitelist_option_radio_border" ng-click = "whitelistClickType(3)">
+			<label class = "whitelist_option_radio_heart" ng-show = "tatrd_type == 10"></label>
+		</label>
+		<label class = "whitelist_option_radio_label">底仓</label>
+		<label class="whitelist_option_radio_border" ng-click = "whitelistClickType(4)">
+			<label class = "whitelist_option_radio_heart" ng-show = "tatrd_type == 20"></label>
+		</label>
+		<label class = "whitelist_option_radio_label">预约券</label>
+		<button type="button" class = "common_normal_btn common_blue_btn common_line_unend_item" ng-if = "menuRight.indexOf(2002004002001) != -1 || menuRight.indexOf(2002004002002) != -1"  ng-disabled = "!tatrdLoadAble" ng-click = "whitelistTatrdLoadSure()">保存数据库</button>
+		<button type="button" class = "common_normal_btn common_gray_btn common_line_unend_item" ng-if = "menuRight.indexOf(2002004002001) != -1 || menuRight.indexOf(2002004002002) != -1"  ng-disabled = "!tatrdLoadAble" ng-click = "whitelistTatrdCancelLoad()" >取消保存</button>
+	</div>
+	<div class = "whitelist_data_div common_scroll_div">
+		<table ng-class = "{true:'common_red_fixed_table',false:'common_fixed_table'}[tatrdLoadAble]" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+			<thead >
+				<tr >
+					<th class = "common_center_align common_nowrap">序号</th>
+					<th class = "common_center_align common_nowrap" ng-click = "tatrdClickTableHeader('tracid',true)">
+						<span ng-show = "tatrd_keyName == 'tracid'" ng-class = "{common_sort_icon:!tatrd_reverse,common_sort_desc_icon:tatrd_reverse}"></span>
+						交易账户
+					</th>
+					<th class = "common_center_align common_nowrap" ng-click = "tatrdClickTableHeader('trid',true)">
+						<span ng-show = "tatrd_keyName == 'trid'" ng-class = "{common_sort_icon:!tatrd_reverse,common_sort_desc_icon:tatrd_reverse}"></span>
+						策略组合
+					</th>
+					<th class = "common_center_align common_nowrap" ng-click = "tatrdClickTableHeader('briefcode')">
+						<span ng-show = "tatrd_keyName == 'briefcode'" ng-class = "{common_sort_icon:!tatrd_reverse,common_sort_desc_icon:tatrd_reverse}"></span>
+						证券市场
+					</th>
+					<th class = "common_center_align common_nowrap" ng-click = "tatrdClickTableHeader('marketcode')">
+						<span ng-show = "tatrd_keyName == 'marketcode'" ng-class = "{common_sort_icon:!tatrd_reverse,common_sort_desc_icon:tatrd_reverse}"></span>
+						证券代码
+					</th>
+                    <th class = "common_center_align common_nowrap" ng-click = "tatrdClickTableHeader('chabbr')">
+						<span ng-show = "tatrd_keyName == 'chabbr'" ng-class = "{common_sort_icon:!tatrd_reverse,common_sort_desc_icon:tatrd_reverse}"></span>
+						证券名称
+					</th>
+                    <th class = "common_center_align common_nowrap" ng-click = "tatrdClickTableHeader('show_type')">
+						<span ng-show = "tatrd_keyName == 'show_type'" ng-class = "{common_sort_icon:!tatrd_reverse,common_sort_desc_icon:tatrd_reverse}"></span>
+						券类型
+					</th>
+                    <th class = "common_center_align common_nowrap" ng-click = "tatrdClickTableHeader('plansa',true)">
+						<span ng-show = "tatrd_keyName == 'plansa'" ng-class = "{common_sort_icon:!tatrd_reverse,common_sort_desc_icon:tatrd_reverse}"></span>
+						计划券
+					</th>
+                    <th class = "common_center_align common_nowrap" ng-click = "tatrdClickTableHeader('validsa',true)">
+						<span ng-show = "tatrd_keyName == 'validsa'" ng-class = "{common_sort_icon:!tatrd_reverse,common_sort_desc_icon:tatrd_reverse}"></span>
+						可配券
+					</th>
+					<th class = "common_center_align common_nowrap" ng-click = "tatrdClickTableHeader('usedsa',true)">
+						<span ng-show = "tatrd_keyName == 'usedsa'" ng-class = "{common_sort_icon:!tatrd_reverse,common_sort_desc_icon:tatrd_reverse}"></span>
+						已分配数量
+					</th>
+				</tr>
+				<tbody>
+					<tr ng-repeat = " tsl in tatrdSaList | orderBy:tatrd_keyName:false:tatrdClickTableHeader" ng-show = "tsl.show" ng-class = "{true:'common_activeTr',false:''}[$index == tatrd_click_tr ]" ng-click = "whitelistTatrdClickTr($index)">
+						<td class = "common_center_align common_nowrap">{{$index + 1}}</td>
+						<td class = "common_center_align common_nowrap">{{tsl.tracid}}</td>
+						<td class = "common_center_align common_nowrap">{{tsl.trid}}</td>
+						<td class = "common_center_align common_nowrap">{{tsl.briefcode}}</td>
+						<td class = "common_center_align common_nowrap">{{tsl.marketcode}}</td>
+						<td class = "common_center_align common_nowrap">{{tsl.chabbr}}</td>
+						<td class = "common_center_align common_nowrap">{{tsl.show_type}}</td>
+						<td class = "common_right_align" style = "width:140px;" ng-click = "whitelistTatrdEditPlan(tsl)">
+							<label ng-class = "{'common_table_modify_color': menuRight.indexOf(2002004002005) != -1 || tatrdLoadAble}" ng-hide = "tsl.editPlan">{{tsl.plansa | number}}</label>
+							<input type="text" class = "whitelist_table_input" ng-disabled = "menuRight.indexOf(2002004002005) == -1 && tatrdLoadAble == false" ng-show = "tsl.editPlan" maxlength="15" ng-model = "currentTatrdSa.editPlansa" ng-click = "whitelistStopEvent($event)" ng-keyup = "whitelistTatrdPlanKeyup($event)" ng-change = "whitelistTatrdInput(1)">
+						</td>
+						<td class = "common_right_align" style = "width:140px;" ng-click = "whitelistTatrdEditValid(tsl)">
+							<label ng-class = "{'common_table_modify_color': menuRight.indexOf(2002004002005) != -1 || tatrdLoadAble}" ng-hide = "tsl.editValid">{{tsl.validsa | number}}</label>
+							<input type="text" class = "whitelist_table_input" ng-disabled = "menuRight.indexOf(2002004002005) == -1 && tatrdLoadAble == false" ng-show = "tsl.editValid" maxlength="15" ng-model = "currentTatrdSa.editValidsa" ng-click = "whitelistStopEvent($event)" ng-keyup = "whitelistTatrdValidKeyup($event)" ng-change = "whitelistTatrdInput(2)">
+						</td>
+						<td class = "common_right_align common_nowrap">{{tsl.usedsa | number}}</td>
+					</tr>
+				</tbody>
+			</thead>
+		</table>
+	</div>
+</div>

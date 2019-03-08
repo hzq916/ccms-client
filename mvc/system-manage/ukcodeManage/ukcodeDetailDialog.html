@@ -1,0 +1,127 @@
+<div class="common_modal" id="ukcodeManage_add_modal">
+    <div class="common_modal_title_div" id = "ukcodeManage_add_modal_title">
+        <label class = "common_modal_title_label" ng-show="modalInfo.state == 'addUkcode'">添加ukcode</label>
+        <label class = "common_modal_title_label" ng-show="modalInfo.state == 'editUkcode'">修改ukcode</label>
+        <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "hideUkCodeModal()">
+            <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+        </div>
+    </div>
+
+    <div class="common_modal_body">
+        <table class="common_operate_table">
+            <tr>
+                <td>ukcode:</td>
+                <td>
+                    <input type="text" ng-model="operateUkCode.ukcode" ng-disabled="modalInfo.state == 'editUkcode'" class="common_normal_input ">
+                </td>
+                <td><label class="common_required_item">*</label></td>
+
+                <td>uk扩展码:</td>
+                <td>
+                    <input type="text" ng-model="operateUkCode.ukext" ng-disabled="modalInfo.state == 'editUkcode'" class="common_normal_input ">
+                </td>
+                <td><label class="common_required_item">*</label></td>
+            </tr>
+            <tr>
+                <td>交易市场:</td>
+                <td>
+                    <select class="common_dropdown"  ng-model="operateUkCode.marketid" style="width:158px;">
+                        <option value="0">所有市场</option>
+                        <option ng-repeat="market in markets" value="{{market.marketid}}">{{market.marketchname+"("+market.briefcode+")"}}</option>
+                    </select>
+                </td>
+                <td><label class="common_required_item">*</label></td>
+
+                <td>市场提供编码:</td>
+                <td>
+                    <input type="text" ng-model="operateUkCode.marketcode" value="" class="common_normal_input ">
+                </td>
+                <td><label class="common_required_item">*</label></td>
+            </tr>
+            <tr>
+                <td>uktype:</td>
+                <td >
+                    <select ng-init="operateUkCode.uktype" ng-model="operateUkCode.uktype"  class="common_dropdown" style="width:158px;"
+                        ng-options="uktype.typechname+'('+uktype.typeenname+')' for uktype in uktypes">
+                    </select>
+                </td>
+
+                <td><label class="common_required_item">*</label></td>
+            </tr>
+            <tr>
+                <td>中文全称:</td>
+                <td>
+                    <input type="text" ng-model="operateUkCode.chname" value="" class="common_normal_input ">
+                </td>
+                <td><label class="common_required_item">*</label></td>
+
+                <td>中文简称:</td>
+                <td>
+                    <input type="text" ng-model="operateUkCode.chabbr" value="" class="common_normal_input ">
+                </td>
+                <td><label class="common_required_item">*</label></td>
+            </tr>
+            <tr>
+                <td>英文名:</td>
+                <td>
+                    <input type="text" ng-model="operateUkCode.enname" value="" class="common_normal_input ">
+                </td>
+                <td><label class="common_required_item">*</label></td>
+
+                <td>结算和交易货币:</td>
+                <td>
+                    <select ng-model="operateUkCode.currencyid"  class="common_dropdown " style="width:158px;">
+                        <option ng-repeat="currency in allCurrency" value="{{currency.currencyid}}">{{currency.curencychname+"("+currency.briefcode+")"}}</option>
+                    </select>
+                </td>
+
+                <td><label class="common_required_item">*</label></td>
+            </tr>
+            <tr>
+                <td>聚源对照编码:</td>
+                <td>
+                    <input type="text" ng-model="operateUkCode.jycode" value="" class="common_normal_input ">
+                </td>
+                <td><label class="common_required_item">*</label></td>
+
+                <td>万德对照编码:</td>
+                <td>
+                    <input type="text" ng-model="operateUkCode.windcode" value="" class="common_normal_input ">
+                </td>
+                <td><label class="common_required_item">*</label></td>
+            </tr>
+            <tr>
+                <td>上市日期:</td>
+                <td>
+                    <input type="text" ng-model="operateUkCode.listdate" value="" class="common_normal_input ">
+                </td>
+                <td><label class="common_required_item">*</label></td>
+                <td>下市日期:</td>
+                <td>
+                    <input type="text" ng-model="operateUkCode.delistdate" value="" class="common_normal_input ">
+                </td>
+                <td><label class="common_required_item">*</label></td>
+            </tr>
+            <tr>
+                <td>输入编码:</td>
+                <td>
+                    <input type="text" ng-model="operateUkCode.inputcode" value="" class="common_normal_input ">
+                </td>
+                <td></td>
+                <td>最近修改:</td>
+                <td>
+                    <input type="text" ng-model="operateUkCode.lastupdate" disabled="disabled" class="common_normal_input ">
+                </td>
+                <td></td>
+
+            </tr>
+
+        </table>
+    </div>
+
+    <div class="common_modal_footer">
+        <button type="button" class="common_blue_btn common_normal_btn  common_default_length common_line_unend_item" ng-show="modalInfo.state == 'editUkcode'" ng-click="editUkcode(operateUkCode)">确定</button>
+        <button type="button" class="common_blue_btn common_normal_btn  common_default_length common_line_unend_item" ng-show="modalInfo.state == 'addUkcode'" ng-click="addUkcode(operateUkCode)">确定</button>
+        <button type="button" class="common_green_btn common_normal_btn  common_default_length" ng-click="hideUkCodeModal()">取消</button>
+    </div>
+</div>

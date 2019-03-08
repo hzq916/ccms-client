@@ -1,0 +1,73 @@
+<div class = "common_modal " id = "unitNetInfo_configuration_modal">
+    <div class="common_modal_title_div" id = "unitNetInfo_configuration_modal_title">
+        <label class = "common_modal_title_label">设置导出配置</label>
+        <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "cancelChangeNetInfoCfg()">
+            <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+        </div>
+    </div>
+
+
+    <div class="common_modal_body">
+        <table class="common_operate_table">
+            <tbody>
+                <tr>
+                    <td>自动导出：</td>
+                    <td>
+                        <input type="checkbox"  class="common_normal_input " ng-click="clickAutoExport()" ng-checked="configuration.autoExport" >
+                    </td>
+                    <td><label class="common_required_item">*</label></td>
+                </tr>
+                <tr>
+                    <td>自动导出时间1：</td>
+                    <td>
+                        <input type="time" class="unitNetInfo_TimeInput " ng-model="configuration.exportTime1" ng-disabled="!configuration.autoExport">
+                    </td>
+                    <td><label class="common_required_item">*</label></td>
+                </tr>
+
+                <tr>
+                    <td>自动导出时间2：</td>
+                    <td>
+                        <input type="time" class="unitNetInfo_TimeInput " ng-model="configuration.exportTime2" ng-disabled="!configuration.autoExport">
+                    </td>
+                    <td><label class="common_required_item">*</label></td>
+                </tr>
+
+                <tr>
+                    <td>导出路径：</td>
+                    <td>
+                        <input type="text" ng-model="configuration.path"  class="common_normal_input " ng-dblclick="getDirectory()"
+                        ng-disabled="!configuration.autoExport" placeholder="双击选择路径" title="双击选择路径">
+
+                    </td>
+
+                    <td><label class="common_required_item">*</label></td>
+                </tr>
+                <tr>
+                    <td>导出格式：</td>
+                    <td>
+                        <select ng-model="configuration.excelType" class="common_dropdown " ng-disabled="!configuration.autoExport" style="width:158px;">
+                            <option value="csv">csv</option>
+                            <option value="xlsx">xlsx</option>
+                            <option value="xls">xls</option>
+                        </select>
+                    </td>
+                    <td><label class="common_required_item">*</label></td>
+                </tr>
+                <tr>
+                    <td>同时应用到其他报表：</td>
+                    <td>
+                        <input type="checkbox"  class="common_normal_input " ng-click="clickApplyAll()" ng-disabled="!configuration.autoExport" ng-checked="configuration.applyAll" >
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="common_modal_footer">
+		<button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length " ng-click="confirmNetInfoCfg()">确定</button>
+		<button type="button" class="common_gray_btn common_normal_btn  common_default_length" ng-click="cancelChangeNetInfoCfg()">取消</button>
+	</div>
+</div>

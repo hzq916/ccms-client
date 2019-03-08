@@ -1,0 +1,41 @@
+<div class = "common_modal" id = "calendar_modal">
+	<div class="common_modal_title_div" id = "calendar_modal_title">
+		<label class = "common_modal_title_label">修改交易日历</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "calendarHideModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class = "common_modal_body">
+		<div class="common_form_div_item_10px">
+			<label class = "common_normal_text calendar_modal_form_header">日期：</label>
+			<input type="text" class = "common_normal_input calendar_modal_form_input" ng-disabled = "true" ng-model = "currentCalendar.trday">
+		</div>
+		<div class="common_form_div_item_10px">
+			<label class = "common_normal_text calendar_modal_form_header">市场：</label>
+			<input type="text" class = "common_normal_input calendar_modal_form_input" ng-disabled = "true" ng-model = "currentCalendar.marketchname">
+		</div>
+		<div class="common_form_div_item_10px">
+			<label class = "common_normal_text calendar_modal_form_header">星期：</label>
+			<input type="text" class = "common_normal_input calendar_modal_form_input" ng-disabled = "true" ng-model = "currentCalendar.showDayofweek">
+		</div>
+		<div class="common_form_div_item_10px">
+			<label class = "common_normal_text calendar_modal_form_header">第几周：</label>
+			<input type="text" class = "common_normal_input calendar_modal_form_input" ng-disabled = "true" ng-model = "currentCalendar.weekno" >
+		</div>
+		<div class="common_form_div_item_10px">
+			<label class = "common_normal_text calendar_modal_form_header">是否交易日：</label>
+			<select class="common_dropdown calendar_modal_form_dropdown" ng-model = "currentCalendar.holiday">
+				<option value="0">是</option>
+				<option value="1">否</option>
+			</select>
+		</div>
+		<div class="common_form_div_item_10px">
+			<label class = "common_normal_text calendar_modal_form_header">备注：</label>
+			<input type="text" class = "common_normal_input calendar_modal_form_input" ng-model = "currentCalendar.comm">
+		</div>
+	</div>
+	<div class = "common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "calendarEditDataSure()">确定</button>
+		<button type="button" class = "common_green_btn common_normal_btn common_default_length" ng-click = "calendarHideModal()">取消</button>
+	</div>
+</div>

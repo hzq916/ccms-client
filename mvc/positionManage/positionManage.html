@@ -1,0 +1,514 @@
+<div class="common_page_html common_scroll_div" ng-controller="positionManageCtrl">
+    <div class="common_mini_subguide_div" ng-show="!showSubguide" ng-click="showSubguide=true;">
+        <div class="common_mini_guide_title_div">
+            <div class="common_menu_icon"></div>
+            单元导航
+        </div>
+    </div>
+    <div class="common_subguide_div" ng-show="showSubguide">
+        <div class="common_guide_title_div">
+            <label class="common_guide_title_label">单元导航</label>
+            <img src="../commonui/images/icon_lock.png" draggable="false" class="common_guide_close_icon" title="点击收起菜单" ng-click="showSubguide=false;"
+            />
+        </div>
+        <div class=" common_guide_content_div common_scroll_div">
+            <cms-guide guide-data="{{guideTree}}" guide-selectleaf="true" guide-click="clickGuideMenu(menu)" guide-setmenu="setGuideMenu"></cms-guide>
+        </div>
+
+    </div>
+
+    <div ng-class="{'common_content_locked_div':showSubguide,'common_content_unlocked_div':!showSubguide}">
+        <div class="common_page_html common_scroll_div">
+            <div class="common_normal_operate_div common_nowrap">
+                <input type="text" class="common_normal_input common_line_unend_item common_search_input_length" style="margin-right: 5px;"
+                    ng-model="findStockCode" placeholder="请输入要查询的证券代码或名称">
+                <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length" style="margin-right: 5px;"
+                    ng-click="refresh()" ng-show="currentUnit.maid">刷新</button>
+
+                <cms-drop-down-menu placeholder-text="导入持仓" select-options="{{importTypes1}}" click-menu-item="clickMenuItem1(option)" ng-show="showQuestionMark11 || showQuestionMark22"
+                    ng-if="(showQuestionMark11 && menuRight.indexOf(2002003001) != -1) || (showQuestionMark22 && menuRight.indexOf(2002003004) != -1)"></cms-drop-down-menu>
+
+                <cms-drop-down-menu placeholder-text="导入证券持仓" style="width: 95px;" select-options="{{importTypes2}}" click-menu-item="clickMenuItem2(option)"
+                    ng-show="currentUnit.trid && !importing" ng-if="menuRight.indexOf(2002003001) != -1"></cms-drop-down-menu>
+                <cms-drop-down-menu placeholder-text="导入期货期权持仓" style="width: 120px;" select-options="{{importTypes3}}" click-menu-item="clickMenuItem3(option)"
+                    ng-show="currentUnit.trid && !importing" ng-if="menuRight.indexOf(2002003004) != -1"></cms-drop-down-menu>
+
+                <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length" style="margin-right: 5px;"
+                    ng-click="saveHoldPosition()" ng-show=" importing">保存</button>
+                <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length" style="margin-right: 5px;"
+                    ng-click="cancelImport()" ng-show=" importing">取消保存</button>
+                <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length" style="margin-right: 5px;"
+                    ng-if="menuRight.indexOf(2002003002) != -1" ng-click="exportData()" ng-show=" holdPosition.length">导出</button>
+
+                <!-- 当账户类型为证券账户 -->
+                <img src="../commonui/images/tishi.png" alt="导入提示" ng-show="currentUnit.maid && showQuestionMark1" ng-mouseover="showImportTips=true;"
+                    ng-mouseout="showImportTips=false;" style="width: 18px;height: 18px;vertical-align: middle;cursor: pointer;">
+                <!-- 当账户类型为证券账户 -->
+
+                <!-- 当账户类型为期货账户 -->
+                <img src="../commonui/images/tishi.png" alt="导入提示" ng-show="currentUnit.maid && showQuestionMark2" ng-mouseover="showImportFutureTips=true;"
+                    ng-mouseout="showImportFutureTips=false;" style="width: 18px;height: 18px;vertical-align: middle;cursor: pointer;">
+                <!-- 当账户类型为期货账户 -->
+
+
+                <!-- 当为组合导持仓 -->
+                <img src="../commonui/images/tishi.png" alt="导入提示" ng-show="currentUnit.maid && showQuestionMark3" ng-mouseover="showImportStrategyTips=true;"
+                    ng-mouseout="showImportStrategyTips=false;" style="width: 18px;height: 18px;vertical-align: middle;cursor: pointer;">
+                <!-- 当为组合导持仓 -->
+
+
+
+                <form class="" action="index.html" method="post" style="display:none;">
+                    <input type="file" id="positionManage_import_data" accept=".csv,.xlsx,.xls">
+                    <input type="reset" value="Reset" id="positionManage_reset" />
+                </form>
+                <!-- 账户类型为证券账户 -->
+                <div class="import_example_div" ng-show="showImportTips">
+                    <div style="text-align: center;">
+                        <label class="position_tip_label" style="font-size: 15px;font-weight: bold;">导入证券持仓说明</label>
+                    </div>
+                    <div style="color: red;display: inline-block;margin-top: 10px;margin-bottom: 10px;">说明: 盘中交易导入时,可能导致持仓数据异常!</div>
+                    <label class="position_tip_label" style="display: block;">导入格式如下：</label>
+                    <!-- <label class="position_tip_label" style="float:right; color:red;">注意:交易期间导入持仓可能会造成不可预期的错误!</label> -->
+                    <table class="common_table">
+                        <thead>
+                            <th class="common_center_align common_nowrap">证券代码</th>
+                            <th class="common_center_align common_nowrap">证券名称</th>
+                            <th class="common_center_align common_nowrap">持仓数量</th>
+                            <th class="common_center_align common_nowrap">可用数量</th>
+                            <th class="common_center_align common_nowrap">持仓成本</th>
+                            <th class="common_center_align common_nowrap">市场</th>
+                            <th class="common_center_align common_nowrap">交易账户</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="common_center_align">000001</td>
+                                <td class="common_center_align">平安银行</td>
+                                <td class="common_center_align">1000</td>
+                                <td class="common_center_align">1000</td>
+                                <td class="common_center_align">1000</td>
+                                <td class="common_center_align">SZ</td>
+                                <td class="common_center_align">1020001</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <div class="descript_title">其中：</div>
+                        <div class="descript_title" style="text-indent: ３px;">&nbsp;&nbsp;市场SH表示上海证券交易所,SZ表示深圳证券交易所,用大写字母表示;</div>
+                        <div class="descript_title" style="text-indent: ３px;">&nbsp;&nbsp;如果组合或账户下仅存在单一市场的交易账户可以不指定，否则则需要指定交易账户。</div>
+                    </div>
+                </div>
+                <!-- 账户类型为证券账户 -->
+
+                <!-- 账户类型为期货账户 -->
+                <div class="import_example_div" ng-show="showImportFutureTips">
+                    <div style="text-align: center;">
+                        <label class="position_tip_label" style="font-size: 15px;font-weight: bold;">导入期货/期权持仓说明</label>
+                    </div>
+                    <div style="color: red;display: inline-block;margin-top: 10px;margin-bottom: 10px;">说明: 盘中交易导入时,可能导致持仓数据异常!</div>
+                    <label class="position_tip_label" style="display: block;">导入格式如下：</label>
+                    <!-- <label class="position_tip_label" style="float:right; color:red;">注意:交易期间导入持仓可能会造成不可预期的错误!</label> -->
+                    <table class="common_table">
+                        <thead>
+                            <th class="common_center_align common_nowrap">合约代码</th>
+                            <th class="common_center_align common_nowrap">昨仓数量</th>
+                            <th class="common_center_align common_nowrap">持仓数量</th>
+                            <th class="common_center_align common_nowrap">持仓成本</th>
+                            <th class="common_center_align common_nowrap">仓位方向</th>
+                            <th class="common_center_align common_nowrap">市场</th>
+                            <th class="common_center_align common_nowrap">交易账户</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="common_center_align">CU1910</td>
+                                <td class="common_center_align">1000</td>
+                                <td class="common_center_align">1000</td>
+                                <td class="common_center_align">1000</td>
+                                <td class="common_center_align">多仓</td>
+                                <td class="common_center_align">SHF</td>
+                                <td class="common_center_align">1020001</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <div class="descript_title">其中：</div>
+                        <div class="descript_title" 　style="text-indent: ３px;">&nbsp;&nbsp;市场CFE表示中国金融期货交易所，SHF表示上海商品期货交易所，CZC表示</div>
+                        <div class="descript_title">郑州商品期货交易所，DCE表示大连商品交易所,均用大写字母表示;</div>
+                        <div class="descript_title" 　style="text-indent: ３px;">&nbsp;&nbsp;如果组合或者账户下仅存在单一市场交易账户时可以不指定，否则需要指定</div>
+                        <div class="descript_title">交易账户;</div>
+                    </div>
+                </div>
+                <!-- 账户类型为期货账户 -->
+
+                <!-- 当为组合导入持仓 -->
+                <div class="import_example_div" ng-show="showImportStrategyTips">
+                    <div style="text-align: center;">
+                        <label class="position_tip_label" style="font-size: 15px;font-weight: bold;">导入持仓说明</label>
+                    </div>
+                    <div style="color: red;display: inline-block;margin-top: 10px;margin-bottom: 10px;">说明: 盘中交易导入时,可能导致持仓数据异常!</div>
+                    <label class="position_tip_label" style="display: block;">导入证券持仓格式如下：</label>
+                    <!-- <label class="position_tip_label" style="float:right; color:red;">注意:交易期间导入持仓可能会造成不可预期的错误!</label> -->
+                    <table class="common_table">
+                        <thead>
+                            <th class="common_center_align common_nowrap" ng-show="currentUnit.trid">证券代码</th>
+                            <th class="common_center_align common_nowrap">证券名称</th>
+                            <th class="common_center_align common_nowrap">持仓数量</th>
+                            <th class="common_center_align common_nowrap">可用数量</th>
+                            <th class="common_center_align common_nowrap">持仓成本</th>
+                            <th class="common_center_align common_nowrap">市场</th>
+                            <th class="common_center_align common_nowrap">交易账户</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="common_center_align" ng-show="currentUnit.trid">000001</td>
+                                <td class="common_center_align">平安银行</td>
+                                <td class="common_center_align">1000</td>
+                                <td class="common_center_align">1000</td>
+                                <td class="common_center_align">1000</td>
+                                <td class="common_center_align">SZ</td>
+                                <td class="common_center_align">1020001</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <div class="descript_title">其中：</div>
+                        <div class="descript_title" 　style="text-indent: ３px;">&nbsp;&nbsp;SH表示上海证券交易所，SZ表示深圳证券交易所，用大写字母表示;</div>
+                        <div class="descript_title" 　style="text-indent: ３px;">&nbsp;&nbsp;如果组合或者账户下仅存在单一市场交易账户时可以不指定，否则需要指定交易账户;</div>
+                    </div>
+                    <label class="position_tip_label" style="display: block;margin-top: 10px;">导入期货期权持仓格式如下：</label>
+                    <table class="common_table">
+                        <thead>
+                            <th class="common_center_align common_nowrap" ng-show="currentUnit.trid">合约代码</th>
+                            <th class="common_center_align common_nowrap">昨仓数量</th>
+                            <th class="common_center_align common_nowrap">持仓数量</th>
+                            <th class="common_center_align common_nowrap">持仓成本</th>
+                            <th class="common_center_align common_nowrap">仓位方向</th>
+                            <th class="common_center_align common_nowrap">市场</th>
+                            <th class="common_center_align common_nowrap">交易账户</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="common_center_align" ng-show="currentUnit.trid">IF1901</td>
+                                <td class="common_center_align">1000</td>
+                                <td class="common_center_align">1000</td>
+                                <td class="common_center_align">1000</td>
+                                <td class="common_center_align">多仓</td>
+                                <td class="common_center_align">SHF</td>
+                                <td class="common_center_align">1020001</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <div class="descript_title">其中：</div>
+                        <div class="descript_title" style="text-indent: ３px;">&nbsp;&nbsp;市场CFE表示中国金融期货交易所，SHF表示上海商品期货交易所，CZC表示</div>
+                        <div class="descript_title">郑州商品期货交易所，DCE表示大连商品交易所,均用大写字母表示;</div>
+                        <div class="descript_title" style="text-indent: ３px;">&nbsp;&nbsp;如果组合或者账户下仅存在单一市场交易账户时可以不指定，否则需要指定</div>
+                        <div class="descript_title">交易账户;</div>
+                    </div>
+                </div>
+                <!-- 当为组合导入持仓 -->
+
+            </div>
+
+            <div class="common_scroll_div common_normal_data_div">
+                <!-- 证券类型的账户 -->
+                <table ng-show="showQuestionMark11" ng-class="{'common_fixed_table':!importing,'common_red_fixed_table':importing}" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+                    <thead>
+                        <tr>
+                            <th class="common_nowrap">序号</th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('marketcode')">
+                                <span ng-show="keyName == 'marketcode'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                证券代码
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('chabbr')">
+                                <span ng-show="keyName == 'chabbr'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                证券名称
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('pretotalvol')">
+                                <span ng-show="keyName == 'pretotalvol'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                昨仓数量
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('totalvol',true)">
+                                <span ng-show="keyName == 'totalvol'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                持仓数量
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('validvol',true)">
+                                <span ng-show="keyName == 'validvol'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                可用数量
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('holdcost',true)">
+                                <span ng-show="keyName == 'holdcost'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                持仓成本
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('marketid',true)">
+                                <span ng-show="keyName == 'marketid'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                市场
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('tracid',true)">
+                                <span ng-show="keyName == 'tracid'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                交易账户
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="position in allPosition | filter: myFilter1 | orderBy:keyName:false:sortFunction" ng-class="{'common_activeTr':position.active}"
+                            ng-click="cancelAllEdit(position,$event)">
+                            <td class="common_center_align">{{$index+1}}</td>
+                            <td class=" common_nowrap common_center_align">{{position.marketcode}}</td>
+                            <td class=" common_nowrap common_center_align">{{position.chabbr}}</td>
+                            <td class=" common_nowrap common_center_align">{{position.pretotalvol | number:3}}</td>
+                            <td class="  common_center_align" style="padding:0; width:140px;" ng-click="clickTotalVol(position,$event)">
+                                <label>{{position.totalvol | number:0}}</label>
+                                <!-- <input type="text" class="positionManage_table_input" ng-disabled="menuRight.indexOf(2002003003) == -1 && importing == false"
+                                    ng-model="position.totalvol2" ng-show="position.edit_totalvol" ng-blur="cancelEdit(position, 'totalvol')"
+                                    ng-keyup="inputPress($event, position, 'totalvol')"> -->
+                            </td>
+
+
+                            <td class=" common_center_align" style="padding:0; width:140px;" ng-click="clickValidVol(position,$event)">
+                                <label>{{position.validvol | number:0}}</label>
+                                <!-- <input type="text" class="positionManage_table_input" ng-disabled="menuRight.indexOf(2002003003) == -1 && importing == false"
+                                    ng-model="position.validvol2" ng-show="position.edit_validvol" ng-blur="cancelEdit(position, 'validvol')"
+                                    ng-keyup="inputPress($event, position, 'validvol')"> -->
+                            </td>
+                            <td class=" common_nowrap common_center_align">{{position.holdcost | number:3}}</td>
+                            <td class=" common_nowrap common_center_align">{{position.marketStr}}</td>
+                            <td class=" common_nowrap  common_center_align">
+                                {{position.tracid}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- 证券类型的账户 -->
+
+                <!-- 期货类型的账户 -->
+                <table ng-show="showQuestionMark22" ng-class="{'common_fixed_table':!importing,'common_red_fixed_table':importing}" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+                    <thead>
+                        <tr>
+                            <th class="common_nowrap">序号</th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('marketcode')">
+                                <span ng-show="keyName == 'marketcode'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                合约代码
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('chabbr')">
+                                <span ng-show="keyName == 'chabbr'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                合约名称
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('overnightvol')">
+                                <span ng-show="keyName == 'overnightvol'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                昨仓数量
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('totalvol',true)">
+                                <span ng-show="keyName == 'totalvol'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                持仓数量
+                            </th>
+                            <!-- <th class="common_center_align common_nowrap" ng-click="clickTableHeader('validvol',true)">
+                                <span ng-show="keyName == 'validvol'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                可用数量
+                            </th> -->
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('holdcost',true)">
+                                <span ng-show="keyName == 'holdcost'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                持仓成本
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('direction',true)">
+                                <span ng-show="keyName == 'direction'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                仓位方向
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('marketid',true)">
+                                <span ng-show="keyName == 'marketid'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                市场
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('tracid',true)">
+                                <span ng-show="keyName == 'tracid'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                交易账户
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="position in allPosition | filter: myFilter1 | orderBy:keyName:false:sortFunction" ng-class="{'common_activeTr':position.active}"
+                            ng-click="cancelAllEdit(position,$event)">
+                            <td class="common_center_align">{{$index+1}}</td>
+                            <td class=" common_nowrap common_center_align">{{position.marketcode}}</td>
+                            <td class=" common_nowrap common_center_align">{{position.chabbr}}</td>
+                            <td class=" common_nowrap common_center_align">{{position.overnightvol | number:3}}</td>
+                            <td class="  common_center_align" style="padding:0; cursor: pointer; width:140px;" ng-click="clickTotalVol(position,$event)">
+                                <label ng-class="{'common_table_modify_color':menuRight.indexOf(2002003003) != -1 || importing}" style="cursor: pointer;"
+                                    ng-show="!position.edit_totalvol">{{position.totalvol | number:0}}</label>
+                                <!-- <input type="text" class="positionManage_table_input" ng-disabled="menuRight.indexOf(2002003003) == -1 && importing == false"
+                                    ng-model="position.totalvol2" ng-show="position.edit_totalvol" ng-blur="cancelEdit(position, 'totalvol')"
+                                    ng-keyup="inputPress($event, position, 'totalvol')"> -->
+                            </td>
+
+
+                            <td class=" common_center_align" style="padding:0; cursor: pointer; width:140px;" ng-click="clickValidVol(position,$event)">
+                                <label ng-class="{'common_table_modify_color':menuRight.indexOf(2002003003) != -1 || importing}" style="cursor: pointer;"
+                                    ng-show="!position.edit_validvol">{{position.holdcost | number:0}}</label>
+                                <!-- <input type="text" class="positionManage_table_input" ng-disabled="menuRight.indexOf(2002003003) == -1 && importing == false"
+                                    ng-model="position.validvol2" ng-show="position.edit_validvol" ng-blur="cancelEdit(position, 'validvol')"
+                                    ng-keyup="inputPress($event, position, 'validvol')"> -->
+                            </td>
+                            <td class=" common_nowrap common_center_align">{{position.directionStr}}</td>
+                            <td class=" common_nowrap common_center_align">{{position.marketStr}}</td>
+                            <td class=" common_nowrap  common_center_align">
+                                {{position.tracid}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- 期货类型的账户 -->
+
+                <!-- 组合导入持仓，当选择的是导入证券持仓 -->
+                <table ng-show="showQuestionMark33" ng-class="{'common_fixed_table':!importing,'common_red_fixed_table':importing}" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+                    <thead>
+                        <tr>
+                            <th class="common_nowrap">序号</th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('marketcode')">
+                                <span ng-show="keyName == 'marketcode'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                代码
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('chabbr')">
+                                <span ng-show="keyName == 'chabbr'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                名称
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('pretotalvol',true)">
+                                <span ng-show="keyName == 'pretotalvol'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                昨仓数量
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('totalvol',true)">
+                                <span ng-show="keyName == 'totalvol'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                持仓数量
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('validvol',true)">
+                                <span ng-show="keyName == 'validvol'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                可用数量
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('holdcost',true)">
+                                <span ng-show="keyName == 'holdcost'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                持仓成本
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('direction',true)">
+                                <span ng-show="keyName == 'direction'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                仓位方向
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('marketStr',true)">
+                                <span ng-show="keyName == 'marketStr'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                市场
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('tracid',true)">
+                                <span ng-show="keyName == 'tracid'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                交易账户
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="position in allPosition | filter: myFilter1 | orderBy:keyName:false:sortFunction" ng-class="{'common_activeTr':position.active}"
+                            ng-click="cancelAllEdit(position,$event)">
+                            <td class="common_center_align">{{$index+1}}</td>
+                            <td class=" common_nowrap common_center_align">{{position.marketcode}}</td>
+                            <td class=" common_nowrap common_center_align">{{position.chabbr}}</td>
+                            <td class="  common_center_align" style="padding:0; cursor: pointer; width:140px;" ng-click="clickTotalVol(position,$event)">
+                                <label>{{position.pretotalvol | number:3}}</label>
+                                <!-- <input type="text" class="positionManage_table_input" ng-disabled="menuRight.indexOf(2002003003) == -1 && importing == false"
+                                    ng-model="position.totalvol2" ng-show="position.edit_totalvol" ng-blur="cancelEdit(position, 'totalvol')"
+                                    ng-keyup="inputPress($event, position, 'totalvol')"> -->
+                            </td>
+                            <td class=" common_nowrap common_center_align">{{position.totalvol | number:3}}</td>
+                            <td class=" common_nowrap common_center_align">{{position.validvol | number:3}}</td>
+                            <td class=" common_nowrap common_center_align">{{position.holdcost}}</td>
+                            <td class=" common_nowrap common_center_align">{{position.directionStr}}</td>
+                            <td class=" common_nowrap common_center_align">{{position.marketStr}}</td>
+                            <td class=" common_nowrap  common_center_align">
+                                {{position.tracid}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- 组合导入持仓，当选择的是导入证券持仓 -->
+
+
+                <!-- 组合导入持仓，当选择的是导入期权仓位 -->
+                <table ng-show="showQuestionMark44" ng-class="{'common_fixed_table':!importing,'common_red_fixed_table':importing}" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+                    <thead>
+                        <tr>
+                            <th class="common_nowrap">序号</th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('marketcode')">
+                                <span ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                代码
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('chabbr')">
+                                <span ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                名称
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('overnightvol')">
+                                <span ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                昨仓数量
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('totalvol',true)">
+                                <span ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                持仓数量
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('validvol',true)">
+                                <span ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                可用数量
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('holdcost',true)">
+                                <span ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                持仓成本
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('direction',true)">
+                                <span ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                仓位方向
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('marketStr',true)">
+                                <span ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                市场
+                            </th>
+                            <th class="common_center_align common_nowrap" ng-click="clickTableHeader('tracid',true)">
+                                <span ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                交易账户
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="position in allPosition | filter: myFilter1 | orderBy:keyName:false:sortFunction" ng-class="{'common_activeTr':position.active}"
+                            ng-click="cancelAllEdit(position,$event)">
+                            <td class="common_center_align">{{$index+1}}</td>
+                            <td class=" common_nowrap common_center_align">{{position.marketcode}}</td>
+                            <td class=" common_nowrap common_center_align">{{position.chabbr}}</td>
+                            <td class=" common_nowrap common_center_align">{{position.overnightvol | number:3}}</td>
+                            <td class="  common_center_align" style="padding:0; cursor: pointer; width:140px;" ng-click="clickTotalVol(position,$event)">
+                                <label>{{position.totalvol | number:0}}</label>
+                                <!-- <input type="text" class="positionManage_table_input" ng-disabled="menuRight.indexOf(2002003003) == -1 && importing == false"
+                                    ng-model="position.totalvol2" ng-show="position.edit_totalvol" ng-blur="cancelEdit(position, 'totalvol')"
+                                    ng-keyup="inputPress($event, position, 'totalvol')"> -->
+                            </td>
+
+
+                            <td class=" common_center_align" style="padding:0; cursor: pointer; width:140px;" ng-click="clickValidVol(position,$event)">
+                                <label>{{position.validvol | number:0}}</label>
+                                <!-- <input type="text" class="positionManage_table_input" ng-disabled="menuRight.indexOf(2002003003) == -1 && importing == false"
+                                    ng-model="position.validvol2" ng-show="position.edit_validvol" ng-blur="cancelEdit(position, 'validvol')"
+                                    ng-keyup="inputPress($event, position, 'validvol')"> -->
+                            </td>
+                            <td class=" common_nowrap common_center_align">{{position.holdcost | number:3}}</td>
+                            <td class=" common_nowrap common_center_align">{{position.directionStr}}</td>
+                            <td class=" common_nowrap common_center_align">{{position.marketStr}}</td>
+                            <td class=" common_nowrap  common_center_align">
+                                {{position.tracid}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- 组合导入持仓，当选择的是导入期权仓位 -->
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="common_modal_back" id="positionManage_modal_back">
+        <div ng-include="modalInfo.path" onload="accountManageLoadModalReady()"></div>
+    </div>
+</div>

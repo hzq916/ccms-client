@@ -1,0 +1,86 @@
+.lrtrader_operate_div {
+	position: absolute;
+	top: 0;
+	left: 13px;
+	right: 9px;
+	height: 26px;
+}
+.lrtrader_options_div {
+	position: absolute;
+	top: 36px;
+	left: 5px;
+	right: 9px;
+	height: 260px;
+	border: 1px solid #dcdcdc;
+}
+.lrtrader_options_trader_option {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	bottom: 5px;
+	width: 300px;
+}
+.lrtrader_options_target_option {
+	position: absolute;
+	top: 10px;
+	left: 330px;
+	bottom: 0;
+	width: 300px;
+}
+.lrtrader_options_vertical {
+	margin-bottom: 5px;
+}
+.lrtrader_unit_dropdown {
+	width: 220px;
+}
+.lrtrader_options_trader_table {
+	position: absolute;
+	left: 0;
+	top: 72px;
+	bottom: 0;
+	right: 0;
+	border: 1px solid #dcdcdc;
+}
+.lrtrader_options_market_dropdown {
+	width: 100%;
+}
+.lrtrader_options_code_input {
+	width: 180px;
+}
+.lrtrader_options_volume_label {
+	display: inline-block;
+	width: 105px;
+}
+.lrtrader_options_volume_dropdown {
+	width: 60px;
+}
+.lrtrader_options_volume_input {
+	width: 116px;
+}
+.lrtrader_options_amount_label {
+	display: inline-block;
+	width: 100px;
+}
+.lrtrader_options_amount_dropdown {
+	width: 63px;
+}
+.lrtrader_options_amount_input {
+	width: 51px;
+}
+
+.lrtrader_data_div {
+	position: absolute;
+	left: 5px;
+	right: 9px;
+	top: 36px;
+	bottom: 10px;
+	border: 1px solid #DCDCDC;
+}
+.lrtrader_data_show_options_div {
+	position: absolute;
+	left: 5px;
+	right: 9px;
+	top: 300px;
+	bottom: 10px;
+	border: 1px solid #DCDCDC;
+}

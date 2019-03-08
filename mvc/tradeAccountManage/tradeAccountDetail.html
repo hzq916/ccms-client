@@ -1,0 +1,163 @@
+<div class="common_modal editTradeAccountDialog" id="tractManage_detail_modal" style="width:715px; ">
+    <div class="common_modal_title_div" id = "tractManage_detail_modal_title">
+        <label class = "common_modal_title_label" ng-show="dialogModalInfo.state =='createTradeAccount'">新建交易账户</label>
+        <label class = "common_modal_title_label" ng-show="dialogModalInfo.state =='editTradeAccount'">编辑交易账户</label>
+        <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "hideTractModal()">
+            <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+        </div>
+    </div>
+    <div class="common_modal_body">
+        <table class="common_operate_table" style="width:675px;">
+          <tbody>
+            <tr>
+                <td class = "common_nowrap">
+                    资产管理人ID：
+                </td>
+                <td>
+                    <select ng-model="operateTradeAccount.maid" class="common_dropdown tradeAccountManage_select" disabled="disabled">
+                        <option ng-repeat="assetManager in allAssetManager" value="{{assetManager.maid}}">{{assetManager.maname+'('+assetManager.maid+')'}}</option>
+                    </select>
+                </td>
+                <td><label class="common_required_item">*</label></td>
+                <td class = "common_nowrap">
+                    资产账户ID：
+                </td>
+                <td>
+                    <input type="text"  class="common_normal_input tradeAccountManage_input" disabled="disabled" value="{{currentAssetAccount.acname+'('+currentAssetAccount.acid+')'}}">
+                </td>
+                <td><label class="common_required_item">*</label></td>
+            </tr>
+            <tr>
+                <td ng-show="dialogModalInfo.state != 'createTradeAccount'" class = "common_nowrap">
+                    交易账户ID：
+                </td>
+                <td ng-show="dialogModalInfo.state != 'createTradeAccount'">
+                    <input type="text" ng-disabled="dialogModalInfo.state === 'editTradeAccount'" ng-model="operateTradeAccount.tracid"
+                         class="common_normal_input tradeAccountManage_input">
+                </td>
+                <!--<td  ng-show="dialogModalInfo.state == 'createTradeAccount'">
+                    <div class="common_id_input " style="width:180px;">
+                        <input type="text"  maxlength="4" cms-mask="unsignedInt" placeholder="1~9999" ng-model = "operateTradeAccount.tracid" ng-change = "changeTracid()">
+                        <label>{{operateTradeAccount.real_tracid}}</label>
+                    </div>
+                </td>-->
+                <td ng-show="dialogModalInfo.state != 'createTradeAccount'"><label class="common_required_item">*</label></td>
+                <td class = "common_nowrap">
+                    交易账户名称：
+                </td>
+                <td>
+                    <input type="text" maxlength="32" class="common_normal_input tradeAccountManage_input" ng-model="operateTradeAccount.tracname">
+                </td>
+                <td><label class="common_required_item">*</label></td>
+            </tr>
+            <tr>
+                <td class = "common_nowrap">
+                    市场：
+                </td>
+                <td>
+                    <select ng-model="operateTradeAccount.marketid" class="common_dropdown tradeAccountManage_select" ng-disabled="dialogModalInfo.state === 'editTradeAccount'">
+                        <option ng-repeat="market in allMarket" value="{{market.marketid}}">{{market.marketchname+"("+market.briefcode+")"}}</option>
+                    </select>
+                </td>
+                <td><label class="common_required_item">*</label></td>
+                <td class = "common_nowrap">
+                    交易编码：
+                </td>
+                <td>
+                    <input type="text" maxlength="32" class="common_normal_input tradeAccountManage_input" ng-model="operateTradeAccount.trcode">
+                </td>
+                <td><label class="common_required_item">*</label></td>
+            </tr>
+            <tr>
+                <td class = "common_nowrap">
+                    币种：
+                </td>
+                <td>
+                    <select ng-model="operateTradeAccount.currencyid" class="common_dropdown tradeAccountManage_select" ng-disabled="dialogModalInfo.state === 'editTradeAccount'">
+                        <option ng-repeat="currency in allCurrency" value="{{currency.currencyid}}">{{currency.curencychname+"("+currency.briefcode+")"}}</option>
+                    </select>
+                </td>
+                <td><label class="common_required_item">*</label></td>
+                <td class = "common_nowrap">
+                    服务：
+                </td>
+                <td>
+                    <select ng-model="operateTradeAccount.chid" class="common_dropdown tradeAccountManage_select" >
+                        <option ng-repeat="service in ogsServices" value="{{service.serviceid}}">{{service.servicename+"("+service.serviceid+")"}}</option>
+                    </select>
+                </td>
+                <td><label class="common_required_item">*</label></td>
+            </tr>
+            <!-- <tr ng-show="dialogModalInfo.state === 'createTradeAccount'">
+                <td class = "common_nowrap">
+                    创建者：
+                </td>
+                <td>
+                    <input type="text" disabled="disabled" ng-model="operateTradeAccount.creator" >
+                </td>
+                <td class = "common_nowrap">
+                    创建时间：
+                </td>
+                <td>
+                    <input type="date" disabled="disabled" id="tradeAccount_createtime_Input">
+                </td>
+            </tr> -->
+            <tr>
+                <td class = "common_nowrap" ng-show="currentAssetAccount.actype == 3">
+                    对冲标志：
+                </td>
+                <td ng-show="currentAssetAccount.actype == 3">
+                    <select ng-model="operateTradeAccount.hedgeflag" class="common_dropdown tradeAccountManage_select">
+                        <option value="1">投机</option>
+                        <option value="2">套利</option>
+                        <option value="3">套保</option>
+                    </select>
+                </td>
+                <td ng-show="currentAssetAccount.actype == 3">
+                    <label class="common_required_item">*</label>
+                </td>
+                <td class = "common_nowrap">
+                    状态：
+                </td>
+                <td>
+                    <select ng-model="operateTradeAccount.stat" class="common_dropdown tradeAccountManage_select">
+                        <option value ="1">可用</option>
+                        <option value ="0">不可用</option>
+
+                    </select>
+                </td>
+                <td><label class="common_required_item">*</label></td>
+            </tr>
+
+            <tr>
+                <td>交易市场：</td>
+                <td colspan="4" >
+                    <div class="common_scroll_div" style="height:80px; border: 1px solid #DCDCDC;">
+                        <div class="market_check_div" ng-repeat="market in allMarket"
+                            ng-hide="dialogModalInfo.state != 'createTradeAccount' && !editTradeMarket && !market.checked">
+                            <input type="checkBox" ng-checked="market.checked" ng-click="clickMarketCheckBox(market)"
+                                ng-disabled="!editTradeMarket && dialogModalInfo.state != 'createTradeAccount'" >
+                            <label for="">{{market.marketchname+"("+market.briefcode+")"}}</label>
+                        </div>
+                    </div>
+                    <div class="" ng-show="dialogModalInfo.state != 'createTradeAccount'" style="padding: 5px 0;">
+                        <label class="common_table_option_label" ng-show="!editTradeMarket" ng-click="clickEditTradeMarket()">修改</label>
+                        <label class="common_table_option_label" ng-show="editTradeMarket" ng-click="cancelEditTradeMarket()">取消</label>
+                    </div>
+
+                </td>
+                <td>
+
+
+                </td>
+            </tr>
+
+          </tbody>
+        </table>
+    </div>
+
+    <div class="common_modal_footer">
+        <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click="confirmTaactDetail()">确定</button>
+		<button type="button" class="common_gray_btn common_normal_btn common_default_length" ng-click="hideTractModal()">取消</button>
+    </div>
+</div>

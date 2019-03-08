@@ -1,0 +1,48 @@
+<div class = "common_modal" style="width:662px; " id = "taacct_fund_modal" ng-controller="taacctFundManageCtrl">
+	<div class="common_modal_title_div" id = "taacct_fund_modal_title">
+		<label class = "common_modal_title_label">资金账号资金设置</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "accountHideModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class = "common_modal_operate_body">
+		<div class = "unitlist_tatrd_fund_option">
+			<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "enterCreateTaacctFund()">新&nbsp;增</button>
+			<!-- <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "enterTransferTaacctFund()">资金划转</button> -->
+			<button type="button" class = "common_green_btn common_normal_btn common_default_length" ng-click = "getTaacctFund()">刷&nbsp;新</button>
+			<label class = "unitlist_tatrd_fund_info_label">汇总余额：{{currentAssetAccount.totalamt | number:3}}</label>
+			<label class = "unitlist_tatrd_fund_info_label common_line_unend_item" >核算币种：{{currentAssetAccount.curencychname + "("+currentAssetAccount.briefcode+")"}}</label>
+		</div>
+		<div class = "unitlist_tatrd_fund_data" style="width:620px; height:400px;">
+			<table class = "common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+				<thead>
+					<tr >
+						<th class = "common_center_align common_nowrap">资产账户</th>
+						<th class = "common_center_align common_nowrap">币种</th>
+						<th class = "common_center_align common_nowrap">金额</th>
+						<th class = "common_center_align common_nowrap">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat = "taacctFund in allTaacctFund">
+						<td class = "common_center_align common_nowrap">{{currentAssetAccount.acname + '('+currentAssetAccount.acid+')'}}</td>
+						<td class = "common_center_align common_nowrap">{{taacctFund.curencychname + "("+taacctFund.briefcode+")"}}</td>
+						<td class = "common_right_align common_nowrap" >
+							{{taacctFund.totalamt | number:3}}
+						</td>
+						<td class = "common_center_align common_nowrap">
+							<label class = "common_table_operate_text" ng-click = "enterChangeTaacctFund(taacctFund)">资金调整</label>
+							<label class = "common_table_operate_divider">|</label>
+							<label class = "common_table_operate_text" ng-click = "enterTransferTaacctFund(taacctFund,true)">转入</label>
+							<label class = "common_table_operate_divider">|</label>
+							<label class = "common_table_operate_text" ng-click = "enterTransferTaacctFund(taacctFund,false)">转出</label>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class = "common_modal_back_lv2" id = "taacct_fund_modal_back_lv2">
+		<div ng-include = "taacctFundModalInfo.path" onload = "showTaacctFundModalLoadReady()"></div>
+	</div>
+</div>

@@ -1,0 +1,41 @@
+<div class = "common_modal" id = "main_change_modal" style = "width: 360px;">
+	<div class="common_modal_title_div" id = "main_change_modal_title">
+		<label class = "common_modal_title_label">密码修改</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "mainHideModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class="common_modal_body">
+		<div class = " common_nowrap">
+			<label class="common_required_item" >*</label>
+			<label class = "common_normal_text main_change_title_label">原密码：</label>
+			<div class="mianwindow_password_div common_line_unend_item">
+                <cms-password-input input-blur = "oldPwdInputBlur()" password-text="changePassInfo.oldpass" ></cms-password-input>
+            </div>
+			<!-- <input type="password" class = "common_normal_input common_line_unend_item main_change_input" placeholder = "原密码" maxlength="20" ng-model = "changePassInfo.oldpass"> -->
+		</div>
+		<div class="inputErrorTips">{{inputErrorTips.oldPwd}}</div>
+		<div class = " common_nowrap">
+			<label class="common_required_item" >*</label>
+			<label class = "common_normal_text main_change_title_label">新密码：</label>
+			<div class="mianwindow_password_div common_line_unend_item">
+                <cms-password-input placeholder-text="{{placeholderText}}" input-blur = "pwdInputBlur()" password-text="changePassInfo.newpass"></cms-password-input>
+            </div>
+			<!-- <input type="password" class = "common_normal_input common_line_unend_item main_change_input" placeholder = "新密码" maxlength="20" ng-model = "changePassInfo.newpass"> -->
+		</div>
+		<div class="inputErrorTips">{{inputErrorTips.newPwd}}</div>
+		<div class = "common_nowrap">
+			<label class="common_required_item" >*</label>
+			<label class = "common_normal_text main_change_title_label">确认密码：</label>
+			<div class="mianwindow_password_div common_line_unend_item">
+                <cms-password-input placeholder-text="{{placeholderText}}" input-blur = "beSurePwdInputBlur()" password-text="changePassInfo.passrep"></cms-password-input>
+            </div>
+			<!-- <input type="password" class = "common_normal_input common_line_unend_item main_change_input" placeholder = "确认密码" maxlength="20" ng-model = "changePassInfo.passrep"> -->
+		</div>
+		<div class="inputErrorTips">{{inputErrorTips.beSurePwd}}</div>
+	</div>
+	<div class="common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "mainChangePasswordSure()">确定</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click = "mainHideModal()">取消</button>
+	</div>
+</div>

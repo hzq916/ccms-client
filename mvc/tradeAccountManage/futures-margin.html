@@ -1,0 +1,72 @@
+<div class = "common_modal" id = "futures_margin_modal">
+	<div class="common_modal_title_div" id = "futures_margin_modal_title">
+		<label class = "common_modal_title_label">保证金率设置</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "hideFuturesModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class="common_modal_operate_body">
+		<div class = "common_form_div_item_10px common_nowrap">
+			<button type="button" class = "common_normal_btn common_blue_btn common_line_unend_item" ng-click = "loadFuturesMarginSelectFile()" ng-mouseenter = "currentMargin.showtips = true;" ng-mouseout = "currentMargin.showtips = false;">导入保证金率</button>
+			<button type="button" class = "common_normal_btn common_blue_btn common_line_unend_item" ng-disabled = "!currentMargin.loadFileAble" ng-click = "futuresLoadMargin()">保存数据库</button>
+			<button type="button" class = "common_normal_btn common_gray_btn common_line_unend_item" ng-disabled = "!currentMargin.loadFileAble" ng-click = "futuresLoadMarginCancel()">取消保存</button>
+			<button type="button" class = "common_normal_btn common_green_btn common_default_length" ng-disabled = "currentMargin.loadFileAble" ng-click = "getFuturesMargin()">刷&nbsp;&nbsp;新</button>
+		</div>
+		<div class = "common_scroll_div" style = "width:640px;height:360px;border: 1px solid #dcdcdc;">
+			<table ng-class = "{true:'common_red_fixed_table',false:'common_fixed_table'}[currentMargin.loadFileAble]" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+				<thead>
+					<tr>
+						<th class = "common_center_align common_nowrap">交易账户</th>
+						<th class = "common_center_align common_nowrap">UKCODE</th>
+						<th class = "common_center_align common_nowrap">合约编码</th>
+						<th class = "common_center_align common_nowrap">合约名称</th>
+						<th class = "common_center_align common_nowrap">多头保证金率</th>
+						<th class = "common_center_align common_nowrap">空头保证金率</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat = "margin in currentMargin.marginList">
+						<td class = "common_center_align common_nowrap">{{margin.tracid}}</td>
+						<td class = "common_center_align common_nowrap">{{margin.ukcode}}</td>
+						<td class = "common_center_align common_nowrap">{{margin.marketcode}}</td>
+						<td class = "common_center_align common_nowrap">{{margin.chname}}</td>
+						<td class = "common_right_align" style = "width:140px;" ng-click = "editFuturesMargin($index,1)" >
+							<label class = "common_table_modify_color" ng-show = "$index != currentMargin.buy_index">{{margin.buy_marginrate | number}}</label>
+							<input type="text" class = "common_table_input" ng-show = "$index == currentMargin.buy_index" maxlength="18" ng-model = "currentMargin.editMargin.buy_marginrate"
+							ng-keyup = "futuresMarginEditKeyup($event,1)" ng-change = "futuresMarginEditInput(1)" >
+						</td>
+						<td class = "common_right_align" style = "width:140px;" ng-click = "editFuturesMargin($index,2)">
+							<label class = "common_table_modify_color" ng-show = "$index != currentMargin.sell_index">{{margin.sell_marginrate | number}}</label>
+							<input type="text" class = "common_table_input" ng-show = "$index == currentMargin.sell_index" maxlength="18" ng-model = "currentMargin.editMargin.sell_marginrate"
+							ng-keyup = "futuresMarginEditKeyup($event,2)" ng-change = "futuresMarginEditInput(2)" >
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<form id = "futures_margin_form" style = "display:none" action="index.html" method="post">
+			<input type="file" id = "futures_margin_file" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.csv">
+		</form>
+	</div>
+	<div class = "futures_load_tips" ng-show = "currentMargin.showtips">
+		<label class = "futures_load_tips_label">导入数据表正确格式为:</label>
+		<table class = "common_table" style = "width:510px;">
+			<thead>
+				<th class="common_center_align">ukcode</th>
+				<th class="common_center_align">合约编码</th>
+				<th class="common_center_align">合约名称</th>
+				<th class="common_center_align">多头保证金率</th>
+				<th class="common_center_align">空头保证金率</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="common_center_align">3801089</td>
+					<td class="common_center_align">IF1005</td>
+					<td class="common_center_align">沪深300期货1005合约</td>
+					<td class="common_center_align">5</td>
+					<td class="common_center_align">5</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

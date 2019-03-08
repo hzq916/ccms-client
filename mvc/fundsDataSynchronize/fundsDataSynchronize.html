@@ -1,0 +1,12 @@
+<div class = "common_page_html common_scroll_div" ng-controller="fundsDataSynchronizeCtrl" ng-init = "fundsDataSynchronizeInit()">
+
+        <div class = "common_page_tab_div">
+            <button ng-repeat = "gml in templateMenuList" ng-if = "menuRight.indexOf(gml.id) != -1" class = "common_page_tab_first_item" ng-class = "{true:'common_page_tab_active_item',false:'common_page_tab_item'}[gml.select]" ng-click = "globalClickMenu($index)">
+                {{gml.title}}
+            </button>
+        </div>
+        <div class = "common_tab_content_div">
+            <div class = "common_tab_content_item" ng-repeat = "goml in templateSettingOpenMenuList" ng-show = "goml.active" ng-include="goml.pagePath"></div>
+        </div>
+    </div>
+    

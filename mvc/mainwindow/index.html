@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html class = "main_html">
+	<head>
+		<meta charset="utf-8">
+		<title>ccms1.0</title>
+		<link  href="./index.css"  rel="stylesheet" type="text/css">
+		<link  href="../commonui/css/common.css"  rel="stylesheet" type="text/css">
+		<link  href="../commonui/directive/directive.css"  rel="stylesheet" type="text/css">
+		<link  href="../commonui/directive/onBoard/onBoard.css"  rel="stylesheet" type="text/css">
+		<link  href="../../lib/iconstyle/iconfont.css"  rel="stylesheet" type="text/css">
+		<link  href="../../lib/messageboxstyle/messagebox.css"  rel="stylesheet" type="text/css">
+
+		<script src="../../lib/shim.js"></script>
+		<script src="../../lib/xlsx.full.min.js"></script>
+		<script type="text/javascript" src="../../lib/Blob.js"></script>
+		<script type="text/javascript" src="../../lib/FileSaver.js"></script>
+
+		<script src="../../lib/cms.file.js"></script>
+		<script src="../../lib/cms.net.js"></script>
+		<script src="../../lib/cms.common.js"></script>
+		<script src="../../lib/cms.messagebox.js"></script>
+		<script src="../../lib/cms.js"></script>
+
+		<script src="../../lib/angular.min.js"></script>
+		<script src="../../lib/ocLazyLoad.min.js"></script>
+		<script src="./index.js"></script>
+		<script src="../commonui/directive/directive.js"></script>
+		<script src="../commonui/directive/passwordInput/passwordInput.js"></script>
+		<script src="../commonui/directive/dropDownMenu/dropDownMenu.js"></script>
+		<script src="../commonui/directive/dataPager/dataPager.js"></script>
+		<script src="../commonui/directive/onBoard/onBoard.js"></script>
+		<script type="text/javascript">
+			function stopDrop(ev) {
+				ev.preventDefault();
+			}
+			function allowDrop(ev) {
+				ev.preventDefault();
+			}
+		</script>
+	</head>
+	<body class = "main_body" ng-app = "cmsApp" ng-controller = "mainCtrl" ng-keydown="clickBody()" ng-click="clickBody()" ng-mousemove="clickBody()">
+		<div ng-class = "{true:'main_max_window',false:'main_window'}[showMax]"   ng-init = "mainInit()"
+		 	 ondragover="allowDrop(event)" ondrop="stopDrop(event)">
+			<div ng-class = "{true:'main_title_bar',false:'main_title_bar_disable'}[iNetConnect]" id = "main_title_bar">
+				<div class="logo">
+					<img ng-src="{{electronAppLogo}}" draggable="false" style="width:80%;height:80%;margin-top:10%;border: none;" />
+				</div>
+				<label class = "main_title_label">{{halfName}}{{electronAppName}}</label>
+				<div class = "main_window_btn common_close_btn" title = "关闭窗口" ng-mousedown = "mainStopEvent($event)" ng-click = "mainCloseWindowTip()">
+					<img src="../commonui/images/icon_close.png" draggable="false" class = "main_window_btn_icon" />
+				</div>
+				<div class = "main_window_btn common_max_btn" title = "最大化" ng-if = "!showMax" ng-mousedown = "mainStopEvent($event)" ng-click = "mainMaxWindow()">
+					<img src="../commonui/images/icon_max.png" draggable="false" class = "main_window_btn_icon" />
+				</div>
+				<div class = "main_window_btn common_max_btn" title = "还原" ng-if = "showMax" ng-mousedown = "mainStopEvent($event)" ng-click = "mainBackWindow()">
+					<img src="../commonui/images/icon_back.png" draggable="false" class = "main_window_btn_icon" />
+				</div>
+				<div class = "main_window_btn common_max_btn" title = "最小化" ng-mousedown = "mainStopEvent($event)" ng-click = "mainMiniWindow()">
+					<img src="../commonui/images/icon_mini.png" draggable="false" class = "main_window_btn_icon" />
+				</div>
+				<button type="button" class = "main_title_option_btn" ng-mousedown = "mainStopEvent($event)" ng-click = "mainClickUserMenu($event)">
+					[&nbsp;&nbsp;个人设置&nbsp;
+					<img src="../commonui/images/icon_drop.png" draggable="false" class = "main_title_option_drop_icon">
+					]
+				</button>
+
+				<label class = "main_title_user_info_label">{{userInfo.oid}}</label>
+				<img src="../commonui/images/icon_user.png" draggable="false" class = "main_title_user_icon">
+				<img ng-show = "hq_connect" src="../commonui/images/icon_hq_ok.png" draggable="false" class = "main_title_hq_icon" ng-mousedown = "mainStopEvent($event)" ng-click="clickMarketInfo()"
+					ng-mouseenter = "show_hq_tips = true;" ng-mouseout = "show_hq_tips = false;">
+				<img ng-show = "!hq_connect" src="../commonui/images/icon_hq_fail.png" draggable="false" class = "main_title_hq_icon" ng-mousedown = "mainStopEvent($event)" ng-click="clickMarketInfo()"
+					ng-mouseenter = "show_hq_tips = true;" ng-mouseout = "show_hq_tips = false;">
+				<label ng-show = "show_hq_tips" class = "main_title_hq_label">{{hq_connect == true ? "行情已连接" : "行情已断开"}}</label>
+				<div class="main_title_user_menu" ng-show = "showTitleUserMenu">
+					<div class = "main_title_user_menu_item common_nowrap" ng-click="clickMarketInfo()">
+						<span class = "main_title_user_menu_item_icon"></span>
+						<span class = "main_title_user_menu_item_text">系统设置</span>
+					</div>
+					<div class = "main_title_user_menu_item common_nowrap" ng-click = "mainReloginTip()">
+						<span class = "main_title_user_menu_item_icon"></span>
+						<span class = "main_title_user_menu_item_text">重新登录</span>
+					</div>
+					<div class = "main_title_user_menu_item common_nowrap" ng-click = "mainCloseWindowTip()">
+						<span class = "main_title_user_menu_item_icon"></span>
+						<span class = "main_title_user_menu_item_text">退出账号</span>
+					</div>
+					<div class = "main_title_user_menu_item common_nowrap" ng-click = "mainChangePassword()">
+						<span class = "main_title_user_menu_item_icon"></span>
+						<span class = "main_title_user_menu_item_text">修改密码</span>
+					</div>
+				</div>
+			</div>
+
+			<div class = "main_primary_menu_div">
+
+				<div class = "main_primary_menu_item_span" ng-if = "menuRight.indexOf(2001) != -1"></div>
+				<span class = "main_primary_menu_item" ng-class = "{true:'main_primary_menu_item_active',false:''}[primaryMenu == 2001 && showSecondaryMenu]" ng-if = "menuRight.indexOf(2001) != -1">
+					<i class="iconfont icon-liebiao" ng-class = "{true:'main_primary_active_menu_icon',false:'main_primary_menu_icon'}[primaryMenu == 2001]" style = "font-size:25px;" title="单元管理" ng-click = "mainClickPrimaryMenu(2001)"></i>
+				</span>
+				<div class = "main_primary_menu_item_span" ng-if = "menuRight.indexOf(2002) != -1"></div>
+				<span class="main_primary_menu_item" ng-class = "{true:'main_primary_menu_item_active',false:''}[primaryMenu == 2002 && showSecondaryMenu]" ng-if = "menuRight.indexOf(2002) != -1">
+					<i class="iconfont icon-zijinliu2" ng-class = "{true:'main_primary_active_menu_icon',false:'main_primary_menu_icon'}[primaryMenu == 2002]" style = "font-size:25px;" title="资券管理" ng-click = "mainClickPrimaryMenu(2002)"></i>
+				</span>
+				<div class = "main_primary_menu_item_span" ng-if = "menuRight.indexOf(2003) != -1"></div>
+				<span class="main_primary_menu_item" ng-class = "{true:'main_primary_menu_item_active',false:''}[primaryMenu == 2003 && showSecondaryMenu]" ng-if = "menuRight.indexOf(2003) != -1">
+					<i class="iconfont icon-anquanfengxian" ng-class = "{true:'main_primary_active_menu_icon',false:'main_primary_menu_icon'}[primaryMenu == 2003]" style = "font-size:25px;" title="风控管理" ng-click = "mainClickPrimaryMenu(2003)"></i>
+				</span>
+				<div class = "main_primary_menu_item_span" ng-if = "menuRight.indexOf(2004) != -1"></div>
+				<span class="main_primary_menu_item" ng-class = "{true:'main_primary_menu_item_active',false:''}[primaryMenu == 2004 && showSecondaryMenu]" ng-if = "menuRight.indexOf(2004) != -1">
+					<i class="iconfont icon-yanjing1" ng-class = "{true:'main_primary_active_menu_icon',false:'main_primary_menu_icon'}[primaryMenu == 2004]" style = "font-size:25px;" title="视图管理" ng-click = "mainClickPrimaryMenu(2004)"></i>
+				</span>
+				<div class = "main_primary_menu_item_span" ng-if = "menuRight.indexOf(2005) != -1"></div>
+				<span class="main_primary_menu_item" ng-class = "{true:'main_primary_menu_item_active',false:''}[primaryMenu == 2005 && showSecondaryMenu]" ng-if = "menuRight.indexOf(2005) != -1">
+					<i class="iconfont icon-xitongshezhi" ng-class = "{true:'main_primary_active_menu_icon',false:'main_primary_menu_icon'}[primaryMenu == 2005]" style = "font-size:25px;" title="系统管理" ng-click = "mainClickPrimaryMenu(2005)"></i>
+				</span>
+				<img src="../commonui/images/icon_show_menu.png" draggable="false" ng-class = "{true:'main_primary_fold_menu_img',false:'main_primary_unfold_menu_img'}[showSecondaryMenu]" ng-click = "mainFoldSecondaryMenu()">
+			</div>
+			<div class = "main_secondary_menu_div" ng-show = "showSecondaryMenu">
+
+				<div class = "main_secondary_menu_item_span"></div>
+				<div  ng-repeat = "sml in secondaryMenuList">
+					<div style = "height:1px;"></div>
+					<div ng-class = "{true:'main_secondary_active_menu_item',false:'main_secondary_menu_item'}[sml.active]" ng-click = "mainClickSecondaryMenu($index)" ng-if = "menuRight.indexOf(sml.id) != -1">
+						<label style = "font-weight:bold;">·&nbsp;</label>{{sml.title}}
+					</div>
+				</div>
+			</div>
+			<div ng-class = "{true:'main_body_content_div',false:'main_body_content_div_max'}[showSecondaryMenu]">
+				<div class = "main_body_tab_div" id = "main_body_tab_div" ng-if = "secondaryOpenMenuList.length != 0">
+					<div ng-class="{true:'main_body_tab_active_item',false:'main_body_tab_item'}[soml.active]" ng-repeat = "soml in secondaryOpenMenuList" title = "{{soml.title}}" ng-click = "mainClickBodyTab($index)">
+						<label class = "main_body_tab_title">{{soml.title}}</label>
+						<span class = "main_body_tab_close_icon" title = "关闭" ng-click = "mainCloseBodyTab($index)"></span>
+					</div>
+					<div class = "main_body_tab_item_blank">
+						<span class = "main_body_tab_close_all_icon" title = "关闭所有标签" ng-click = "mainCloseAlTab()"></span>
+					</div>
+					<span style = "clear:both;"></span>
+				</div>
+				<div class = "main_body_tab_page_div common_scroll_div" ng-repeat = "soml in secondaryOpenMenuList" ng-show = "soml.active" ng-include = "soml.pagePath">
+				</div>
+			</div>
+			<div class = "common_modal_back" id = "main_modal_back">
+				<div ng-include = "modalInfo.path" onload = "mainModalLoadReady()"></div>
+			</div>
+
+			<div class = "common_modal_back_lv2" id = "main_modal_back_lv2">
+				<div ng-include = "modalInfoLv2.path" onload = "mainModalLv2LoadReady()"></div>
+			</div>
+
+			<div class="common_sys_modal_back" id = "common_sys_modal_back">
+				<div ng-include = "sysModalInfo.path" onload = "mainSysModalLoadReady()"></div>
+			</div>
+
+			<div class="common_update_modal_back" id="common_update_modal_back">
+				<div ng-include="updateModalInfo.path" onload = "updateModalLoadReady()">
+
+				</div>
+			</div>
+
+			<div class="common_lock_modal_back" ng-show ="lockViewCount < 1">
+
+				<div class="main_lock_box" id="main_lock_box" >
+					<img src="../commonui/images/login_bk.jpg" draggable="false"  style="position:fixed;  height:100%;  width:100%; left:0; top:0;" />
+					<div class="main_lock_div">
+						<div style="margin-left:46px;" ng-mousedown = "mainStopEvent($event)" ng-dblclick="mainStopEvent($event)">
+							<div >
+								<input type="password" class="login_normal_input" ng-model="lockPassword"  placeholder="请输入密码解锁" ng-keydown="lockViewKeyDown($event)" >
+								<img src="../commonui/images/keyboard.png" draggable="false"  style="position:relative; left:-45px; top:7px;" ng-click="showKeyBoard()"/>
+
+							</div>
+							<br>
+							<button type="button" class = "login_btn login_blue_btn  " style="margin-right: 20px;" name="button" ng-click="unlockView()">解锁</button>
+							<button type="button" class = "login_btn login_blue_btn  " style="margin-right: 20px;" name="button" ng-click="mainRelogin()">重新登录</button>
+							<button type="button" class = "login_btn login_blue_btn  "  name="button" ng-click = "loginOut()">退出</button>
+							<br>
+							<cms-board style="position:relative; height:0px; left:-42px; top:10px;" ng-show="showKeyBoardDiv" dest-value="lockPassword"></cms-board>
+
+						</div>
+
+					</div>
+				</div>
+
+
+
+			</div>
+
+		</div>
+	</body>
+</html>

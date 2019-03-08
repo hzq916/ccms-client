@@ -1,0 +1,17 @@
+<div class = "common_modal " style = "min-width:300px;" id = "unitlist_subject_delete_modal" >
+	<div class="common_modal_title_div" id = "unitlist_subject_delete_modal_title">
+		<label class = "common_modal_title_label">删除外部资产</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "unitlistClodeSubjectModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class = "common_modal_body">
+		<div class = "unitlist_freeze_modal_content">
+			你确定要删除产品外部资产&nbsp;{{currentSubject.dealSubject.subjectname}}&nbsp;吗？
+		</div>
+	</div>
+	<div class = "common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "unitlistSUbjectDeleteSure()">确定</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click = "unitlistClodeSubjectModal()">取消</button>
+	</div>
+</div>

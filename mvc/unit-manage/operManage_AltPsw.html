@@ -1,0 +1,38 @@
+<div class = "common_modal" id = "operManage_AltPsw_modal" style = "width: 360px;">
+	<div class="common_modal_title_div" id = "operManage_AltPsw_modal_title">
+		<label class = "common_modal_title_label">{{altOperInfo.altPsw.DlgTitle}}</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "operManageAltPsw_HideModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class="common_modal_body" >
+		<!--<div class = "" ng-if="altOperInfo.altPsw.type==='alt'">
+            <label class = "operManage_form_item_tips">*</label>
+			<label class = "common_form_pre_label">原密码：</label>
+			<div class="common_password_div">
+				<cms-password-input input-blur = "changePwdOldBlur()" password-text="altOperInfo.altPsw.oldPsw" maxLength="32"></cms-password-input>
+			</div>
+		</div>
+		<div class="inputErrorTips">{{changePwdErrorTips.oldPwd}}</div>-->
+		<div class = "">
+		    <label class = "operManage_form_item_tips">*</label>
+			<label class = "common_form_pre_label">新密码：</label>
+			<div class="common_password_div">
+				<cms-password-input placeholder-text="{{placeholderText}}" input-blur = "changePwdBlur()" password-text="altOperInfo.altPsw.newPsw" maxLength="32"></cms-password-input>
+			</div>
+		</div>
+		<div class="inputErrorTips">{{changePwdErrorTips.newPwd}}</div>
+		<div class = "">
+		    <label class = "operManage_form_item_tips">*</label>
+			<label class = "common_form_pre_label">确认密码：</label>
+			<div class="common_password_div">
+				<cms-password-input placeholder-text="{{placeholderText}}" input-blur = "changePwdBeSureBlur()" password-text="altOperInfo.altPsw.confirmPsw" maxLength="32"></cms-password-input>
+			</div>
+		</div>
+		<div class="inputErrorTips">{{changePwdErrorTips.beSurePwd}}</div>
+	</div>
+	<div class="common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "operManageAltPswConfirm()">确定</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click = "operManageAltPsw_HideModal()">取消</button>
+	</div>
+</div>

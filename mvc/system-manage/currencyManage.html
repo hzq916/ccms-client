@@ -1,0 +1,45 @@
+<div class = "common_page_html common_scroll_div" ng-controller = "currencyManageCtrl" ng-init = "currencyManageInit()">
+    <div class = "common_tab_operate_div common_nowrap">
+		<button type="button" class = "common_green_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "refreshCurrencyDataTable()" >刷 新</button>
+	</div>
+	<div class = "common_tab_data_div common_scroll_div">
+		<table class = "common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH')">
+			<thead >
+				<tr >
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('currencyid',true)">
+                        <span ng-show = "keyName == 'currencyid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        编号
+                    </th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('briefcode')">
+                        <span ng-show = "keyName == 'briefcode'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        贷币简码
+                    </th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('curencychname')">
+                        <span ng-show = "keyName == 'curencychname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        中文名称
+                    </th>
+                    <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('curencyenname')">
+                        <span ng-show = "keyName == 'curencyenname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        英文名称
+                    </th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="cell in currencyDataList | orderBy:keyName:false:sortFunction" ng-show="cell.show" ng-class = "{true:'common_activeTr',false:''}[$index == curClickedIndex ]" ng-click="itemClicked($index)" ng-show="cell.show" >
+					<td class = "common_center_align common_nowrap">
+						<label>{{cell.currencyid}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<label>{{cell.briefcode}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<label>{{cell.curencychname}}</label>
+                    </td>
+                    <td class = "common_center_align common_nowrap">
+						<label >{{cell.curencyenname}}</label>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

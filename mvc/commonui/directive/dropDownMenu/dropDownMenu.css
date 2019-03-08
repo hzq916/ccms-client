@@ -1,0 +1,21 @@
+.dropDown{
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    outline: 0;
+    text-align: left;
+    -webkit-transition: box-shadow .1s ease,width .1s ease;
+    transition: box-shadow .1s ease,width .1s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+.dropDownMenu {
+    position: absolute;
+    top: 100%;
+    min-width: max-content;
+    text-align: left;
+    z-index: 101;
+}
+
+.dropDownItem {
+    position: relative;
+}

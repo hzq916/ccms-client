@@ -1,0 +1,73 @@
+<div class="common_page_html common_scroll_div" ng-controller = "calendarCtrl" ng-init = "calendarInit()">
+	<div class = "common_tab_operate_div common_nowrap">
+		<label class = "common_normal_text common_line_unend_item">选择年份</label>
+		<select class = "common_dropdown common_line_unend_item" ng-model = "currentYear">
+			<option ng-repeat = "year in yearList" value="{{year.year}}">{{year.year}}</option>
+		</select>
+		<select class="common_dropdown common_line_unend_item" ng-model = "currentMarket" ng-options = "market.marketchname for market in marketList"></select>
+		<button type="button" class = "common_normal_btn common_blue_btn common_line_unend_item common_default_length" ng-disabled = "loadAble" ng-click = "calendarGetData()">查询</button>
+		<!--<button type="button" class = "common_normal_btn common_blue_btn common_line_unend_item" ng-if = "menuRight.indexOf(2005004006001) != -1" ng-disabled = "loadAble" title = "生成今年今天之后的日历" ng-click = "calendarMakeCalendar(0)">生成今年日历</button>
+		<button type="button" class = "common_normal_btn common_blue_btn common_line_unend_item" ng-if = "menuRight.indexOf(2005004006002) != -1" ng-disabled = "loadAble" title = "生成明年整年的日历" ng-click = "calendarMakeCalendar(1)">生成明年日历</button>
+		<button type="button" class = "common_normal_btn common_blue_btn common_line_unend_item" ng-if = "menuRight.indexOf(2005004006001) != -1 || menuRight.indexOf(2005004006002) != -1" ng-disabled = "!loadAble" ng-click = "calendarMakeCalendarSure()">保存数据库</button>
+		<button type="button" class = "common_normal_btn common_blue_btn common_line_unend_item" ng-if = "menuRight.indexOf(2005004006001) != -1 || menuRight.indexOf(2005004006002) != -1" ng-disabled = "!loadAble" ng-click = "calendarMakeCalendarCancel()">取消保存</button>-->
+	</div>
+	<div class="calendar_data_div common_scroll_div" ng-class = "{true:'common_red_table_div_border',false:'common_table_div_border'}[loadAble]">
+		<table ng-class = "{true:'common_red_fixed_table',false:'common_fixed_table'}[loadAble]">
+			<thead>
+				<th class = "common_center_align common_nowrap">序号</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('trday')">
+					<span ng-show = "keyName == 'trday'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					日期
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('marketchname')">
+					<span ng-show = "keyName == 'marketchname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					市场
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('dayofweek',true)">
+					<span ng-show = "keyName == 'dayofweek'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					星期
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('weekno',true)">
+					<span ng-show = "keyName == 'weekno'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					周数(第几周)
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('holiday',true)">
+					<span ng-show = "keyName == 'holiday'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					是否交易日
+				</th>
+				<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('comm')">
+					<span ng-show = "keyName == 'comm'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+					备注
+				</th>
+				<th class = "common_center_align common_nowrap">操作</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat = "calendar in calendarList | orderBy:keyName:false:sortFunction">
+					<td class = "common_center_align common_nowrap">{{$index + 1}}</td>
+					<td class = "common_center_align common_nowrap">{{calendar.trday}}</td>
+					<td class = "common_center_align common_nowrap">{{calendar.marketchname}}</td>
+					<td class = "common_center_align common_nowrap">{{calendar.showDayofweek}}</td>
+					<td class = "common_center_align common_nowrap">{{calendar.weekno}}</td>
+					<td class = "common_center_align common_nowrap">{{calendar.holiday == 0 ? "是" : "否"}}</td>
+					<td class = "common_center_align common_nowrap">{{calendar.comm}}</td>
+					<td class = "common_center_align common_nowrap">
+						<label ng-show = "currentTrday > calendar.trday ">-</label>
+						<label class = "common_table_operate_text"  ng-if = "menuRight.indexOf(2005004006003) != -1 || loadAble" ng-disabled = "loadAble == false" ng-show = "currentTrday <= calendar.trday" ng-click = "calendarEditData(calendar)">修改</label>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class = "calendar_footer_div">
+		<i class = "iconfont icon-rilijiantouzuoshuang calendar_footer_icon" ng-click = "calendarLoopFirst()"></i>
+		<i class = "iconfont icon-houtuiqianjin calendar_footer_icon" ng-click = "calendarLoopPre()"></i>
+		<input type="text" class = "calendar_footer_input" maxlength="2" ng-model = "currentPage" ng-keyup = "calendarLoopPointPage($event)">
+		<label class = "calendar_footer_icon">/</label>
+		<label class = "calendar_footer_icon">{{totalPage}}</label>
+		<i class = "iconfont icon-houtuiqianjin1 calendar_footer_icon" ng-click = "calendarLoopNext()"></i>
+		<i class = "iconfont icon-rilijiantouyoushuang calendar_footer_icon" ng-click = "calendarLoopLast()"></i>
+	</div>
+	<div class="common_modal_back" id = "calendar_modal_back">
+		<div ng-include = "modalInfo.path" onload = "calendarModalLoadReady()"></div>
+	</div>
+</div>

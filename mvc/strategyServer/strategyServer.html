@@ -1,0 +1,92 @@
+<div class="common_page_html common_scroll_div" ng-controller="strategyServerCtrl">
+    <div class="common_mini_subguide_div"
+      ng-show="!showSubguide" ng-click="showSubguide=true;">
+        <div class="common_mini_guide_title_div">
+            <div class="common_menu_icon"></div>
+            单元导航
+        </div>
+    </div>
+
+    <div class="common_subguide_div" ng-show="showSubguide">
+        <div class = "common_guide_title_div">
+            <label class = "common_guide_title_label">单元导航</label>
+            <img src="../commonui/images/icon_lock.png" draggable="false"  class = "common_guide_close_icon" title="点击收起菜单" ng-click = "showSubguide=false;"/>
+        </div>
+        <div class=" common_guide_content_div common_scroll_div">
+            <cms-guide guide-data = "{{guideTree}}" guide-selectleaf = "false" guide-click = "clickGuideMenu(menu)" guide-setmenu = "setGuideMenu"></cms-guide>
+        </div>
+
+    </div>
+
+
+
+    <div ng-class = "{'common_content_locked_div':showSubguide,'common_content_unlocked_div':!showSubguide}">
+        <div class="common_page_html common_scroll_div">
+            <div class="common_normal_operate_div common_nowrap ">
+                <input  type="text" ng-model="filterOption.searchFeild" class="common_normal_input common_line_unend_item common_search_input_length "
+                    placeholder="请输入策略的ID或名称" >
+
+                <!-- <label for="">资产管理人:</label>
+                <select class="common_dropdown common_line_unend_item"  ng-model="currentManager " style="width:158px;" ng-change="changeStrategeManager()"
+                    ng-options = "manager.maname+'('+manager.maid+')' for manager in scope.allAssetManager">
+                </select> -->
+                <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length" name="button" ng-click="clickAddStrategyServer()">添加</button>
+                <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length" name="button" ng-click="refreshStrategyServer()">刷新</button>
+            </div>
+
+            <div class="common_scroll_div common_normal_data_div">
+                <table class="common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+                    <thead>
+                        <tr>
+                            <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('stgid')">
+                                <span ng-show = "keyName == 'marketcode'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                策略
+                            </th>
+                            <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('traderid')">
+                                <span ng-show = "keyName == 'chabbr'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                交易员
+                            </th>
+
+                            <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('stat')">
+                                <span ng-show = "keyName == 'chabbr'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                状态
+                            </th>
+
+                            <!-- <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('marketName')">
+                                <span ng-show = "keyName == 'marketName'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                参数
+                            </th> -->
+
+                            <th class = "common_center_align common_nowrap">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="strategyServer in allStrategyServer | filter: filterStrategyServer | orderBy:keyName:false:sortFunction" ng-dblclick="clickEditStrategyServer(strategyServer)"
+                            ng-click="clickTr(strategyServer)" ng-class="{'common_activeTr':strategyServer.selected}">
+                            <!-- <td class = "common_center_align common_nowrap">{{strategyServer.caname+"("+strategyServer.caid+")"}}</td> -->
+                            <td class = "common_center_align common_nowrap">{{strategyServer.stname+"("+strategyServer.stgid+")"}}</td>
+                            <td class = "common_center_align common_nowrap">{{strategyServer.tradername+"("+strategyServer.traderid+")"}}</td>
+                            <td class = "common_center_align common_nowrap">
+                                {{strategyServer.stat == 0 ? "不可用" : "可用"}}
+                            </td>
+                            <td class = "common_center_align common_nowrap">
+                                <button class = "common_table_operate_text" ng-click="clickEditStrategyServer(strategyServer)">修改</button>
+                                <label class = "common_table_operate_divider">|</label>
+                                <button class = "common_table_operate_text" ng-click="clickStrategySPermission(strategyServer)">策略共享</button>
+                                <label class = "common_table_operate_divider">|</label>
+                                <button class = "common_table_operate_text" ng-click="clickDelStrategyServer(strategyServer)">冻结</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class = "common_modal_back" id = "strategyServer_modal_back">
+        <div ng-include = "modalInfo.path" onload = "strategyServerLoadModalReady()"></div>
+    </div>
+
+</div>

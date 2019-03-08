@@ -1,0 +1,270 @@
+.operManage_option_div {
+	position: absolute;
+	top: 14px;
+	left: 13px;
+	right: 9px;
+	height: 26px;
+	vertical-align: middle;
+}
+.operManage_data_div {
+	position: absolute;
+	top: 51px;
+	left: 13px;
+	right: 9px;
+	bottom: 10px;
+	border: 1px solid #DCDCDC;
+}
+
+.operManage_form_compact_header {
+	font-size: 12px;
+	display: inline-block;
+	width: 120px;
+	margin-right: 5px;
+}
+
+.operManage_Add_dropdown {
+	width: 200px;
+}
+
+/* .operManage_Add_modal {
+	width: 430px;
+	height: 420px;
+	left: calc(50% - 245px);
+	top: calc(50% - 170px);
+	overflow: hidden;
+} */
+
+.operManage_form_item_tips {
+	color: red;
+	font-size: 12px;
+	margin-right: 7px;
+	vertical-align: middle;
+}
+
+/*带下划线*/
+.operManage_form_item_tips_u {
+	color: red;
+	font-size: 12px;
+	text-decoration: underline;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.operManage_Alt_form_right_item {
+	/* margin-left: 30px; */
+	margin-bottom: 10px;
+	margin-right: 10px;
+}
+
+.operManage_table_label {
+	font-size: 12px;
+	vertical-align: middle;
+	color: rgb(101,101,101);
+}
+
+.operManage_table_option_label {
+	color: rgb(9,157,220);
+	font-size: 12px;
+	cursor: pointer;
+}
+.operManage_table_option_label:hover {
+	color: red;
+}
+.operManage_table_option_divider {
+	color: rgb(9,157,220);
+	font-size: 12px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.operManage_freeze_modal_content {
+	text-align:center;
+	font-size:12px;
+	color:rgb(101,101,101);
+}
+
+.operManage_role {
+	border: 1px solid #DCDCDC;
+	padding: 5px 15px;
+	background-color: #f2f2f2;
+	margin: 5px 5px 5px 0;
+	display: inline-block;
+}
+
+.operManage_role_active {
+	background-color: rgb(0,157,255);
+}
+
+.operManage_role:hover {
+	background-color: rgb(0,157,255);
+}
+
+.operManage_item{
+	border: 1px solid #DCDCDC;
+	padding: 5px;
+	background-color: #f2f2f2;
+	margin: 5px 10px ;
+	width: calc(50% - 32px);
+	cursor: default;
+
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.operManage_item:hover {
+	background-color: rgb(0,157,255);
+}
+
+.operManage_selected_item{
+	border: 1px solid #DCDCDC;
+	padding: 5px;
+	background-color: rgb(0,157,255);
+	margin: 5px;
+	width: calc(33.3% - 22px);
+	cursor: default;
+	text-align: center;
+	position: relative;
+
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.operManage_selected_item:hover {
+	background-color: #f2f2f2;
+}
+
+.operManage_permission_space {
+	border: 1px solid #DCDCDC;
+	height: 175px;
+	width: calc(50% - 7px) ;
+	/*margin: 10px;*/
+	display: inline-block;
+	vertical-align: top;
+}
+
+.operManage_permission_select {
+	margin: 10px;
+	width: calc(23% - 22px);
+
+}
+
+.operManage_fuction_div{
+	margin: 0;
+}
+
+.operManage_fuction_title{
+	width: 100%;
+	line-height: 26px;
+	text-align: center;
+	border-bottom: 1px solid #DCDCDC;
+	background-color: #f2f2f2;
+}
+
+
+.oper_close_icon {
+	float: right;
+	width: 10px;
+	height: 10px;
+	/*margin: 2px;*/
+	display: inline-block;
+	border-radius: 10px;
+	cursor: pointer;
+	overflow: hidden;
+	background-color: inherit;
+}
+.oper_close_icon:before {
+    position: absolute;
+    content: '';
+    width: 10px;
+    height: 2px;
+    background-color: red;
+    -webkit-transform: rotate(45deg);
+    top: 4px;
+    left: 0;
+}
+.oper_close_icon:after {
+    content: '';
+    /*position: absolute;
+    width: 10px;
+    height: 2px;*/
+    background-color: red;
+    -webkit-transform: rotate(-45deg);
+    top: 4px;
+    left: 0;
+}
+.operManage_role_div{
+	height: 74px;
+	margin: 5px 0;
+}
+#operManage_Add_modal .common_modal_body .notMustLabel {
+	margin-left: 16px;
+}
+#operManage_AltPsw_modal .common_form_pre_label {
+	width: 70px;
+}
+#operManage_AltPsw_modal .inputErrorTips{
+	margin-left: 90px;
+}
+.operManage_permission_left {
+	border: 1px solid #DCDCDC;
+	height: 360px;
+	width: calc(50% - 7px) ;
+	/*margin: 10px;*/
+	display: inline-block;
+	vertical-align: top;
+}
+.operManage_permission_right {
+	border: 1px solid #DCDCDC;
+	height: 360px;
+	width: calc(50% - 7px) ;
+	/*margin: 10px;*/
+	display: inline-block;
+	vertical-align: top;
+}
+.check_right {
+	vertical-align:middle;
+	margin-top:3px;
+	margin-bottom:3px;
+	margin-left:12px;
+}
+.label_right {
+	overflow: hidden;
+	text-overflow: ellipsis
+}
+.right_box {
+	/*background-color: rgb(49,188,244);*/
+	padding:5px;
+	margin: 3px;
+	width: 100%
+}
+.operMacBind_import_tip {
+	position: absolute;
+	top: 40px;
+	left: 350px;
+	background-color: rgb(221,221,221);
+	border-radius: 5px;
+	z-index: 51;
+	padding: 2px;
+}
+
+.operMacBind_import_tip_label {
+	font-size: 12px;
+	color:rgb(144,143,143);
+}
+
+.showTips {
+	z-index: 99999;
+	border: 1px solid #DCDCDC;
+	margin-left:30%;
+	font-size:12px;	
+	position: absolute;
+	background-color:white; 
+}
+
+#authorizeList tr:nth-child(even){
+	background: rgb(237, 237, 237);
+}

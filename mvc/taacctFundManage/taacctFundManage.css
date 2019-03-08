@@ -1,0 +1,11 @@
+
+.unitlist_tatrd_fund_info_label {
+	max-width: 200px;
+	height: 26px;
+	float: right;
+	font-style: "宋体";
+	font-size: 12px;
+	line-height: 26px;
+	color:red;
+	text-align: right;
+}

@@ -1,0 +1,17 @@
+<div class = "common_modal" style = "min-width:300px;" id = "tm_freeze_modal">
+	<div class="common_modal_title_div" id = "tm_freeze_modal_title">
+		<label class = "common_modal_title_label">{{freezeInfo.title}}</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "tmHideModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class = "common_modal_body">
+		<div class = "tm_freeze_modal_content">
+			{{freezeInfo.msg}}
+		</div>
+	</div>
+	<div class = "common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "tmFreezeTraderSure()">确定</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click = "tmHideModal()">取消</button>
+	</div>
+</div>

@@ -1,0 +1,72 @@
+
+
+.tradeManage_modal_body{
+    /*width: 900px;*/
+    min-height: 200px;
+}
+
+.tableDiv{
+        overflow: auto;
+}
+
+.account_manage_operate_div {
+    position: absolute;
+	top: 14px;
+	left: 13px;
+	right: 9px;
+	height: 26px;
+	vertical-align: middle;
+}
+
+.accountManage_data_div {
+    position: absolute;
+	top: 51px;
+	left: 13px;
+	right: 9px;
+	bottom: 10px;
+	border: 1px solid #DCDCDC;
+}
+
+.unbind_assetaccount{
+    background-color:rgba(34,36,38,0.05);
+}
+
+.account_changepass_option {
+    margin-right: 25px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: "宋体";
+    color: blue;
+    text-decoration: underline;
+}
+.account_changepass_option:hover {
+    color: red;
+}
+
+.authorizeAssetAccount_input {
+    width: 170px;
+}
+
+.authorizeAssetAccount_select {
+    width: 182px;
+}
+
+.account_table_option_divider {
+    color: rgb(9,157,220);
+    font-size: 12px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.account_table_option_divider:last-child {
+    display: none;
+}
+
+.password_div{
+    display: inline-block;
+    width: 182px;
+}
+.editTips_modal_body{
+    text-align: center;
+    padding: 20px 45px;
+    line-height: 23px;
+}

@@ -1,0 +1,24 @@
+<div class="common_modal" id="positionDataSyncHistoryDetail_modal" style="width:400px;height: 360px;">
+    <div class="common_modal_title_div" id="positionDataSyncHistoryDetail_modal_title">
+        <label class="common_modal_title_label">同步详情</label>
+        <div class="common_modal_window_close_btn" title="关闭窗口" ng-click="closeSyncHistoryData()">
+            <img src="../commonui/images/icon_close.png" draggable="false" class="common_modal_close_icon" />
+        </div>
+    </div>
+    <div class="common_modal_body common_scroll_div" style="margin-bottom: 10px;max-height: 300px;">
+        <div>
+            <ul style="display: flex;flex-direction: row;list-style: none;margin: 0;padding: 0;padding-bottom: 10px; border-bottom: 1px solid #ccc;margin-bottom: 10px;">
+                <li style="flex: 1; text-align: left;">字段</li>
+                <li style="flex: 1; text-align: left;">同步前</li>
+                <li style="flex: 1; text-align: left;">同步后</li>
+            </ul>
+        </div>
+        <div ng-repeat="temp in positionDataSyncDetail">
+            <ul style="display: flex;flex-direction: row;list-style: none;margin: 0;padding: 0;">
+                <li style="flex: 1; text-align: left;">{{temp.keyvalue}}</li>
+                <li style="flex: 1; text-align: left;">{{temp.oldvalue |number:3}}</li>
+                <li style="flex: 1; text-align: left;">{{temp.newvalue |number:3}}</li>
+            </ul>
+        </div>
+    </div>
+</div>

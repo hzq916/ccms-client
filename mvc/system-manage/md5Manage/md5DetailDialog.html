@@ -1,0 +1,46 @@
+<div class="common_modal" id="md5Manage_add_modal">
+    <div class="common_modal_title_div" id = "md5Manage_add_modal_title">
+        <label class = "common_modal_title_label" ng-show="modalInfo.state == 'addMD5'">添加MD5</label>
+        <label class = "common_modal_title_label" ng-show="modalInfo.state == 'editMD5'">修改MD5</label>
+        <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "hideMD5Modal()">
+            <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+        </div>
+    </div>
+
+    <div class="common_modal_body">
+        <table class="common_operate_table" >
+            <tr>
+                <td>模块:</td>
+                <td>
+                    <input type="text" ng-model="operateMD5.appname" ng-disabled="modalInfo.state == 'editMD5'"
+                        maxlength="32" class="common_normal_input md5_input">
+                </td>
+                <td><label class="common_required_item">*</label></td>
+            </tr>
+            <tr>
+                <td>版本号:</td>
+                <td>
+                    <input type="text" ng-model="operateMD5.version" ng-disabled="modalInfo.state == 'editMD5'"
+                        maxlength="32" class="common_normal_input md5_input">
+                </td>
+                <td><label class="common_required_item">*</label></td>
+            </tr>
+            <tr>
+                <td>MD5值:</td>
+                <td>
+                    <input type="text" ng-model="operateMD5.md5" value=""
+                        maxlength="64"  class="common_normal_input md5_input">
+                </td>
+                <td><label class="common_required_item">*</label></td>
+            </tr>
+
+        </table>
+    
+    </div>
+
+    <div class="common_modal_footer">
+        <button type="button" class="common_blue_btn common_normal_btn  common_default_length common_line_unend_item" ng-show="modalInfo.state == 'editMD5'" ng-click="editMD5(operateMD5)">确定</button>
+        <button type="button" class="common_blue_btn common_normal_btn  common_default_length common_line_unend_item" ng-show="modalInfo.state == 'addMD5'" ng-click="addMD5(operateMD5)">确定</button>
+        <button type="button" class="common_green_btn common_normal_btn  common_default_length" ng-click="hideMD5Modal()">取消</button>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+.laterrisk_fold_icon {
+	cursor: pointer;
+	vertical-align: middle;
+	width: 13px;
+	height: 13px;
+}
+.laterrisk_options_filter_label {
+	position: absolute;
+	left: 25px;
+	background-color: white;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	top: -10px;
+	z-index: 2;
+}
+.laterrisk_unit_title {
+	display: inline-block;
+	vertical-align: middle;
+	width: 75px;
+}
+.laterrisk_code_title {
+	display: inline-block;
+	vertical-align: middle;
+	width: 60px;
+}

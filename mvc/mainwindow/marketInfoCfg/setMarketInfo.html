@@ -1,0 +1,48 @@
+
+<div class="common_modal" style="mini-width:300px;" id="marketInfoCfg_set_modal">
+    <div class="common_modal_title_div" id = "marketInfoCfg_set_modal_title">
+        <label class = "common_modal_title_label" >系统设置</label>
+
+        <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "mainHideModal()">
+            <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+        </div>
+    </div>
+
+    <div class="common_modal_body" style="margin-bottom: 10px;padding-top: 0;padding-left: 0;">
+        <div class="common_tab_change" style="font-size: 0;margin-bottom: 25px;">
+            <span class="common_tab_change_btn" ng-class="{common_tab_change_active: isChooseFirst === 0}" ng-click="chooseSettingTab(0)">行情站点</span>
+            <span class="common_tab_change_btn" ng-class="{common_tab_change_active: isChooseFirst === 1}" ng-click="chooseSettingTab(1)">安全设置</span>
+        </div>
+        <div ng-if="isChooseFirst === 0" class="" style="text-align:center;margin-left: 10px;">
+                <label for="">行情站点:</label>
+    
+                <select ng-model="currentMarketCfg"  ng-change="changeSelectOption(currentMarketCfg)"  class="common_dropdown common_line_unend_item LineconfigDropdowm"
+                      ng-options="marketCfg.station_name for marketCfg in allMarketCfg">
+                </select>
+                <span class="modifyBtn loginBtn " ng-click="changeMarketInfo()">修改</span>
+                <span class="addBtn loginBtn" ng-click="addMarketInfo()">添加</span>
+                <span class="delBtn loginBtn" ng-click="deleteMarketInfo()">删除</span>
+                <!-- <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length " ng-click="clickMarketCfg()">配置站点</button> -->
+        </div>
+        <div ng-if="isChooseFirst === 1" class="" style="text-align: center;">
+            <div class = "common_form_div_item_10px" style="text-align: left;margin-left: 7px;">
+                <input type="checkbox" class="check_right"  ng-model="isDiabledSettime.isOpen" ng-change="changeSettingState(isDiabledSettime.isOpen)">
+                <label class="label_right">开启自动锁屏设置</label> <span style="color: red;">(提示: 建议开启此项设置)</span>
+            </div>
+            <div class = "common_form_div_item_10px">
+                <label class = "common_form_pre_label" style="width: 100px;">自动锁屏时间：</label>
+                <input type="tel" style="width: 80px;" required="required" ng-disabled="isDisableLockInput" class = "common_normal_input common_line_unend_item common_form_suf_input" maxlength="32" placeholder="180" ng-model="isDiabledSettime.time"><span>秒  </span>
+                <span style="color: red;">(开启自动锁屏设置时有效)</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="common_modal_footer" ng-if="isChooseFirst === 0">
+        <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length " ng-click="confirmMarketCfg()">确定</button>
+        <button type="button" class="common_gray_btn common_normal_btn  common_default_length" ng-click="mainHideModal()">取消</button>
+    </div>
+    <div class="common_modal_footer" ng-if="isChooseFirst === 1">
+            <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length " ng-click="confirmSetLockTime()">确定</button>
+            <button type="button" class="common_gray_btn common_normal_btn  common_default_length" ng-click="mainHideModal()">取消</button>
+        </div>
+</div>

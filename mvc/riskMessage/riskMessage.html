@@ -1,0 +1,112 @@
+<div class="common_page_html common_scroll_div" ng-controller="riskMessageCtrl">
+
+    <div class="common_page_html common_scroll_div">
+        <div class="common_operate_div common_nowrap">
+            <input type="text" class="common_normal_input common_line_unend_item common_search_input_length" placeholder="请输入要搜索的消息内容"
+                ng-model="filterContent" ng-change="preriskFilterRisk()">
+            <button type="button" class="common_green_btn common_normal_btn common_line_unend_item common_default_length " ng-click="refreshRiskMessage()">刷新</button>
+            <label class="common_normal_text common_line_unend_item ">开始时间:</label>
+            <input type="date" ng-model="startDate" ng-change="changeStartDate()">
+            <label class="common_normal_text common_line_unend_item ">结束时间:</label>
+            <input type="date" ng-model="endDate" ng-change="changeEndDate()">
+        </div>
+        <div class="riskMessage_data_div common_scroll_div ">
+            <table ng-class="{'common_fixed_table':!importing,'common_red_fixed_table':importing}" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+                <thead>
+                    <tr>
+                        <th class="common_center_align common_nowrap" ng-click="clickTableHeader('risktime')">
+                            <span ng-show="keyName == 'riskname'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>                            时间
+                        </th>
+                        <th class="common_center_align common_nowrap" ng-click="clickTableHeader('risktype',true)">
+                            <span ng-show="keyName == 'risktype'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>                            类型
+                        </th>
+                        <th class="common_center_align common_nowrap" ng-click="clickTableHeader('caid',true)">
+                            <span ng-show="keyName == 'caid'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>                            产品
+                        </th>
+
+                        <th class="common_center_align common_nowrap" ng-click="clickTableHeader('trid',true)">
+                            <span ng-show="keyName == 'trid'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>                            策略组合
+                        </th>
+
+                        <th class="common_center_align common_nowrap" ng-click="clickTableHeader('stgid',true)">
+                            <span ng-show="keyName == 'stgid'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>                            策略名称
+                        </th>
+
+                        <th class="common_center_align common_nowrap" ng-click="clickTableHeader('acid',true)">
+                            <span ng-show="keyName == 'acid'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>                            资金账户
+                        </th>
+
+                        <th class="common_center_align common_nowrap" ng-click="clickTableHeader('riskname')">
+                            <span ng-show="keyName == 'riskname'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>                            风控名称
+                        </th>
+
+                        <th class="common_center_align common_nowrap" ng-click="clickTableHeader('risklv',true)">
+                            <span ng-show="keyName == 'risklv'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>                            消息级别
+                        </th>
+                        <th class="common_center_align common_nowrap" ng-click="clickTableHeader('riskmsg')">
+                            <span ng-show="keyName == 'riskmsg'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>                            消息内容
+                        </th>
+                        <!-- <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('riskstat',true)">
+                      <span ng-show = "keyName == 'riskstat'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                      状态
+                  </th> -->
+                        <!-- <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('riskstat',true)">
+                      操作
+                  </th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="riskMessage in allRiskMessage |filter : myFilter | orderBy:keyName:false:sortFunction">
+                        <td class="common_center_align common_nowrap">{{riskMessage.risktime}}</td>
+                        <td class="common_center_align common_nowrap">{{riskMessage.risktypeDesc}}</td>
+                        <td class="common_center_align common_nowrap">
+                            <label ng-show="riskMessage.caid != 0">{{riskMessage.caname+"("+riskMessage.caid+")"}}</label>
+
+                        </td>
+                        <td class="common_center_align common_nowrap">
+                            <label ng-show="riskMessage.trid != 0">{{riskMessage.trname+"("+riskMessage.trid+")"}}</label>
+
+                        </td>
+                        <td class="common_center_align common_nowrap">
+                            <label ng-show="riskMessage.stgid != 0">{{riskMessage.stname+"("+riskMessage.stgid+")"}}</label>
+
+                        </td>
+                        <td class="common_center_align common_nowrap">
+                            <label ng-show="riskMessage.acid != 0">{{riskMessage.acname+"("+riskMessage.acid+")"}}</label>
+
+                        </td>
+                        <td class="common_center_align common_nowrap">
+                            {{riskMessage.riskname+"("+riskMessage.riskid+")"}}
+                        </td>
+                        <td class="common_center_align common_nowrap">
+
+                            <label ng-class="{blue_level: riskMessage.risklv == 0, yellow_level: riskMessage.risklv == 1, orange_level: riskMessage.risklv == 2, red_level: riskMessage.risklv == 3}">
+                              {{riskMessage.risklvDesc}}
+                          </label>
+                        </td>
+                        <td class="common_center_align common_nowrap">{{riskMessage.riskmsg}}</td>
+                        <!-- <td class = "common_center_align common_nowrap">
+                          {{riskMessage.riskStateDesc}}
+                      </td> -->
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+        <!--<div class="common_page_tools">-->
+            <cms-data-pager click-menu-item="goToPage(page)" all-page="{{allPage}}" current-page="currentPage"></cms-data-pager>
+        <!--</div>-->
+        <!--<div class="common_page_tools" >
+            <i class=" iconfont icon-rilijiantouzuoshuang common_page_tool" style="font-size:12px; "  ng-click="goToPage(1)"  title="首页"></i>
+            <i class="iconfont icon-houtuiqianjin common_page_tool" ng-click="goToPage(currentPage -1 )" style="font-size:12px; " title="上一页"></i>
+
+            <input type="text" ng-model="currentPage" class="common_page_number" ng-keyup="pageToolsKeyUp($event)">
+            <label title="总页数">/{{allPage}}</label>
+
+            <i class="iconfont icon-houtuiqianjin1 common_page_tool" style="font-size:12px; " ng-click="goToPage(currentPage +1)" title="下一页"></i>
+            <i class=" iconfont icon-rilijiantouyoushuang common_page_tool" ng-click="goToPage(allPage)" style="font-size:12px; " title="尾页"></i>
+
+        </div>-->
+    </div>
+</div>

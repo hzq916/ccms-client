@@ -1,0 +1,60 @@
+<div class="common_modal" id="strategyServer_detail_modal">
+    <div class="common_modal_title_div" id = "strategyServer_detail_modal_title">
+        <label class = "common_modal_title_label" ng-show="modalInfo.state == 'addStrategyServer'">添加策略</label>
+        <label class = "common_modal_title_label" ng-show="modalInfo.state == 'editStrategyServer'">修改策略</label>
+        <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "hideStrategyServerModal()">
+            <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+        </div>
+    </div>
+
+    <div class="common_modal_body">
+        <table class="common_operate_table">
+            <!-- <tr>
+                <td> 资产管理人:</td>
+                <td>
+                    <input type="text" class="common_normal_input " value="{{scope.currentManager.maname+'('+scope.currentManager.maid+')'}}" disabled="disabled">
+                </td>
+                <td><label class="common_required_item">*</label></td>
+            </tr> -->
+            <tr>
+                <td>策略名称:</td>
+                <td>
+                    <input type="text" class="common_normal_input " ng-model="operateStrategy.stname" >
+                </td>
+                <td><label class="common_required_item">*</label></td>
+            </tr>
+
+            <tr>
+                <td>交易员:</td>
+                <td>
+                    <!-- <select class="common_dropdown"  ng-model="operateStrategy.traderid" style="width:158px;"
+                        ng-options = "trader.tradername+'('+trader.traderid+')' for trader in scope.traders">
+                    </select> -->
+                    <select class="common_dropdown" ng-model="operateStrategy.traderid" style="width:158px;" ng-disabled="modalInfo.state == 'editStrategyServer'">
+                        <option ng-repeat="trader in scope.allTrader" value="{{trader.traderid}}">{{trader.oname+'('+trader.traderid+')'}}</option>
+                    </select>
+                </td>
+                <td><label class="common_required_item">*</label></td>
+            </tr>
+
+
+            <tr>
+                <td>状态:</td>
+                <td>
+                    <select class="common_dropdown" ng-model="operateStrategy.stat" style="width:158px;">
+                        <option value="1">可用</option>
+                        <option value="0">不可用</option>
+                    </select>
+                </td>
+                <td><label class="common_required_item">*</label></td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div class="common_modal_footer">
+        <button type="button" class="common_blue_btn common_normal_btn  common_default_length common_line_unend_item" ng-show="modalInfo.state == 'editStrategyServer'" ng-click="editStrategyServer()">确定</button>
+        <button type="button" class="common_blue_btn common_normal_btn  common_default_length common_line_unend_item" ng-show="modalInfo.state == 'addStrategyServer'" ng-click="addStrategyServer()">确定</button>
+        <button type="button" class="common_gray_btn common_normal_btn common_default_length" ng-click="hideStrategyServerModal()">取消</button>
+    </div>
+</div>

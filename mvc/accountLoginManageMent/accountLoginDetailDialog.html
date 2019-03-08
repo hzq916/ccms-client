@@ -1,0 +1,177 @@
+<div class="common_modal " id="accountLoginManage_add_modal">
+    <div class="common_modal_title_div" id="accountLoginManage_add_modal_title">
+        <label class="common_modal_title_label">{{accountDetailTit}}</label>
+        <div class="common_modal_window_close_btn" title="关闭窗口" ng-click="accountHideModal()">
+            <img src="../commonui/images/icon_close.png" draggable="false" class="common_modal_close_icon" />
+        </div>
+    </div>
+
+    <div class="common_modal_body">
+        <table class="common_operate_table">
+            <tbody>
+                <tr>
+                    <td>资产管理人ID：</td>
+                    <td>
+                        <select disabled="disabled" class="common_dropdown authorizeAssetAccount_select">
+                            <option>{{currAccount.maname+"("+currAccount.maid+")"}}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <label class="common_required_item">*</label>
+                    </td>
+                    <td>经纪商ID：</td>
+                    <td>
+                        <select ng-model="currAccount.bid" disabled="disabled" class="common_dropdown authorizeAssetAccount_select">
+                            <option ng-repeat="broker in brokers" value="{{broker.bid}}">{{broker.bname+"("+broker.bid+")"}}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <label class="common_required_item">*</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>产品ID：</td>
+                    <td>
+                        <!--<select ng-model="currAccount.caid" ng-disabled="detailState !== 'bindAssetAccount'" class="common_dropdown authorizeAssetAccount_select">-->
+
+                        <select ng-model="currAccount.caid" class="common_dropdown authorizeAssetAccount_select">
+                            <option ng-repeat="product in products" value="{{product.caid}}">{{product.caname+"("+product.caid+")"}}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <label class="common_required_item">*</label>
+                    </td>
+                    <td>账户类别：</td>
+                    <td>
+                        <!--<select ng-model="currAccount.actype" ng-disabled="detailState !== 'bindAssetAccount'" class="common_dropdown authorizeAssetAccount_select">-->
+
+                        <select ng-model="currAccount.actype" class="common_dropdown authorizeAssetAccount_select">
+                            <!--<option value ="1">普通股票账户(1)</option>
+                                    <option value ="2">信用股票账户(2)</option>
+                                    <option value ="3">期货账户(3)</option>
+                                    <option value ="6">数字货币账户(6)</option>-->
+                            <option ng-repeat="acct in accountTypeArray" value={{acct.dictid}}>{{acct.dictname+"("+acct.dictid+")"}}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <label class="common_required_item">*</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>资产账户ID：</td>
+                    <td>
+                        <input type="text" ng-model="currAccount.acid" disabled="disabled" class="common_normal_input  authorizeAssetAccount_input  ">
+                    </td>
+                    <td>
+                        <label class="common_required_item">*</label>
+                    </td>
+                    <td>账户名称：</td>
+                    <td>
+                        <input type="text" ng-model="currAccount.acname" maxlength="32" class="common_normal_input  authorizeAssetAccount_input ">
+                    </td>
+                    <td>
+                        <label class="common_required_item">*</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>经纪商资金帐号ID：</td>
+                    <td>
+                        <input type="text" ng-model="currAccount.bacid" disabled="disabled" class="common_normal_input  authorizeAssetAccount_input ">
+                    </td>
+                    <td>
+                        <label class="common_required_item">*</label>
+                    </td>
+                    <td>经纪商客户号：</td>
+                    <td>
+                        <input type="text" ng-model="currAccount.bacidcard" disabled="disabled" class="common_normal_input  authorizeAssetAccount_input ">
+                    </td>
+                    <td>
+                        <label class="common_required_item">*</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>账户所有者：</td>
+                    <td>
+                        <input type="text" ng-model="currAccount.bact_name" maxlength="32" class="common_normal_input  authorizeAssetAccount_input ">
+                    </td>
+                    <td>
+                        <label class="common_required_item"></label>
+                    </td>
+                    <td>身份证号：</td>
+                    <td>
+                        <input type="text" ng-model="currAccount.bact_idcard" maxlength="32" class="common_normal_input  authorizeAssetAccount_input ">
+                    </td>
+                    <td>
+                        <label class="common_required_item"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>默认币种：</td>
+                    <td>
+                        <select ng-model="currAccount.currencyid" class="common_dropdown authorizeAssetAccount_select">
+                            <option ng-repeat="currency in allCurrency" value="{{currency.currencyid}}">{{currency.curencychname+"("+currency.briefcode+")"}}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <label class="common_required_item">*</label>
+                    </td>
+                    <!-- <td ng-show="detailState === 'bindAssetAccount'">账户密码：</td>
+                            <td ng-show="detailState === 'bindAssetAccount'">
+                                <cms-password-input password-text="currAccount.bact_pass" maxLength="128"></cms-password-input>
+                            </td>
+                            <td ng-show="detailState === 'bindAssetAccount'">
+                                <label class="common_required_item">*</label>
+                            </td> -->
+
+                    <td ng-show="detailState === 'editAssetAccount'">账户状态：</td>
+                    <td ng-show="detailState === 'editAssetAccount'">
+                        <select ng-model="currAccount.stat" class="common_dropdown authorizeAssetAccount_select">
+                            <option value="1">可用</option>
+                            <option value="0">不可用</option>
+
+                        </select>
+                    </td>
+                    <td ng-show="detailState === 'editAssetAccount'">
+                        <label class="common_required_item">*</label>
+                    </td>
+
+                </tr>
+
+                <!-- <tr ng-show="detailState === 'editAssetAccount'">
+        
+                            <td>账户状态：</td>
+                            <td>
+                                <select ng-model="currAccount.stat" class="common_dropdown authorizeAssetAccount_select">
+                                    <option value ="1">可用</option>
+                                    <option value ="0">不可用</option>
+        
+                                </select>
+                            </td>
+                            <td><label class="common_required_item">*</label></td>
+                        </tr> -->
+                <tr ng-show="detailState === 'editAssetAccount'">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: right;">
+                        <!-- ng-disabled="accountloginstat != '0'" -->
+                        <button class="common_table_operate_text" ng-click="accountLoginChangeInfo(currAccount)"  ng-disabled="accountloginstat == '1'">修改资金账号信息</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>备注信息：</td>
+                    <td colspan="5">
+                        <textarea ng-model="currAccount.bact_comment" rows="8" maxlength="1024" style="resize:none; width:100%;"></textarea>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="common_modal_footer">
+        <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length " ng-click="editAssetAccount()">确定</button>
+        <button type="button" class="common_gray_btn common_normal_btn common_line_unend_item common_default_length" ng-click="accountHideModal()">取消</button>
+    </div>
+
+</div>

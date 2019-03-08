@@ -1,0 +1,140 @@
+.common_check_box {
+  margin: 0;
+  margin-bottom: 5px;
+}
+.check_right {
+	vertical-align:middle;
+	margin-top:3px;
+	margin-bottom:3px;
+	margin-left:12px;
+}
+.label_right {
+	overflow: hidden;
+	text-overflow: ellipsis
+}
+.addAlgorithm_option_div {
+	position: absolute;
+	top: 14px;
+	left: 13px;
+	right: 9px;
+	height: 26px;
+	vertical-align: middle;
+}
+.addAlgorithm_data_div {
+	position: absolute;
+	top: 51px;
+	left: 13px;
+	right: 9px;
+	bottom: 10px;
+	border: 1px solid #DCDCDC;
+}
+.addAlgorithm_form_compact_header {
+	font-size: 12px;
+	display: inline-block;
+	width: 120px;
+	margin-right: 5px;
+}
+
+.addAlgorithm_Add_dropdown {
+	width: 200px;
+}
+
+.addAlgorithm_import_tip {
+	position: absolute;
+	top: 40px;
+	left: 350px;
+	background-color: rgb(221,221,221);
+	border-radius: 5px;
+	z-index: 51;
+	padding: 2px;
+}
+
+.addAlgorithm_import_tip_label {
+	font-size: 12px;
+	color:rgb(144,143,143);
+}
+
+.addAlgorithm_form_item_tips {
+	color: red;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+/*带下划线*/
+.addAlgorithm_form_item_tips_u {
+	color: red;
+	font-size: 12px;
+	text-decoration: underline;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.addAlgorithm_Alt_form_right_item {
+	/* margin-left: 30px; */
+	margin-bottom: 10px;
+	margin-right: 10px;
+}
+
+.addAlgorithm_table_label {
+	font-size: 12px;
+	vertical-align: middle;
+	color: rgb(101,101,101);
+}
+
+.addAlgorithm_table_option_label {
+	color: rgb(9,157,220);
+	font-size: 12px;
+	cursor: pointer;
+}
+.addAlgorithm_table_option_label:hover {
+	color: red;
+}
+.addAlgorithm_table_option_divider {
+	color: rgb(9,157,220);
+	font-size: 12px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.addAlgorithm_freeze_modal_content {
+	text-align:center;
+	font-size:12px;
+	color:rgb(101,101,101)
+}
+
+.addAlgorithm_table_td_input{
+    min-width: 80px;
+    width: calc(100% - 4px);
+    height: 100%;
+    text-align: right;
+}
+
+/* 做一个加号 */
+.plus-icon {
+    display: inline-block;
+    background: #14b2f3;
+    height: 16px;
+    position: relative;
+    width: 2px;
+    margin-left: 20px;
+    margin-right: 12px;
+    vertical-align: top;
+    cursor: pointer;
+}
+.plus-icon:after {
+    background: #14b2f3;
+    content: "";
+    height: 16px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 2px;
+    transform: rotateZ(90deg);
+    cursor: pointer;
+}
+.saveEffectBtn {
+    background: #64BAEA;
+    color: white;
+    margin-left: 20px;
+    margin-top: 15px;
+}

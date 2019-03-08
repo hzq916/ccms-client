@@ -1,0 +1,26 @@
+<div class="common_modal" id="strategyServer_permission_modal">
+    <div class="common_modal_title_div" id = "strategyServer_permission_modal_title">
+        <label class = "common_modal_title_label" >策略共享</label>
+        <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "hideStrategyServerModal()">
+            <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+        </div>
+    </div>
+
+    <div class="common_modal_body">
+        <!-- <lable class="common_line_unend_item">
+            策略名称:
+        </lable>
+        <label for="">{{operateStrategy.stname+"("+operateStrategy.stgid+")"}}</label> -->
+        <div class="common_scroll_div" style="height:200px; width:500px; border: 1px solid #DCDCDC;">
+            <div class="market_check_div" ng-repeat="trader in operateManagerTraders" ng-hide="trader.hide">
+                <input type="checkBox" ng-checked="trader.checked" ng-click="clickPermCheckBox(trader)" >
+                <label for="">{{trader.oname+"("+trader.oid+")"}}</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="common_modal_footer">
+        <button type="button" class="common_blue_btn common_normal_btn  common_default_length common_line_unend_item"  ng-click="confirmStrategyPermission()">确定</button>
+        <button type="button" class="common_gray_btn common_normal_btn common_default_length" ng-click="hideStrategyServerModal()">取消</button>
+    </div>
+</div>

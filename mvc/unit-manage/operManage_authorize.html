@@ -1,0 +1,94 @@
+<div class = "common_modal" id = "operManage_authorize_modal" style=" width:786px; height:605px;">
+	<div class="common_modal_title_div" id = "operManage_authorize_modal_title">
+		<label class = "common_modal_title_label">资源权限({{altOperInfo.oid+" "+altOperInfo.oname}})</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "operManageAdd_HideModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class="common_modal_operate_body common_scroll_div" style="-webkit-user-select:none; height:501px;">
+		<!--<div class="common_title_indicate ">权限级别</div>-->
+		<div class="operManage_fuction_div">
+			<label style="margin-right:5px">权限级别：</label>
+			<label class="operManage_role" ng-click="setPermissionLevel(1)" ng-class="{operManage_role_active:authorizeData.permissionLevel == 1}">资产管理人</label>
+			<label class="operManage_role" ng-click="setPermissionLevel(2)" ng-class="{operManage_role_active:authorizeData.permissionLevel == 2}">产品</label>
+			<label class="operManage_role" ng-click="setPermissionLevel(4)" ng-class="{operManage_role_active:authorizeData.permissionLevel == 4}">组合</label>
+			<label class="operManage_role" ng-click="setPermissionLevel(3)" ng-class="{operManage_role_active:authorizeData.permissionLevel == 3}">资金账户</label>
+			<!--<label class="operManage_role" ng-click="setPermissionLevel(5)" ng-class="{operManage_role_active:authorizeData.permissionLevel == 5}">交易账户</label>-->
+		</div>
+
+		<!--<div class="common_title_indicate ">授权</div>-->
+		<div class="operManage_fuction_div">
+			<label style="margin-right:5px">筛选条件：</label>
+			<label>　资产管理人</label>
+			<select class="common_dropdown operManage_permission_select" ng-options="manager.name for manager in user_maidList"
+					ng-change="filterCellList(1)" ng-model="self.authorizeManager">
+			</select>
+			<label ng-if="authorizeData.permissionLevel == 2 || authorizeData.permissionLevel == 4">　产品</label>
+			<select class="common_dropdown operManage_permission_select" ng-options="product.name for product in user_caidList"
+					ng-change="filterCellList(2)" ng-model="self.authorizeProduct" ng-if="authorizeData.permissionLevel == 2 || authorizeData.permissionLevel == 4">
+			</select>
+			<label ng-if="authorizeData.permissionLevel == 4">　组合</label>
+			<select class="common_dropdown operManage_permission_select" ng-options="trd.name for trd in user_tridList"
+					ng-change="filterCellList(4)" ng-model="self.authorizeTrd" ng-if="authorizeData.permissionLevel == 4">
+			</select>
+			<label ng-if="authorizeData.permissionLevel == 3">　资金账户</label>
+			<select class="common_dropdown operManage_permission_select" ng-options="account.name for account in user_acidList"
+					ng-change="filterCellList(3)" ng-model="self.authorizeAccount" ng-if="authorizeData.permissionLevel == 3">
+			</select>
+		</div>
+		<div class="operManage_fuction_div" style="margin-top:10px">
+			<div>
+				<label style="margin-right:5px">可选范围：</label>
+				<input type="checkbox" ng-checked="showHaveRight" class="check_right"
+				 ng-click="clickHaveRight()">
+				<label class="label_right">仅显示已有权限</label>
+				<img src="../commonui/images/tishi.png" ng-mouseenter = "showTips = true;" ng-mouseout = "showTips = false;" draggable="false" style="width:18px;height:18px;margin-left:15px;vertical-align:middle;" />
+				<div class="showTips" ng-show="showTips"> 
+					&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp传递读/写权限递归说明</br>
+					</br>
+					&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp授权某操作员传递读权限时，对该级</br>
+					别具有传递读权限，同时对其下所有级别</br>
+					的资源都具有读和传递读权限</br>
+					&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp授权某操作员传递写权限时，对该级</br>
+					别具有传递写权限，同时对其下所有级别</br>
+					的资源都具有写和传递写权限</br>
+				</div>
+			</div>	
+			<div class="common_scroll_div" style="height: 375px;border: 1px solid #DCDCDC;margin-top:15px">
+				<table style="width:100%" id="authorizeList">
+					<tr class="right_box" ng-repeat="cell in authorizeData.cellid_list" ng-show="cell.show && cell.haveRight">
+						<td >
+							<p style="margin: 0;margin-top: 5px;">
+							<input type="checkbox" ng-show="((authorizeData.permissionLevel == 4 || authorizeData.permissionLevel == 3) && cell.right == 31) || ((authorizeData.permissionLevel == 1 || authorizeData.permissionLevel == 2) && cell.right == 15) || cell.right == 0" ng-checked="((authorizeData.permissionLevel == 4 || authorizeData.permissionLevel == 3) && cell.right == 31) || ((authorizeData.permissionLevel == 1 || authorizeData.permissionLevel == 2) && cell.right == 15)" class="check_right"
+							value="useable" ng-click="clickRight(cell,0)">
+							<img src="../commonui/images/banxuan.png" ng-show="((authorizeData.permissionLevel == 4 || authorizeData.permissionLevel == 3) && cell.right < 31 && cell.right > 0) || ((authorizeData.permissionLevel == 1 || authorizeData.permissionLevel == 2) && cell.right < 15 && cell.right > 0)" draggable="false" ng-click="clickRight(cell,0)" style="width:14px;height:14px;vertical-align:middle;margin-top:3px;margin-bottom:3px;margin-right:3px;margin-left:11px;" />
+							<label class="label_right" style="font-weight: 600;">{{cell.cellname}}</label>
+							</p>
+							<p style="margin: 0;margin-top: 5px;margin-bottom: 5px; padding-left: 25px;">
+									<input type="checkbox" ng-checked="checkRight(cell.right,1)" class="check_right"
+									value="useable" ng-click="clickRight(cell,1)">
+									<label style="padding: 0px;vertical-align:middle;color:#099DDC;">读</label>
+									<input type="checkbox" ng-checked="checkRight(cell.right,2)" class="check_right"
+									value="useable" ng-click="clickRight(cell,2)" style="margin-left:50px">
+									<label style="padding: 0px;vertical-align:middle;color:#099DDC;">写</label>
+									<input type="checkbox" ng-checked="checkRight(cell.right,4)" class="check_right"
+									value="useable" ng-click="clickRight(cell,3)" style="margin-left:50px">
+									<label style="padding: 0px;vertical-align:middle;color:#099DDC;">传递读</label>
+									<input type="checkbox" ng-checked="checkRight(cell.right,8)" class="check_right"
+									value="useable" ng-click="clickRight(cell,4)" style="margin-left:50px">
+									<label style="padding: 0px;vertical-align:middle;color:#099DDC;">传递写</label>
+									<input ng-if="authorizeData.permissionLevel == 4 || authorizeData.permissionLevel == 3" type="checkbox" ng-checked="checkRight(cell.right,16)" class="check_right"
+									value="useable" ng-click="clickRight(cell,5)" style="margin-left:50px">
+									<label ng-if="authorizeData.permissionLevel == 4 || authorizeData.permissionLevel == 3" style="padding: 4px;vertical-align:middle;color:#099DDC;">交易</label>
+							</p>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "altUserData()">确定</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click = "operManageAdd_HideModal()">取消</button>
+	</div>
+</div>

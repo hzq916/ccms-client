@@ -1,0 +1,19 @@
+<div class="common_modal" id = "net_break_modal" style="width:300px;">
+	<div class="common_modal_title_div" id = "net_break_modal_title">
+		<label class = "common_modal_title_label">网络连接已断开</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "mainHideSysModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class="common_modal_body">
+		<div class = "main_modal_tips_content">
+			网络连接已断开，&nbsp;
+			<label style = "color: red">{{sysModalInfo.tNumber}}</label>
+			&nbsp;&nbsp;秒后即将返回登录。
+		</div>
+	</div>
+	<div class="common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item" ng-click = "mainRelogin()">立即登录</button>
+		<button type="button" class = "common_gray_btn common_normal_btn" ng-click = "mainCloseWindow()">退出系统</button>
+	</div>
+</div>

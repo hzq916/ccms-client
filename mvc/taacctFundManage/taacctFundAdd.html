@@ -1,0 +1,40 @@
+<div class = "common_modal" id = "taacct_fund_add_modal">
+	<div class="common_modal_title_div" id = "taacct_fund_add_modal_title">
+		<label class = "common_modal_title_label">新增资产账户</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "hideTaacctFundModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class = "common_modal_body">
+		<div class = "unitlist_tatrd_form_item">
+			<label class = "unitlist_tatrd_form_header">资产账户</label>
+			<input type="text" class = "common_normal_input common_line_unend_item unitlist_tatrd_input"  ng-disabled = "true" value = "{{currentAssetAccount.acname+'('+currentAssetAccount.acid+')'}}">
+		</div>
+
+		<div class = "unitlist_tatrd_form_item">
+			<label class = "unitlist_tatrd_form_header">币种：</label>
+			<select class="common_dropdown common_line_unend_item unitlist_tacap_dropdown" ng-model = "operateTaacctFund.currencyid" >
+				<option ng-repeat = "currency in allCurrency" value = "{{currency.currencyid}}">{{currency.curencychname+ "("+currency.briefcode+")"}}</option>
+			</select>
+			<label class = "unitlist_form_item_tips">*</label>
+		</div>
+		<div class = "unitlist_tatrd_form_item">
+			<label class = "unitlist_tatrd_form_header">金额：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item unitlist_tatrd_input"
+			 	maxlength="18" cms-mask="unsignedFloat" ng-model = "operateTaacctFund.totalamt" ng-change="refreshShare(1)">
+			<label class = "unitlist_form_item_tips">*</label>
+		</div>
+		<div class = "unitlist_tatrd_form_item">
+			<label class = "unitlist_tatrd_form_header">同步更新份额：</label>
+			<input type="checkbox" class = "common_line_unend_item"  ng-model = "operateTaacctFund.changeShare" ng-change="refreshShare(1)">
+		</div>
+		<div class = "">
+			<label class = "unitlist_tatrd_form_header">当前份额：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item unitlist_tatrd_input" ng-disabled="true"  ng-model = "operateTaacctFund.current_totalshare">
+		</div>
+	</div>
+	<div class = "common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_default_length common_line_unend_item" ng-click = "createTaacctFund()">保&nbsp;存</button>
+		<button type="button" class = "common_green_btn common_default_length common_normal_btn" ng-click = "hideTaacctFundModal()">取&nbsp;消</button>
+	</div>
+</div>

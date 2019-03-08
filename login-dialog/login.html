@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html class="login_html" droppable="false">
+
+<head>
+	<meta charset="utf-8">
+	<title>ccms-登录</title>
+	<link href="../mvc/commonui/css/common.css" rel="stylesheet" type="text/css">
+	<link href="./login.css" rel="stylesheet" type="text/css">
+	<link href="../directive/onBoard/onBoard.css" rel="stylesheet" type="text/css">
+	<script src="../lib/angular.min.js"></script>
+	<script src="../lib/cms.common.js"></script>
+	<script src="../lib/cms.file.js"></script>
+	<script src="../lib/cms.net.js"></script>
+	<script src="../lib/cms.js"></script>
+
+	<script src="./login.js"></script>
+	<script src="../directive/onBoard/onBoard.js"></script>
+	<script type="text/javascript">
+			function stopDrop(ev) {
+				ev.preventDefault();
+			}
+			function allowDrop(ev) {
+				ev.preventDefault();
+			}
+		</script>
+</head>
+
+<body ng-app="loginApp" class="login_body">
+	<div class="login_content" ng-controller="loginCtrl" ng-init="loginInit()" ondragover="allowDrop(event)" ondrop="stopDrop(event)">
+		<div ng-class="{true:'login_userform_front',false:'login_userform_back'}[showUserForm]">
+			<div class="loginTit">
+				<div class="login_logo">
+					<img ng-src="{{electronAppLogo}}" draggable="false" style="width:100%;height:100%;" />
+				</div>
+				<div class="login_close_btn" ng-click="loginCloseWindow()">
+					<img src="login_close.png" draggable="false" style="width:100%;height:100%;" />
+				</div>
+				<div class="login_min_btn" ng-click="loginMinWindow()">
+					<img src="login_min.png" draggable="false" style="width:100%;height:100%;" />
+				</div>
+			</div>
+			<p class="login_title_label">时空量化系统</label>
+			<div style="height:10px;"></div>
+			<p class="login_version_label">{{electronAppName}}</p>
+			<div style="height:20px;"></div>
+			<p class="login_label">用户登录</p>
+			<div style="height:27px">
+				<div style="height:5px;"></div>
+				<label class="login_tips_label">{{loginInfo.errorString}}</label>
+			</div>
+			<div class="login_form_div">
+				<div class="login_form_unend_item">
+					<input type="text" ng-class="{true:'login_error_input',false:'login_normal_input'}[loginInfo.maidError]" cms-mask="unsignedInt"
+						placeholder="资产管理人编号" ng-model="loginInfo.maid" ng-focus="loginHideError(1)" ng-keydown="loginKeyDown($event)">
+				</div>
+				<div class="login_form_unend_item">
+					<input type="text" ng-class="{true:'login_error_input',false:'login_normal_input'}[loginInfo.oidError]" cms-mask="unsignedInt"
+						placeholder="操作员账号" ng-model="loginInfo.oid" ng-focus="loginHideError(2)" ng-keydown="loginKeyDown($event)">
+				</div>
+				<div class="login_form_end_item ">
+					<input type="password" ng-class="{true:'login_error_input',false:'login_normal_input'}[loginInfo.passError]" placeholder="操作员密码"
+						ng-model="loginInfo.pass" ng-focus="loginHideError(3)" ng-keydown="loginKeyDown($event)">
+					<!-- <label style="position: fixed; left:356px; top:355px;"  ng-click="showKeyBoardDiv()">键盘</label> -->
+					<img src="../mvc/commonui/images/keyboard.png" draggable="false" style="position: fixed; left:356px; top:340px; opacity:0.7;"
+						ng-click="showKeyBoardDiv()" />
+					<!-- <input type="password" ng-click="setInput()" ng-model="loginInfo.pass" ng-change="showInputChange()"> -->
+				</div>
+			</div>
+			<div style="height:13px;"></div>
+			<div class="login_check">
+				<div ng-class="{true:'login_check_box_true',false:'login_check_box_false'}[loginInfo.savePass]" ng-click="savePass()">
+					<img src="login_checked.png" draggable="false" ng-show="loginInfo.savePass" />
+				</div>
+				<label class="login_check_label">保存登录信息</label>
+			</div>
+			<div style="height:20px;"></div>
+			<button type="button" class="login_btn login_blue_btn" ng-click="loginToServer(config.mainWebConfig)">登&nbsp;&nbsp;录</button>
+			<!--<div class="login_params_option">
+				<label class="login_userform_option_label" ng-click="loginShowUserForm()">网络配置</label>
+			</div>-->
+			<!--<div style="height:20px; -webkit-app-region:no-drag;"></div>-->
+			<div class="login_params_option">
+				<select class="common_dropdown configDropdowm " ng-options="webCon for webCon in config.webConfigList" ng-init="config.mainWebConfig"
+					ng-model="config.mainWebConfig">
+				</select>
+				<!--<select class="common_dropdown configDropdowm " ng-init="config.mainWebConfig" > 
+					<option ng-repeat="webCon in config.webConfigList" style="width:100px; overflow:hidden;">
+						<div style="width:100px; overflow:hidden;" class="test">{{webCon}}</div>
+					</option>-->
+				</select>
+				<span class="modifyBtn loginBtn " ng-click="loginShowUserForm(1, config.mainWebConfig)">修改</span>
+				<span class="addBtn loginBtn" ng-click="loginShowUserForm(0)">添加</span>
+				<span class="delBtn loginBtn" ng-click="showAlert()">删除</span>
+			</div>
+		</div>
+		<div class="configPage" ng-class=" {true:'login_net_back',false:'login_net_front'}[showUserForm]">
+			<div class="loginTit">
+				<div class="login_close_btn" ng-click="loginCloseWindow()">
+					<img src="login_close.png" draggable="false" style="width:100%;height:100%;" />
+				</div>
+				<div class="login_min_btn" ng-click="loginMinWindow()">
+					<img src="login_min.png" draggable="false" style="width:100%;height:100%;" />
+				</div>
+			</div>
+			<!--<div style="height:64px;" style="-webkit-app-region: drag;"></div>-->
+			<p class="login_net_title">{{configType}}</p>
+			<div style="height:30px;"></div>
+			<p class="login_version_label">Version&nbsp;{{clientVersion}}</p>
+			<div class="login_form_div">
+				<div class="login_net_form_end_item configInputBox">
+					<label>名称</label>
+					<input type="text" ng-class="{true:'login_error_input',false:'login_normal_input'}[loginInfo.portError]" cms-mask="unsignedInt"
+						placeholder="请输入名称" ng-model="webConfig.name" ng-focus="loginHideError(5)" ng-keydown="netInfoKeyDown($event)">
+				</div>
+				<p class="configTip">{{webConfigTips.name}}</p>
+				<div class="login_net_form_unend_item configInputBox">
+					<label>地址</label>
+					<input type="text" ng-class="{true:'login_error_input',false:'login_normal_input'}[loginInfo.ipError]" cms-mask="unsignedFloat"
+						placeholder="请输入地址" ng-model="webConfig.ip" ng-focus="loginHideError(4)" ng-keydown="netInfoKeyDown($event)">
+				</div>
+				<p class="configTip">{{webConfigTips.ip}}</p>
+				<div class="login_net_form_end_item configInputBox">
+					<label>端口</label>
+					<input type="text" ng-class="{true:'login_error_input',false:'login_normal_input'}[loginInfo.portError]" cms-mask="unsignedInt"
+						placeholder="请输入端口" ng-model="webConfig.port" ng-focus="loginHideError(5)" ng-keydown="netInfoKeyDown($event)">
+				</div>
+				<p class="configTip">{{webConfigTips.port}}</p>
+			</div>
+			<div class="btnCon">
+				<button type="button" class="login_btn login_blue_btn" ng-click="loginSaveNetInfo()">确定 </button>
+				<button type="button" class="login_btn common_gray_btn" ng-click="loginShowUserForm()">取消</button>
+			</div>
+			<!--<div class="login_params_option">
+				<label class="login_netform_option_label" ng-click="loginShowUserForm()">返回</label>
+			</div>-->
+		</div>
+		<div class="alertBox" ng-if="!isAlertBoxHidden">
+			<div class="common_modal_title_div">提示<img src="login_close.png" class="closeIcon" draggable="false" ng-click="hiddenAlert()" /></div>
+			<div class="common_modal_body">
+				<div class="main_modal_tips_content">确定要删除 : {{config.mainWebConfig}}</div>
+			</div>
+			<div class="common_modal_footer">
+				<button class="common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click="delConfig(config.mainWebConfig)">确定</button>
+				<button class="common_gray_btn common_normal_btn common_default_length" ng-click="hiddenAlert()">取消</button>
+			</div>
+		</div>
+		<cms-board style="position:fixed; left: 26px; top: 370px;" ng-show="showKeyBoard" dest-value="loginInfo.pass"></cms-board>
+
+	</div>
+</body>
+
+</html>

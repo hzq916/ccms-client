@@ -1,0 +1,88 @@
+<div class="common_page_html common_scroll_div" ng-controller = "profitReportCtrl" ng-init = "profitReportInit()">
+	<div class="common_mini_subguide_div" ng-show="!showSubguide" ng-click="showSubguide=true;">
+        <div class="common_mini_guide_title_div">
+            <div class="common_menu_icon"></div>
+            单元导航
+        </div>
+    </div>
+    <div class="common_subguide_div" ng-show="showSubguide">
+        <div class = "common_guide_title_div">
+            <label class = "common_guide_title_label">单元导航</label>
+            <img src="../commonui/images/icon_lock.png" draggable="false"  class = "common_guide_close_icon" title="点击收起菜单" ng-click = "showSubguide=false;"/>
+        </div>
+        <div class=" common_guide_content_div common_scroll_div">
+			<cms-guide guide-data = "{{guideTree}}" guide-showid = "true" guide-selectleaf = "false" guide-selectlevel="2" guide-click = "clickGuideMenu(menu)" guide-setmenu = "setGuideMenu"></cms-guide>
+        </div>
+    </div>
+	<div ng-class = "{'common_content_locked_div':showSubguide,'common_content_unlocked_div':!showSubguide}">
+		<div class = "common_page_html common_scroll_div">
+			<div class="common_normal_operate_div common_nowrap">
+				<label class="common_normal_text">基准：</label>
+				<select class = "common_normal_input common_line_unend_item" style="width:200px;" ng-model="currentDatum" ng-change="getProfitReport()" >
+					<option ng-repeat="datum in datums" value="{{datum.ukcode}}">{{datum.chabbr}}</option>
+				</select>
+				<input type="date" class = "common_form_calendar common_normal_input" style="width:100px;" ng-model="startDate" ng-change="changeDate()" required>
+				<label class = "common_normal_text">-</label>
+				<input type="date" class = "common_form_calendar common_normal_input common_line_unend_item" style="width:100px;" ng-model="endDate" ng-change="changeDate()"  required>
+				<button type="button" class = "common_normal_btn common_blue_btn common_default_length common_line_unend_item" ng-if="menuRight.indexOf(2004005001) != -1" ng-disabled="currentTrids == ''" ng-click="exportProfitReport()">导出</button>
+				<button type="button" class = "common_normal_btn common_green_btn common_default_length" ng-disabled="currentTrids == ''" ng-click="getProfitReport()">刷新</button>
+			</div>
+			<div class="common_normal_data_div common_scroll_div">
+				<table class="common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+					<thead>
+						<tr>
+							<th class = "common_center_align common_nowrap">
+								策略号
+							</th>
+							<th class = "common_center_align common_nowrap">
+								期初净值
+							</th>
+							<th class = "common_center_align common_nowrap">
+								期末净值
+							</th>
+							<th class = "common_center_align common_nowrap">
+								本期收益率
+							</th>
+							<th class = "common_center_align common_nowrap">
+								年化夏普率
+							</th>
+							<th class = "common_center_align common_nowrap">
+								Beta值
+							</th>
+							<th class = "common_center_align common_nowrap">
+								年化Alpha值
+							</th>
+							<th class = "common_center_align common_nowrap">
+								年化波动率
+							</th>
+							<th class = "common_center_align common_nowrap">
+								索提诺比率
+							</th>
+							<th class = "common_center_align common_nowrap">
+								最大回撤率
+							</th>
+							<th class = "common_center_align common_nowrap">
+								信息比率
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat = "item in profitData">
+							<td class = "common_center_align common_nowrap">{{item.datatype == 0 ? ( !!datumObj[item.trid] ?  datumObj[item.trid].chabbr : item.trid ) : item.trid}}</td>
+							<td class = "common_center_align common_nowrap">{{item.begin_net | number:4}}</td>
+							<td class = "common_center_align common_nowrap">{{item.end_net | number:4}}</td>
+							<td class = "common_center_align common_nowrap">{{(item.rate_return * 100) | number:4}}%</td>
+							<td class = "common_center_align common_nowrap">{{item.sharpe | number:4}}</td>
+							<td class = "common_center_align common_nowrap">{{item.beta | number:4}}</td>
+							<td class = "common_center_align common_nowrap">{{(item.alpha * 100) | number:4}}%</td>
+							<td class = "common_center_align common_nowrap">{{item.volatility | number:4}}</td>
+							<td class = "common_center_align common_nowrap">{{ item.datatype == 0 ? "-" : ( item.sortino | number:4 )}}</td>
+							<td class = "common_center_align common_nowrap">{{(item.maxdrawdown * 100) | number:4}}%</td>
+							<td class = "common_center_align common_nowrap">{{item.information | number:4}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

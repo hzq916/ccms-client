@@ -1,0 +1,54 @@
+.traderwhite_code_div {
+	position: absolute;
+	left: 5px;
+	top: 0;
+	bottom: 10px;
+	width: calc(60% - 14px);
+}
+.traderwhite_trader_div {
+	position: absolute;
+	left: calc(60% + 5px);
+	top: 0;
+	bottom: 10px;
+	width: calc(40% - 14px);
+}
+.traderwhite_trader_code_div {
+	position: absolute;
+	left: 5px;
+	top:0;
+	right: 9px;
+	bottom: 10px;
+}
+.traderwhite_operate_div {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 26px;
+}
+.traderwhite_data_div {
+	position: absolute;
+	top: 36px;
+	left: 0;
+	right: 0;
+	bottom:0;
+	border: 1px solid #dcdcdc;
+}
+.traderwhite_tips_div {
+	position: absolute;
+	left: 10px;
+	top: 28px;
+	background-color: rgb(221,221,221);
+	border-radius: 5px;
+	z-index: 51;
+	padding: 2px;
+}
+.traderwhite_btn_menu {
+	position: absolute;
+	top: 27px;
+	left: 230px;
+	border: solid 1px rgba(34,36,38,.5);
+	background-color: rgb(240,240,240);
+	z-index: 101;
+	padding: 2px;
+}

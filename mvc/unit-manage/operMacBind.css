@@ -1,0 +1,96 @@
+.operMacBind_option_div {
+	position: absolute;
+	top: 14px;
+	left: 13px;
+	right: 9px;
+	height: 26px;
+	vertical-align: middle;
+}
+.operMacBind_data_div {
+	position: absolute;
+	top: 51px;
+	left: 13px;
+	right: 9px;
+	bottom: 10px;
+	border: 1px solid #DCDCDC;
+}
+.operMacBind_form_compact_header {
+	font-size: 12px;
+	display: inline-block;
+	width: 120px;
+	margin-right: 5px;
+}
+
+.operMacBind_Add_dropdown {
+	width: 200px;
+}
+
+.operMacBind_import_tip {
+	position: absolute;
+	top: 40px;
+	left: 350px;
+	background-color: rgb(221,221,221);
+	border-radius: 5px;
+	z-index: 51;
+	padding: 2px;
+}
+
+.operMacBind_import_tip_label {
+	font-size: 12px;
+	color:rgb(144,143,143);
+}
+
+.operMacBind_form_item_tips {
+	color: red;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+/*带下划线*/
+.operMacBind_form_item_tips_u {
+	color: red;
+	font-size: 12px;
+	text-decoration: underline;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.operMacBind_Alt_form_right_item {
+	/* margin-left: 30px; */
+	margin-bottom: 10px;
+	margin-right: 10px;
+}
+
+.operMacBind_table_label {
+	font-size: 12px;
+	vertical-align: middle;
+	color: rgb(101,101,101);
+}
+
+.operMacBind_table_option_label {
+	color: rgb(9,157,220);
+	font-size: 12px;
+	cursor: pointer;
+}
+.operMacBind_table_option_label:hover {
+	color: red;
+}
+.operMacBind_table_option_divider {
+	color: rgb(9,157,220);
+	font-size: 12px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.operMacBind_freeze_modal_content {
+	text-align:center;
+	font-size:12px;
+	color:rgb(101,101,101)
+}
+
+.operMacBind_table_td_input{
+    min-width: 80px;
+    width: calc(100% - 4px);
+    height: 100%;
+    text-align: right;
+}

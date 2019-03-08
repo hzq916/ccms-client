@@ -1,0 +1,31 @@
+.paraSettings_option_div {
+	margin-top: 20px;
+	height: 30px;
+	/* text-align: center; */
+	vertical-align: middle;
+	margin-left: 80px;
+}
+
+
+.paraSettings_option_div_40px {
+	margin-top: 40px;
+	height: 30px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.paraSettings_div_left_label {
+	font-size: 12px;
+	display: inline-block;
+	width: 205px;
+	margin-left: 20px;
+	/* text-align: right */
+}
+
+.paraSettings_div_right_label {
+	font-size: 12px;
+	display: inline-block;
+	width: 205px;
+	margin-left: 20px;
+	/* text-align: right */
+}

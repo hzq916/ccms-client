@@ -1,0 +1,99 @@
+<div class = "common_modal " id = "wellcome_add_service_modal" >
+	<div class="common_modal_title_div" id = "wellcome_add_service_modal_title">
+		<label class = "common_modal_title_label">{{currentService.edit ? "编辑服务" : "添加服务"}}</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "wellcomeCloseModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class="wellcome_service_modal_body">
+		<div class="wellcome_service_modal_body_left">
+			<div class="common_form_div_item_10px common_nowrap">
+				<label class = "common_normal_text wellcome_add_service_form_header">服务名称：</label>
+	            <input type="text" class = "common_normal_input wellcome_add_service_form_input common_line_unend_item" maxlength="128" ng-model="currentService.servicename"  >
+				<label class = "common_required_item">*</label>
+			</div>
+			<div class="common_form_div_item_10px common_nowrap">
+				<label class = "common_normal_text wellcome_add_service_form_header">所属模块：</label>
+				<select class="common_dropdown common_line_unend_item wellcome_add_service_form_dropdown"  ng-model="currentService.moduleid" ng-change="changeServiceModule()">
+					<option ng-repeat="module in moduleList" value="{{module.moduleid}}">{{module.modulename + "(" + module.modulecode + ")"}}</option>
+				</select>
+				<label class = "common_required_item">*</label>
+			</div>
+			<div class="common_form_div_item_10px common_nowrap" ng-show="currentService.moduleid == sdsModuleid || currentService.moduleid == omsModuleid">
+				<label class = "common_normal_text wellcome_add_service_form_header">服务类型：</label>
+				<select class="common_dropdown common_line_unend_item wellcome_add_service_form_dropdown" ng-model="currentService.servicetype" >
+					<option value="1">正式服务</option>
+					<option value="0">模拟服务</option>
+				</select>
+				<label class = "common_required_item">*</label>
+			</div>
+			<div class="common_form_div_item_10px common_nowrap">
+				<label class = "common_normal_text wellcome_add_service_form_header">父服务：</label>
+				<select class="common_dropdown common_line_unend_item wellcome_add_service_form_dropdown"  ng-model="currentService.parentid" >
+					<option ng-repeat="service in currentService.services" value="{{service.serviceid}}">{{service.servicename}}</option>
+				</select>
+				<label class = "common_required_item">*</label>
+			</div>
+			<div class="common_nowrap">
+				<label class = "common_normal_text wellcome_add_service_form_header">服务配置：</label>
+	            <input type="text" class = "common_normal_input wellcome_add_service_form_input common_line_unend_item" maxlength="4096" ng-model="currentService.cfg"  >
+				<label class = "common_required_item">*</label>
+			</div>
+		</div>
+		<div class="wellcome_service_modal_body_right common_scroll_div">
+			<table class = "wellcome_table">
+				<thead>
+					<tr>
+						<th class="common_left_align common_nowrap" style="width:70px;">端口地址</th>
+						<th class="common_left_align common_nowrap" style="width:150px;">端口名称</th>
+						<th class="common_left_align common_nowrap"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat ="port in currentService.ports">
+						<td class="common_left_align common_nowrap">
+							<label class = "common_table_modify_color" ng-hide="port.edit">{{port.port}}</label>
+							<input type="text" class="wellcome_table_input" ng-show="port.edit" ng-model="port.new_port" >
+						</td>
+						<td class="common_left_align common_nowrap" >
+							<label class = "common_table_modify_color" ng-hide="port.edit">{{port.portname}}</label>
+							<input type="text" class="wellcome_table_input" ng-show="port.edit" ng-model="port.new_portname" >
+						</td>
+						<td class="common_left_align common_nowrap">
+							<img class="wellcome_table_edit_icon wellcome_table_option_margin" src="../commonui/images/edit.png" ng-if="!port.edit" draggable="false" title = "编辑" ng-click="wellcomeServiceEditPort(port)">
+							<span class = "wellcome_table_save_icon wellcome_table_option_margin" ng-if="port.edit" title="保存" ng-click="wellcomeServiceEditPortSave(port)"></span>
+							<span class = "wellcome_table_delete_icon" title="{{port.edit ? '取消' : '删除'}}" ng-click="wellcomeServiceDeletePort($index)"></span>
+						</td>
+					</tr>
+					<tr ng-show="currentService.addPort">
+						<td class="common_left_align common_nowrap">
+							<input type="text" class="wellcome_table_input" ng-model="currentService.currentAddPort.port" >
+						</td>
+						<td class="common_left_align common_nowrap" >
+							<input type="text" class="wellcome_table_input" ng-model="currentService.currentAddPort.portname" >
+						</td>
+						<td class="common_left_align common_nowrap">
+							<span class = "wellcome_table_save_icon wellcome_table_option_margin" title="保存" ng-click="wellcomeServiceSaveAddPort()" ></span>
+							<span class = "wellcome_table_delete_icon" title="取消" ng-click="wellcomeServiceCancelAddPort()"></span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<img class="wellcome_table_option_icon" src="../commonui/images/add_item.png" draggable="false" title="添加端口" ng-click="wellcomeServiceAddPort()">
+						</td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "wellcomeSaveService()">确定</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click = "wellcomeCloseModal()">取消</button>
+	</div>
+
+	<div class = "common_modal_back_lv2" id = "wellcome_add_service_modal_back">
+		<div ng-include = "serviceModalInfo.path" onload = "wellcomeServiceModalLoadReady()"></div>
+	</div>
+</div>

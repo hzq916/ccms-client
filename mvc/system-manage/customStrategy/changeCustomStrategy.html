@@ -1,0 +1,73 @@
+<div class="common_modal" id="changeCustomStrategy_add_modal">
+        <div class="common_modal_title_div" id = "changeCustomStrategy_add_modal_title">
+            <label class = "common_modal_title_label" >修改自定义策略</label>
+            <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "hidecustomStrategyModal()">
+                <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+            </div>
+        </div>
+    
+        <div class="common_modal_body">
+            <table class="common_operate_table" >
+                <tr>
+                    <td>策略类型:</td>
+                    <td>
+                    <select class="common_dropdown common_line_unend_item unitlist_tamgr_dropdown" style="width: 100%;" ng-model = "changeCustomStrategy.type" ng-change="changeModalStgTypeChange()">
+                            <option value="0">实盘</option>
+                            <option value="1">仿真</option>
+                            <option value="2">回测</option>
+                    </select>
+                    </td>
+                    <td><label class="common_required_item">*</label></td>
+                </tr>
+                <tr>
+                    <td>策略名称:</td>
+                    <td>
+                        <input type="text" ng-model="changeCustomStrategy.name" 
+                            maxlength="50" class="common_normal_input md5_input">
+                    </td>
+                    <td><label class="common_required_item">*</label></td>
+                </tr>
+                <tr>
+                    <td>路由标识:</td>
+                    <td>
+                        <input type="text" ng-model="changeCustomStrategy.mark" value=""
+                            maxlength="64"  class="common_normal_input md5_input">
+                    </td>
+                    <td><label class="common_required_item">*</label></td>
+                </tr>
+                <tr>
+                    <td>操作员ID:</td>
+                    <td>
+                        <input type="text" ng-model="changeCustomStrategy.operatorId" value=""
+                            maxlength="50"  class="common_normal_input md5_input">
+                    </td>
+                    <td><label class="common_required_item">*</label></td>
+                </tr>
+                <tr>
+                    <td>产品:</td>
+                    <td>
+                    <select class="common_dropdown common_line_unend_item unitlist_tamgr_dropdown" style="width: 100%;" ng-model = "changeCustomStrategy.product" ng-change="changeModalProductChange()">
+                            <option ng-repeat="item in changeModalAllProduct"  value="{{item.caid}}">{{item.caname}}</option>
+                    </select>
+                    </td>
+                    <td><label class="common_required_item">*</label></td>
+                </tr>
+                <tr>
+                    <td>组合:</td>
+                    <td>
+                    <select class="common_dropdown common_line_unend_item unitlist_tamgr_dropdown" style="width: 100%;" ng-model = "changeCustomStrategy.strategy" >
+                            <option ng-repeat="item in changeModalAllStrategy"  value="{{item.trid}}">{{item.trname}}</option>
+                    </select>
+                    </td>
+                    <td><label class="common_required_item">*</label></td>
+                </tr>
+            </table>
+        
+        </div>
+    
+        <div class="common_modal_footer">
+            <button type="button" class="common_blue_btn common_normal_btn  common_default_length common_line_unend_item" ng-click="confirmChangeCustomStrategy()">确定</button>
+            <button type="button" class="common_green_btn common_normal_btn  common_default_length" ng-click="hidecustomStrategyModal()">取消</button>
+        </div>
+    </div>
+    

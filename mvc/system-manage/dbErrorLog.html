@@ -1,0 +1,61 @@
+<div class = "common_page_html common_scroll_div" ng-controller = "dbErrorLogCtrl" ng-init = "dbErrorLogInit()">
+    <div class = "common_tab_operate_div common_nowrap">
+        <input type="text" class = "common_normal_input common_line_unend_item common_search_input_length" placeholder = "请输入关键字进行过滤>>" ng-model = "filterContent" ng-change = "errorLogFilter()">
+		<label class = "common_form_date_label">日期：</label>
+		<input type="date" class = "common_normal_input  common_form_calendar common_form_calendar_width common_line_unend_item"  ng-model="begin_date">
+		<label class = "common_line_unend_item">-</label>
+		<input type="date" class = "common_normal_input  common_form_calendar common_form_calendar_width common_line_unend_item" ng-model="end_date" >
+		<button type="button" class = "common_green_btn common_normal_btn  common_default_length " ng-click = "refreshErrorLogDataTable()" >查 询</button>
+	</div>
+	<div class = "common_tab_data_div common_scroll_div">
+		<table class = "common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH')">
+			<thead >
+				<tr>
+					<th class = "common_center_align common_nowrap">序号</th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('errdate')">
+                        <span ng-show = "keyName == 'errdate'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        时间
+                    </th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('userid',true)">
+                        <span ng-show = "keyName == 'userid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        操作员ID
+                    </th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('errno')">
+                        <span ng-show = "keyName == 'errno'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        错误代码
+                    </th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('errmsg')">
+                        <span ng-show = "keyName == 'errmsg'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        错误信息
+                    </th>
+                    <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('errsql')">
+                        <span ng-show = "keyName == 'errsql'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        错误语句
+                    </th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="cell in errorLogDataList | orderBy:keyName:false:sortFunction" ng-show="cell.show" ng-class = "{true:'common_activeTr',false:''}[$index == curClickedIndex ]" ng-click="itemClicked($index)">
+					<td class = "common_center_align common_nowrap">
+						<label>{{$index + 1}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<label>{{cell.errdate}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<label >{{cell.userid}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<label>{{cell.errno}}</label>
+                    </td>
+                    <td class = "common_left_align common_nowrap">
+						<label  >{{cell.errmsg}}</label>
+					</td>
+					<td class = "common_left_align common_nowrap">
+						<label >{{cell.errsql}}</label>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

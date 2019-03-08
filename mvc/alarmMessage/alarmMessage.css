@@ -1,0 +1,20 @@
+.alarmMessage_data_div {
+    height: calc(100% - 135px);
+    margin:  0px 10px 0px 5px ;
+    border: 1px solid #DCDCDC;
+}
+.blue_level{
+    color:blue;
+}
+
+.yellow_level{
+    color: rgb(204, 203, 107);
+}
+
+.orange_level{
+    color: rgb(240,144,24);
+}
+
+.red_level{
+    color:red;
+}

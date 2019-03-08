@@ -1,0 +1,101 @@
+<div class = "common_modal" id = "supplement_add_modal">
+	<div class="common_modal_title_div" id = "supplement_add_modal_title">
+        <label class = "common_modal_title_label">手动补单</label>
+        <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "supplementHideModal()">
+            <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+        </div>
+    </div>
+	<div class = "common_modal_body">
+		<div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text supplement_form_header">委托时间</label>
+            <input type="datetime-local" class = "common_form_calendar supplement_form_input common_line_unend_item" ng-model = "currentAddOrder.trdate" required>
+			<label class = "common_required_item">*</label>
+        </div>
+		<div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text supplement_form_header">资产账户</label>
+            <input type="text" class = "common_normal_input supplement_form_input common_line_unend_item" ng-disabled = "true" ng-model = "currentAddOrder.show_acid">
+			<label class = "common_required_item">*</label>
+        </div>
+		<div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text supplement_form_header">策略组合</label>
+			<select class = "common_dropdown supplement_form_dropdown common_line_unend_item" ng-model = "currentAddOrder.trid" ng-change = "supplementChangeTatrd()">
+                <option ng-repeat = "tatrd in currentAddOrder.tridList" value="{{tatrd.trid}}">{{tatrd.trname+ "("+tatrd.trid+")"}}</option>
+            </select>
+			<label class = "common_required_item">*</label>
+        </div>
+		<!--<div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text supplement_form_header">交易员</label>
+			<select class = "common_dropdown supplement_form_dropdown common_line_unend_item" ng-model = "currentAddOrder.traderid" ng-change = "supplementChangeTrader()">
+                <option ng-repeat = "trader in currentAddOrder.traderList" value="{{trader.traderid}}">{{trader.oname+ "("+trader.traderid+")"}}</option>
+            </select>
+			<label class = "common_required_item">*</label>
+        </div>-->
+		<div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text supplement_form_header">策略</label>
+			<select class = "common_dropdown supplement_form_dropdown common_line_unend_item" ng-model = "currentAddOrder.stgid">
+                <option ng-repeat = "strategy in currentAddOrder.strategyList" value="{{strategy.stgid}}">{{strategy.stname+ "("+strategy.stgid+")"}}</option>
+            </select>
+			<label class = "common_required_item">*</label>
+        </div>
+		<div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text supplement_form_header">券商订单号</label>
+            <input type="text" class = "common_normal_input supplement_form_input common_line_unend_item" ng-model = "currentAddOrder.borderid" maxlength="32">
+			<label class = "common_required_item">*</label>
+        </div>
+		<div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text supplement_form_header">证券市场</label>
+			<select class = "common_dropdown supplement_form_dropdown common_line_unend_item" ng-model = "currentAddOrder.marketid" ng-change = "supplementChangeUkcode(1)">
+                <option ng-repeat = "market in marketList" value="{{market.marketid}}">{{market.marketchname+ "("+market.briefcode+")"}}</option>
+            </select>
+			<label class = "common_required_item">*</label>
+        </div>
+		<div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text supplement_form_header">证券代码</label>
+            <input type="text" class = "common_normal_input supplement_form_input common_line_unend_item" ng-model = "currentAddOrder.marketcode" maxlength="32" ng-change = "supplementChangeUkcode()">
+			<label class = "common_required_item">*</label>
+        </div>
+		<div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text supplement_form_header">证券名称</label>
+            <input type="text" class = "common_normal_input supplement_form_input common_line_unend_item" ng-disabled = "true" ng-model = "currentAddOrder.cname">
+			<label class = "common_required_item">*</label>
+        </div>
+		<div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text supplement_form_header">买卖指令</label>
+			<select class = "common_dropdown supplement_form_dropdown common_line_unend_item" ng-model = "currentAddOrder.directive">
+                <option ng-repeat = "directive in directiveList" value="{{directive.typeid}}">{{directive.typename}}</option>
+            </select>
+			<label class = "common_required_item">*</label>
+        </div>
+		<div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text supplement_form_header">开平方向</label>
+			<select class = "common_dropdown supplement_form_dropdown common_line_unend_item" ng-model = "currentAddOrder.offset">
+                <option ng-repeat = "offset in offsetList" value="{{offset.typeid}}">{{offset.typename}}</option>
+            </select>
+			<label class = "common_required_item">*</label>
+        </div>
+		<div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text supplement_form_header">成交数量</label>
+            <input type="text" class = "common_normal_input supplement_form_input common_line_unend_item" maxlength="14" ng-model = "currentAddOrder.ordervol" cms-mask="unsignedInt">
+			<label class = "common_required_item">*</label>
+        </div>
+		<div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text supplement_form_header">成交价格</label>
+            <input type="text" class = "common_normal_input supplement_form_input common_line_unend_item" maxlength="18" ng-model = "currentAddOrder.orderprice" cms-mask="unsignedFloat" >
+			<label class = "common_required_item">*</label>
+        </div>
+		<!-- <div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text supplement_form_header">成交数量</label>
+            <input type="text" class = "common_normal_input supplement_form_input common_line_unend_item" maxlength="14" ng-model = "currentAddOrder.tradevol" cms-mask="unsignedInt">
+			<label class = "common_required_item">*</label>
+        </div>
+		<div class="common_nowrap">
+            <label class = "common_normal_text supplement_form_header">成交金额</label>
+            <input type="text" class = "common_normal_input supplement_form_input common_line_unend_item" maxlength="18" ng-model = "currentAddOrder.tradeamt" cms-mask="unsignedFloat" >
+			<label class = "common_required_item">*</label>
+        </div> -->
+	</div>
+	<div class="common_modal_footer">
+        <button type="button" class = " common_blue_btn common_normal_btn common_line_unend_item common_default_length " ng-click = "supplementAddOrderSure()" >确定</button>
+        <button type="button" class="common_green_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "supplementHideModal()">取消</button>
+    </div>
+</div>

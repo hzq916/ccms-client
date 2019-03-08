@@ -1,0 +1,188 @@
+
+.trade_account_operate_div {
+    position: absolute;
+	top: 14px;
+	left: 0px;
+	right: 9px;
+	height: 26px;
+	vertical-align: middle;
+}
+
+.tradeAccount_data_div {
+    position: absolute;
+	top: 51px;
+	left: 0px;
+	right: 9px;
+	bottom: 10px;
+	border: 1px solid #DCDCDC;
+}
+
+.modal_left_menu{
+    position: absolute;
+    width: 200px;
+    height: calc(100% - 74px);
+    border: solid 1px rgba(173,173,173,0.25);
+}
+
+.modal_right_div{
+    margin-left: 200px;
+    min-width: 200px;
+}
+
+.traderAccountFooter{
+    text-align: center;
+}
+
+
+.add_icon {
+	float: right;
+	width: 14px;
+	height: 14px;
+    line-height: 20px;
+	display: inline-block;
+	position: relative;
+	border-radius: 7px;
+	cursor: pointer;
+	overflow: hidden;
+	background-color: inherit;
+}
+.add_icon:before {
+    position: absolute;
+    content: '';
+    width: 10px;
+    height: 2px;
+    background-color: gray;
+    /*-webkit-transform: rotate(45deg);*/
+    top: 6px;
+    left: 2px;
+}
+.add_icon:hover:before {
+    background-color: white;
+}
+.add_icon:after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 2px;
+    background-color: gray;
+    -webkit-transform: rotate(-90deg);
+    top: 6px;
+    left: 2px;
+}
+.add_icon:hover:after {
+    background-color: white;
+}
+.add_icon:hover {
+	background-color: rgb(219,68,55);
+}
+
+.create_label{
+    float:right;
+    line-height: 20px;
+}
+
+.create_label:hover{
+    color: rgb(9,157,220);
+}
+
+.tradeAccountManage_input {
+    width: 170px;
+}
+
+.tradeAccountManage_select {
+    width: 182px;
+}
+
+.positionManage_account_icon{
+    width: 13px;
+    height: 13px;
+}
+
+.feeRate_td{
+    /*padding-top: 0;
+    padding-bottom: 0;*/
+}
+
+.table_dropdown {
+    outline: none;
+    width: 40px;
+    height: 23px;
+    padding-left: 5px;
+    border-radius: 2px;
+    border: 1px solid #cbcbcb;
+    line-height: 40px;
+}
+
+.table_normal_input{
+    height: 19px;
+    width: 80px;
+}
+.table_tail_input{
+    position: relative;
+    display: inline-block;
+}
+
+.table_tail_input input{
+    height: 19px;
+    width: 100px;
+    margin: 0;
+    font-size: 12px;
+    line-height: 18px;
+    padding-left: 5px;
+    padding-right: 20px;
+    outline: none;
+    border-radius: 2px;
+    border: 1px solid #DCDCDC;
+}
+
+.table_tail_input label {
+    position: absolute;
+    top: 0;
+    right: 3px;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: right;
+    cursor: default;
+}
+.tradeAccount_table_div {
+    height: 80%;
+    border: 1px solid #DCDCDC;
+}
+
+.mutipleSelect_div{
+        position: relative;
+        outline: 0;
+}
+
+.mutipleSelect_list{
+        position: absolute;
+        top: 30px;
+        left: 0;
+        width: 180px;
+}
+.market_check_div{
+    width: 50%;
+    float: left;
+}
+
+.futures_load_tips {
+	position: absolute;
+	left: 20px;
+	top: 78px;
+	background-color: rgb(221,221,221);
+	border-radius: 5px;
+	z-index: 1001;
+	padding: 2px;
+}
+.futures_load_tips_label {
+	font-size: 12px;
+	color:rgb(144,143,143);
+}
+
+.createTradeAccountDialog{
+    height: 402px;
+}
+
+.editTradeAccountDialog{
+    height: 427px;
+}

@@ -1,0 +1,146 @@
+<div class="common_page_html common_scroll_div" ng-controller="fundsDataSyncCtrl" ng-init="fundsDataSyncInit()" style="text-align: center;">
+    <div class="common_tab_operate_div common_nowrap" style="margin-left: 10px;text-align: left;">
+        <input type="text" class="common_normal_input common_line_unend_item common_search_input_length" style="width: 150px;" ng-model="filterContent"
+            placeholder="资产账户ID/名称搜索">
+        <label for="">资产管理人：</label>
+        <select ng-init="currentTamgr" ng-model="currentTamgr" class="common_dropdown common_line_unend_item" style="width: 130px;"
+            ng-options="assetManager.fullName for assetManager in allAssetManager" ng-change="getTaacctSyncStatFirst()">
+        </select>
+        <label for="">账户类型：</label>
+        <select ng-init="currentAccountType.id" ng-model="currentAccountType.id" class="common_dropdown common_line_unend_item" ng-change="getTaacctSyncStatFirst()">
+            <option ng-repeat="item in fundsDataAccountType" value="{{item.id}}">{{item.name}}</option>
+        </select>
+        <!-- <label for="">同步状态：</label>
+        <select ng-init="currentAccountState.id" ng-model="currentAccountState.id" class="common_dropdown common_line_unend_item">
+            <option ng-repeat="item in fundsDataAccountState" value="{{item.id}}">{{item.name}}</option>
+        </select> -->
+        <button type="button" title="建议清算完成后才能同步数据" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length"
+            ng-if="menuRight.indexOf(2002005003) != -1" ng-click="clickSynchronizeData()">同　步</button>
+        <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-if="menuRight.indexOf(2002005004) != -1"  ng-click="recoverFundsDataSync()">恢 复</button>
+        <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length"  ng-click="exportFundsDataSyncData()">导 出</button>
+        <!-- <span style="color:red;">* </span> -->
+    </div>
+    <div class="common_tab_data_div common_scroll_div" style="height: calc(100% - 70px);">
+        <table class="common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH')">
+            <thead>
+                <tr>
+                    <th class="common_center_align common_nowrap">
+                        <input type="checkbox" ng-checked="isCheckedAll" ng-click="clickCheckAll()">
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('actype')">
+                        <span ng-show="keyName == 'actype'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        账户类型
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('acname')">
+                        <span ng-show="keyName == 'acname'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        资产账户
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('acid')">
+                        <span ng-show="keyName == 'acid'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        资金账户
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('fund_stat_info')">
+                        <span ng-show="keyName == 'fund_stat_info'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        同步状态
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('fund_last_time')">
+                        <span ng-show="keyName == 'fund_last_time'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        同步时间
+                    </th>
+                    <!-- <th class="common_center_align common_nowrap">
+                        资金余额(CMS)
+                    </th>
+                    <th class="common_center_align common_nowrap">
+                        资金余额(柜台)
+                    </th>
+                    <th class="common_center_align common_nowrap">
+                        交易可用资金(CMS)
+                    </th>
+                    <th class="common_center_align common_nowrap">
+                        交易可用资金(柜台)
+                    </th> -->
+                    <th class="common_center_align common_nowrap">
+                        <!-- <span ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span> -->
+                        同步消息
+                    </th>
+                    <th class="common_center_align common_nowrap">
+                            操作
+                        </th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- <tr ng-repeat="cell in brokerDataList | orderBy:keyName:false:sortFunction" ng-show="cell.show" ng-class="{true:'common_activeTr',false:''}[$index == curClickedIndex ]"
+                                    ng-click="itemClicked($index)">
+                                    <td class="common_center_align common_nowrap">
+                                        <label>{{$index + 1}}</label>
+                                    </td>
+                                    <td class="common_center_align common_nowrap">
+                                        <label>{{cell.bid}}</label>
+                                    </td>
+                                    <td class="common_center_align common_nowrap">
+                                        <label>{{cell.bname}}</label>
+                                    </td>
+                                    <td class="common_center_align common_nowrap">
+                                        <button class="common_table_operate_text" ng-click="clickSettingTemplate()">设置</button>
+                                        <label class="common_table_operate_divider">|</label>
+                                        <button class="common_table_operate_text" ng-click="clickDeleteTemplate()">删除</button>
+                                        <label class="common_table_operate_divider">|</label>
+                                        <button class="common_table_operate_text" ng-click="clickChangeTemplate()">修改模板信息</button>
+                                        <label class="common_table_operate_divider">|</label>
+                                        <button class="common_table_operate_text" ng-click="clickCopyTemplate()">复制模板</button>
+                                    </td>
+                                </tr> -->
+
+                <tr ng-repeat="tempData in fundsDataLists |myfilter : filterContent | orderBy:keyName:false:sortFunction">
+                    <td class="common_center_align common_nowrap">
+                        <label>
+                            <input type="checkbox" ng-checked="tempData.isCheck" ng-click="clickChooseOne($index)">
+                        </label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{tempData.actype}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{tempData.acname}}({{tempData.acid}})</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{tempData.acid}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{tempData.fund_stat_info}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{tempData.fund_last_time}}</label>
+                    </td>
+                    <!-- <td class="common_center_align common_nowrap">
+                        <label>1000.00</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>3000.00</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>1000.00</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>1000.00</label>
+                    </td> -->
+                    <td class="common_center_align common_nowrap">
+                        <label>{{tempData.fund_stat_info}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                            <button class="common_table_operate_text" ng-if="menuRight.indexOf(2002005002) != -1" ng-click="clickDifferenceData(tempData.acid)">差异数据</button>
+                        </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <cms-data-pager style="position: absolute; bottom: 0;" click-menu-item="goToPage(page)" all-page="{{allPage}}" current-page="currentPage"></cms-data-pager>
+    <div class="common_modal_back" id="fundsDataSynchronize_modal_back">
+        <div ng-include="modalInfo.path" onload="fundsDataSynchronizeLoadModalReady()"></div>
+    </div>
+
+    <div class="common_modal_back_lv2" id="fundsDataSynchronize_modal_back2">
+        <div ng-include="modalInfo2.path" onload="fundsDataSynchronizeLoadModalReady2()"></div>
+    </div>
+</div>

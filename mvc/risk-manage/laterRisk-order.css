@@ -1,0 +1,141 @@
+.lrorder_operate_div {
+	position: absolute;
+	top: 0;
+	left: 13px;
+	right: 9px;
+	height: 26px;
+}
+.lrorder_operate_label {
+	line-height: 26px;
+}
+.lrorder_operate_date_input {
+	width: 100px;
+}
+.lrorder_options_div {
+	position: absolute;
+	top: 36px;
+	left: 5px;
+	right: 9px;
+	height: 360px;
+	border: 1px solid #dcdcdc;
+}
+.lrorder_options_basic_option {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	bottom: 5px;
+	width: 600px;
+}
+.lrorder_options_unit_div {
+	margin-bottom: 10px;
+}
+.lrorder_unit_dropdown {
+	width: 205px;
+}
+.lrorder_options_trader_option {
+	position: absolute;
+	left: 0;
+	top: 72px;
+	bottom: 0;
+	width: 283px;
+	border: 1px solid #dcdcdc;
+}
+.lrorder_options_taact_option {
+	position: absolute;
+	left: 315px;
+	top: 0;
+	bottom: 0;
+	width: 283px;
+	border: 1px solid #dcdcdc;
+}
+.lrorder_options_business_option {
+	position: absolute;
+	top: 10px;
+	left: 630px;
+	bottom: 5px;
+	width: 200px;
+}
+.lrorder_options_deal_option {
+	position: absolute;
+	top: 10px;
+	left: 860px;
+	bottom: 5px;
+	width: 200px;
+}
+.lrorder_options_vertical {
+	margin-bottom: 5px;
+}
+.lrorder_leaf_checkbox {
+	margin-left: 20px;
+	vertical-align: middle;
+}
+.lrorder_root_checkbox {
+	vertical-align: middle;
+}
+.lrorder_options_business_input {
+	width: 125px;
+}
+.lrorder_options_business_dropdown {
+	width: 137px;
+}
+.lrorder_data_div {
+	position: absolute;
+	left: 5px;
+	right: 9px;
+	top: 36px;
+	bottom: 40px;
+	border: 1px solid #DCDCDC;
+}
+.lrorder_data_show_options_div {
+	position: absolute;
+	left: 5px;
+	right: 9px;
+	top: 400px;
+	bottom: 40px;
+	border: 1px solid #DCDCDC;
+}
+.lrorder_page_tool_div {
+	position: absolute;
+	left: 5px;
+	right: 9px;
+	bottom: 10px;
+	height: 28px;
+}
+.lrorder_options_filter_scroll_div {
+	width: 100%;
+	height: 220px;
+}
+.lrorder_options_filter_div {
+	position: relative;
+	left: 0;
+	top: 20px;
+	min-height: 20px;
+	padding-top: 10px;
+	border: 1px solid #DCDCDC;
+}
+.lrorder_options_deal_input {
+	width: 113px;
+}
+.lrorder_options_deal_divider {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.lrorder_options_deal_short_input {
+	width: 69px;
+}
+.lrorder_options_order_stat_div {
+	width: 100%;
+	height: 147px;
+}
+
+.lrorder_form_header {
+	display: inline-block;
+	width: 90px;
+}
+
+.lrorder_form_input {
+	width: 275px;
+}
+.lrorder_form_dropdown {
+	width: 287px;
+}

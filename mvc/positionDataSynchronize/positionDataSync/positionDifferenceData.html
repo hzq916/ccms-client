@@ -1,0 +1,115 @@
+<div class="common_modal" id="positionDifferenceData_modal" style="width: 850px; ">
+    <div class="common_modal_title_div" id="positionDifferenceData_modal_title" style="text-align: left;">
+        <label class="common_modal_title_label" >仓位详情</label>
+        <div class="common_modal_window_close_btn" title="关闭窗口" ng-click="closeSynchronousData()">
+            <img src="../commonui/images/icon_close.png" draggable="false" class="common_modal_close_icon" />
+        </div>
+    </div>
+    <div class="common_modal_body" style="text-align: left;">
+        <input type="text" class="common_normal_input common_line_unend_item common_search_input_length" style="width: 150px;" ng-model="searchContent" ng-change="filterContentList(searchContent)"
+            placeholder="证券代码搜索">
+        <button type="button" title="需清算完成后才能同步数据" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click="exportPositionDataSyncData()">导 出</button>
+    </div>
+    <div class="common_modal_body common_scroll_div" style="margin-bottom: 10px;height: 200px;padding-top: 0px; margin-top: 10px;">
+        <table class="common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH')">
+            <thead>
+                <tr>
+                    <th class="common_center_align common_nowrap">
+                        <!-- <span ng-show="keyName == 'actype'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span> -->
+                        序号
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader2('tracid')">
+                        <span ng-show="keyName == 'tracid'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        交易账户
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader2('broker_marketStr')">
+                        <span ng-show="keyName == 'broker_marketStr'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        市场
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader2('marketcode')">
+                        <span ng-show="keyName == 'marketcode'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        证券代码
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader2('market_name')">
+                        <span ng-show="keyName == 'market_name'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        证券名称
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader2('pretotalvol')">
+                        <span ng-show="keyName == 'pretotalvol'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        昨仓数量
+                    </th>
+
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader2('totalvol')">
+                        <span ng-show="keyName == 'totalvol'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        持仓数量(CMS)
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader2('broker_totalvol')">
+                        <span ng-show="keyName == 'broker_totalvol'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        持仓数量(柜台)
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader2('validvol')">
+                        <span ng-show="keyName == 'validvol'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        可用数量(CMS)
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader2('broker_validvol')">
+                        <span ng-show="keyName == 'broker_validvol'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        可用数量(柜台)
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader2('holdcost')">
+                        <span ng-show="keyName == 'holdcost'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        持仓成本(CMS)
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader2('broker_holdcost')">
+                        <span ng-show="keyName == 'broker_holdcost'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        持仓成本(柜台)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="temp in positionSyncDetail | orderBy:keyName:false:sortFunction">
+                    <td class="common_center_align common_nowrap">
+                        <label>{{$index}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{temp.tracid}})</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{temp.broker_marketStr}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{temp.marketcode}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{temp.market_name}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{temp.pretotalvol |number:0}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{temp.totalvol |number:0}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{temp.broker_totalvol |number:0}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{temp.validvol |number:0}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{temp.broker_validvol |number:0}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{temp.holdcost |number:3}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{temp.broker_holdcost |number:3}}</label>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <!-- <div class="common_modal_footer">
+        <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length">确定</button>
+        <button type="button" class="common_gray_btn common_normal_btn common_default_length" ng-click="closeSynchronousData()">取消</button>
+    </div> -->
+</div>

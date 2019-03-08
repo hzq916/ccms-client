@@ -1,0 +1,90 @@
+<div class = "common_page_html common_scroll_div" ng-controller = "xrxdManageCtrl" ng-init = "xrxdManageInit()">
+    <div class = "common_normal_operate_div common_nowrap">
+        <input type="text" class = "common_normal_input common_line_unend_item common_search_input_length" placeholder = "请输入股权登记日,证券代码/名称>>>" ng-model = "filterContent" ng-change = "xrxdManageFilter()">
+		<label class = "common_form_date_label">年份：</label>
+		<select class="common_dropdown common_line_unend_item xrxdManage_Add_dropdown "  ng-change="xrxdManage_yearChanged()" ng-options = "year for year in xrxdManage_yearList" ng-model = "selectedYear" ng-disabled="selType==1"></select>
+
+		<label class="common_option_radio_border" ng-click = "xrxdRadioBtnClick(1)">
+			<label class = "common_option_radio_heart" ng-show = "selType==1"></label>
+		</label>
+		<label class = "common_option_radio_label">未过期查询</label>
+		<label class="common_option_radio_border" ng-click = "xrxdRadioBtnClick(0)">
+			<label class = "common_option_radio_heart" ng-show = "selType==0"></label>
+		</label>
+		<label class = "common_option_radio_label">历史查询</label>
+
+		<button type="button" class = "common_green_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "refreshXrxdDataTable()" >查 询</button>
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item" ng-if = "menuRight.indexOf(2005002001) != -1" ng-click = "showAddXrxdDlg()" >添加分红方案</button>
+
+	</div>
+	<div class = "common_normal_data_div common_scroll_div">
+		<table class = "common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH')">
+			<thead >
+				<tr >
+					<th class = "common_center_align common_nowrap">序号</th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('record_day')">
+                        <span ng-show = "keyName == 'record_day'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        股权登记日
+                    </th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('marketcode')">
+                        <span ng-show = "keyName == 'marketcode'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        证券代码
+                    </th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('chabbr')">
+                        <span ng-show = "keyName == 'chabbr'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        证券名称
+                    </th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('base_vol',true)">
+                        <span ng-show = "keyName == 'base_vol'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        红利计算基准股数
+                    </th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('xr_vol',true)">
+                        <span ng-show = "keyName == 'xr_vol'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        送转股数
+                    </th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('xd_amt',true)">
+                        <span ng-show = "keyName == 'xd_amt'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        派息
+                    </th>
+					<th class = "common_center_align common_nowrap">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="cell in xrxdManage_xrxdList | orderBy:keyName:false:sortFunction" ng-class = "{true:'common_activeTr',false:''}[$index == curClickedIndex ]" ng-click="itemClicked($index)" ng-show="cell.show" >
+					<td class = "common_center_align common_nowrap">
+						<label>{{$index + 1}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<label>{{cell.record_day}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<label>{{cell.marketcode}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<label>{{cell.chabbr}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<label>{{cell.base_vol | number:0}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<label>{{cell.xr_vol | number}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<label>{{cell.xd_amt | number:3}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<!-- <label ng-class = "{true:'common_table_operate_text',false:'common_table_operate_text_disable'}[cell.if_his!=1]" ng-click = "showAltXrxdDlg(cell)">修改</label> -->
+                        <button type="button" class = "common_table_operate_text" ng-if = "menuRight.indexOf(2005002002) != -1" ng-disabled = "cell.if_his == 1" ng-click = "showAltXrxdDlg(cell)">修改</button>
+						<label class = "common_table_operate_divider" ng-if = "menuRight.indexOf(2005002002) != -1" >|</label>
+                        <button type="button" class = "common_table_operate_text" ng-if = "menuRight.indexOf(2005002003) != -1" ng-disabled = "cell.if_his == 1" ng-click = "showDelXrxdDlg(cell)">删除</button>
+						<label class = "common_table_operate_divider" ng-if = "menuRight.indexOf(2005002003) != -1" >|</label>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class = "common_modal_back" id = "xrxdManage_modal_back">
+        <div ng-include = "modalInfo.path" onload = "xrxdManageLoadModalReady()"></div>
+	</div>
+</div>

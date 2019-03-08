@@ -1,0 +1,88 @@
+.moniotrDiv{
+    font-size: 12px;
+    height: 100%;
+    position: relative;
+}
+
+
+.monitor_icon{
+    width: 13px;
+    height: 13px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.monitor_div{
+    padding: 10px;
+}
+
+.monitor_timer{
+    color: #DB2828!important;
+    border: 1px solid #DB2828;
+    padding: 5px;
+    line-height: 24px;
+    box-sizing: border-box;
+}
+.tier0{
+
+}
+
+.tier1{
+    padding-left: 16px;
+}
+
+.tier2{
+    padding-left: 32px;
+}
+.tier3{
+    padding-left: 48px;
+}
+
+
+.monitor_preview_modal{
+  position: fixed;
+  left: 0;
+  top: 100px;
+  width: 290px;
+  height: 126px;
+  z-index: 120;
+
+  border-radius: .2857rem;
+  background-color: white;
+  border: 3px solid black;
+}
+
+.simpleNetChartDiv{
+  height: 126px;
+}
+.indicator_icon {
+    position: absolute;
+    top: -22px;
+    left: 230px;
+
+    transform:rotate(180deg);
+    -ms-transform:rotate(180deg); /* Internet Explorer */
+    -moz-transform:rotate(180deg); /* Firefox */
+    -webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+    -o-transform:rotate(180deg); /* Opera */
+}
+
+
+.table_in_table tbody>tr{
+    height: 18px;
+    border: none;
+
+}
+
+.table_in_table  td{
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 12px;
+    color: #656565;
+    font-family: "Arial";
+    border: none;
+}
+
+.table_in_table td:first-child {
+    border: none;
+}

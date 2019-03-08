@@ -1,0 +1,1234 @@
+.common_close_btn {
+	background-color: rgba(255,255,255,0);
+}
+.common_close_btn:hover {
+	background-color: red;
+}
+.common_max_btn {
+	background-color: rgba(255,255,255,0);
+}
+.common_max_btn:hover {
+	background-color: rgba(41,160,209,1);
+}
+
+.common_password_div{
+    display: inline-block;
+    width: 182px;
+}
+
+/*禁止换行样式*/
+.common_nowrap {
+    white-space: nowrap;
+}
+/*行内非最后一个元素，设置右边间距15px*/
+.common_line_unend_item {
+	margin-right: 15px;
+}
+
+.common_itme_leftMargin {
+	margin-left: 15px;
+}
+
+/*居中*/
+.common_center_align {
+    text-align: center;
+}
+
+/*右对齐*/
+.common_right_align {
+    text-align: right;
+}
+
+/*左对齐*/
+.common_left_align {
+    text-align: left;
+}
+
+/*默认按钮、普通输入框长度*/
+.common_default_length {
+	width: 76px;
+}
+/*输入框相关*/
+/*搜索输入框长度*/
+.common_search_input_length {
+	width: 200px;
+}
+
+/*常规输入框 76 * 26 px,不要调整高度，改变长度即可*/
+.common_normal_input {
+	height: 22px;
+	font-size: 12px;
+	border: 1px solid #DCDCDC;
+	border-radius: 2px;
+	padding-left: 5px;
+	padding-right: 5px;
+	outline: none;
+}
+.common_normal_input:focus {
+	border: 1px solid lightsteelblue;
+}
+.common_normal_input::-webkit-input-placeholder {
+	color: #d8d8d8;
+	-webkit-user-select: none;
+}
+/*定制带单位的输入框*/
+.common_tail_input {
+	position: relative;
+	display: inline-block;
+	height: 26px;
+	width: 100%;
+}
+.common_tail_input input {
+	width: calc(100% - 27px);
+	margin: 0;
+	height: calc(100% - 4px);
+	font-size: 12px;
+	padding-left: 5px;
+	padding-right: 20px;
+	outline: none;
+	border-radius: 2px;
+	border: 1px solid #DCDCDC;
+}
+.common_tail_input input::-webkit-input-placeholder {
+	color: #d8d8d8;
+	-webkit-user-select: none;
+}
+.common_tail_input input:focus {
+	border: 1px solid lightsteelblue;
+}
+.common_tail_input label {
+	position: absolute;
+	top: 0;
+	right: 3px;
+	font-size: 12px;
+	line-height: 26px;
+	text-align: right;
+	cursor: default;
+	-webkit-user-select: none;
+}
+
+/*针对产品编号和策略组合编号的半截输入框*/
+.common_id_input {
+	position: relative;
+	display: inline-block;
+	height: 26px;
+}
+.common_id_input input {
+	width: calc(100% - 125px);
+	margin: 0;
+	height: calc(100% - 4px);
+	font-size: 12px;
+	padding-left: 5px;
+	padding-right: 120px;
+	outline: none;
+	border-radius: 2px;
+	border: 1px solid #DCDCDC;
+}
+.common_id_input input::-webkit-input-placeholder {
+	color: #d8d8d8;
+	-webkit-user-select: none;
+}
+.common_id_input input:focus {
+	border: 1px solid lightsteelblue;
+}
+.common_id_input label {
+	position: absolute;
+	top: 0;
+	right: 5px;
+	font-size: 12px;
+	line-height: 26px;
+	text-align: right;
+	color:  #cbcbcb;
+	cursor: default;
+	-webkit-user-select: none;
+}
+
+/*按钮相关*/
+/*常规按钮 76 x 26 使用时可根据需求调整*/
+.common_normal_btn {
+	font-size: 12px;
+	line-height: 24px;
+	height: 26px;
+	border: none;
+	border-radius: 2px;
+	outline: none;
+	cursor: pointer;
+	font-family: "MicrosoftYaHei";
+	-webkit-user-select: none;
+}
+/*蓝色按钮*/
+.common_blue_btn {
+	background-color: #64BAEA;
+	color: white;
+}
+.common_blue_btn:hover {
+	background-color: rgba(100,186,234,0.75);
+}
+.common_blue_btn:disabled {
+	background-color: rgb(188,188,188);
+	cursor: default;
+}
+/*灰色按钮*/
+.common_gray_btn {
+	background-color: #8c8c8c;
+	color: white;
+}
+/*绿色按钮*/
+.common_green_btn {
+	background-color: #14c202;
+	color: white;
+}
+.common_green_btn:hover {
+	background-color: #19ec03;
+}
+
+.common_green_btn:disabled {
+	background-color: rgb(188,188,188);
+	cursor: default;
+}
+
+/*表格相关*/
+/*表头固定，需要外部div自带border*/
+.common_fixed_table {
+	width: 100%;
+	table-layout: automatic;
+	border-collapse:collapse;
+	border-bottom: 1px solid #DCDCDC;
+	background-color: white;
+}
+.common_fixed_table thead>tr {
+	height: 28px;
+	font-size: 12px;
+}
+.common_fixed_table th {
+	position: sticky;
+	top: 0px;
+	height: 26px;
+	font-size: 12px;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-weight: 200;
+	font-family: "宋体";
+	color: black;
+	background-color:#f2f2f2;
+	border-left: 1px solid #DCDCDC;
+	border-bottom: 1px solid #DCDCDC;
+}
+.common_fixed_table th:first-child {
+	position: sticky;
+	top: 0px;
+	height: 26px;
+	font-size: 12px;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-weight: 200;
+	font-family: "宋体";
+	color: black;
+	background-color:#f2f2f2;
+	border-left: none;
+	border-bottom: 1px solid #DCDCDC;
+}
+
+.common_fixed_table th.common_activeTH{
+	background-color: rgb(217,235,249);
+}
+.common_fixed_table tbody>tr {
+	height: 26px;
+	border-top: 1px solid #DCDCDC;
+}
+.common_fixed_table tbody>tr:hover {
+	background-color:#f8f8f8;
+}
+.common_fixed_table td {
+	padding-left: 5px;
+	padding-right: 5px;
+	font-size: 12px;
+	color: #656565;
+	font-family: "Arial";
+	border-left: 1px solid #DCDCDC;
+	border-bottom: 1px solid #DCDCDC;
+}
+.common_fixed_table td:first-child {
+	padding-left: 5px;
+	padding-right: 5px;
+	font-size: 12px;
+	color: #656565;
+	font-family: "Arial";
+	border-left: none;
+	border-bottom: 1px solid #DCDCDC;
+}
+
+.common_fixed_table tbody tr.common_activeTr{
+	background-color: #eeeeee;
+}
+
+.common_fixed_table tbody tr.common_errorTr{
+	background-color: rgb(243,109,109);
+}
+
+
+
+
+/*红框固定表头表格，用于导入数据*/
+.common_red_fixed_table {
+	width: 100%;
+	table-layout: automatic;
+	border-collapse:collapse;
+	border-bottom: 1px solid red;
+	background-color: white;
+}
+.common_red_fixed_table thead>tr {
+	height: 26px;
+	font-size: 12px;
+}
+.common_red_fixed_table th {
+	position: sticky;
+	top: 0px;
+	height: 26px;
+	font-size: 12px;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-family: "宋体";
+	color: #656565;
+	font-weight: 100;
+	background-color:#f2f2f2;
+	border-left: 1px solid red;
+	border-bottom: 1px solid red;
+}
+.common_red_fixed_table th:first-child {
+	position: sticky;
+	top: 0px;
+	height: 26px;
+	font-size: 12px;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-family: "宋体";
+	color: #656565;
+	font-weight: 100;
+	background-color:#f2f2f2;
+	border-left: none;
+	border-bottom: 1px solid red;
+}
+.common_red_fixed_table tbody>tr {
+	height: 26px;
+	border-top: 1px solid red;
+}
+.common_red_fixed_table tbody>tr:hover {
+	background-color:#f2f2f2;
+}
+.common_red_fixed_table td {
+	padding-left: 5px;
+	padding-right: 5px;
+	font-size: 12px;
+	color: #656565;
+	font-family: "Arial";
+	border-left: 1px solid red;
+	border-bottom: 1px solid red;
+}
+.common_red_fixed_table td:first-child {
+	padding-left: 5px;
+	padding-right: 5px;
+	font-size: 12px;
+	color: #656565;
+	font-family: "Arial";
+	border-left: none;
+	border-bottom: 1px solid red;
+}
+.common_red_table_div_border {
+	border-top: 1px solid red;
+	border-left: 1px solid #dcdcdc;
+	border-right: 1px solid #dcdcdc;
+	border-bottom: 1px solid #dcdcdc;
+}
+.common_table_div_border {
+	border: 1px solid #dcdcdc;
+}
+
+/*常规表格*/
+.common_table {
+	width: 100%;
+	table-layout: automatic;
+	border-collapse:collapse;
+	border: 1px solid #DCDCDC;
+}
+.common_table th {
+	height: 26px;
+	font-size: 12px;
+	font-family: "宋体";
+	padding-left: 5px;
+	padding-right: 5px;
+	color: #656565;
+	font-weight: 100;
+	background-color:#f2f2f2;
+	border: 1px solid #DCDCDC;
+}
+.common_table tbody>tr:hover {
+	background-color:#f2f2f2;
+}
+.common_table td {
+	height: 26px;
+	background-color: white;
+	font-size: 12px;
+	font-family: "Arial";
+	padding-left: 5px;
+	padding-right: 5px;
+	border: 1px solid #DCDCDC;
+	color: #656565;
+}
+
+
+.common_table_option_label {
+	color: rgb(9,157,220);
+	font-size: 12px;
+	cursor: pointer;
+}
+.common_table_option_label:hover {
+	color: red;
+}
+.common_table_option_divider {
+	color: rgb(9,157,220);
+	font-size: 12px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+
+/*操作区域的表格间距*/
+.common_operate_table td{
+  padding: 5px;
+}
+
+
+.common_operate_div{
+    padding:  10px 10px 10px 5px;
+}
+
+/*弹框相关*/
+.common_modal_back {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(255,255,255,0);
+	z-index: 1000;
+	overflow: auto;
+	display: none;
+	-webkit-app-region:no-drag;
+}
+.common_modal_back::-webkit-scrollbar {
+	width: 1px;
+	height: 1px;
+}
+.common_modal_back::-webkit-scrollbar-thumb {
+	width: 1px;
+	background-color: rgba(255,255,255,0);
+	border-radius: 1px;
+	-webkit-box-shadow: inset 0 0 1px rgba(255,255,255,0);
+}
+
+/*二级弹框*/
+.common_modal_back_lv2 {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(255,255,255,0);
+	z-index: 1100;
+	overflow: auto;
+	display: none;
+	-webkit-app-region:no-drag;
+}
+.common_modal_back_lv2::-webkit-scrollbar {
+	width: 1px;
+	height: 1px;
+}
+.common_modal_back_lv2::-webkit-scrollbar-thumb {
+	width: 1px;
+	background-color: rgba(255,255,255,0);
+	border-radius: 1px;
+	-webkit-box-shadow: inset 0 0 1px rgba(255,255,255,0);
+}
+
+/*系统弹框，优先级高于其他弹框*/
+.common_sys_modal_back {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(255,255,255,0);
+	z-index: 2000;
+	overflow: auto;
+	display: none;
+	-webkit-app-region:no-drag;
+}
+.common_sys_modal_back::-webkit-scrollbar {
+	width: 1px;
+	height: 1px;
+}
+.common_sys_modal_back::-webkit-scrollbar-thumb {
+	width: 1px;
+	background-color: rgba(255,255,255,0);
+	border-radius: 1px;
+	-webkit-box-shadow: inset 0 0 1px rgba(255,255,255,0);
+}
+
+/* 自动更新弹框, 优先级低于锁屏 */
+.common_update_modal_back {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(255,255,255,0);
+	z-index: 3000;
+	overflow: auto;
+	display: none;
+	-webkit-app-region:no-drag;
+}
+.common_update_modal_back::-webkit-scrollbar {
+	width: 1px;
+	height: 1px;
+}
+.common_update_modal_back::-webkit-scrollbar-thumb {
+	width: 1px;
+	background-color: rgba(255,255,255,0);
+	border-radius: 1px;
+	-webkit-box-shadow: inset 0 0 1px rgba(255,255,255,0);
+}
+
+/*系统锁屏弹框，优先级高于普通弹框*/
+.common_lock_modal_back {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(255,255,255,0);
+	z-index: 4000;
+	overflow: auto;
+	/*display: none;*/
+	-webkit-app-region:drag;
+}
+.common_lock_modal_back::-webkit-scrollbar {
+	width: 1px;
+	height: 1px;
+}
+.common_lock_modal_back::-webkit-scrollbar-thumb {
+	width: 1px;
+	background-color: rgba(255,255,255,0);
+	border-radius: 1px;
+	-webkit-box-shadow: inset 0 0 1px rgba(255,255,255,0);
+}
+
+/*使用common_modal类时,为了使用日历控件，overflow需要自己定义*/
+.common_modal {
+	position: absolute;
+	border-radius: 2px;
+	background-color: white;
+	-webkit-box-shadow:0 0 10px rgba(40,40,40,0.5);
+}
+.common_modal_title_div {
+	width: calc(100% - 10px);
+	height: 30px;
+	background-color:rgb(49,188,244);
+	padding-left: 10px;
+	-webkit-app-region:no-drag;
+	-webkit-user-select: none;
+}
+.common_modal_title_label {
+	line-height: 30px;
+	color: white;
+	font-size: 14px;
+}
+.common_modal_window_close_btn {
+	float: right;
+	width: 30px;
+	height: 30px;
+	background-color: rgba(255,255,255,0);
+	cursor: default;
+}
+.common_modal_window_close_btn:hover {
+	background-color: red;
+}
+.common_modal_close_icon {
+	margin-left:7px;
+	margin-top:7px;
+}
+/*footer*/
+.common_modal_footer {
+	padding-top: 10px;
+	padding-bottom: 15px;
+	text-align: center;
+	background-color: rgba(247,247,247,0.75);
+}
+.common_modal_body {
+	padding: 20px;
+	padding-bottom: 0;
+	padding-right: 10px;
+}
+.common_modal_operate_body {
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 10px;
+	padding-bottom: 20px;
+}
+
+/*下拉框相关样式*/
+.common_dropdown {
+	outline: none;
+	/*width: 76px;*/
+	height: 26px;
+	padding-left: 5px;
+	font-size: 12px;
+	border-radius: 2px;
+	border: 1px solid #cbcbcb;
+	line-height: 40px;
+}
+.common_dropdown:focus {
+	border: 1px solid lightsteelblue;
+}
+
+/*子页面*/
+.common_page_html {
+	position: relative;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+ /*导航菜单,导航菜单需要所有父级采用默认定位  */
+ /*正常导航显示最小化*/
+.common_mini_subguide_div{
+	 position:absolute;
+	 top: 10px;
+	 left: 5px;
+	 bottom: 10px;
+	 border: solid 1px #dcdcdc;
+ }
+/*正常导航显示菜单*/
+ .common_subguide_div{
+	 border: solid 1px #dcdcdc;
+	 position:absolute;
+	 top: 10px;
+	 left: 5px;
+	 bottom: 10px;
+	 width: 248px;
+ }
+ /*正常菜单后面内容-菜单最小化*/
+ .common_content_unlocked_div {
+	 margin-left: 27px;
+	 width: calc(100% - 27px);
+	 height: 100%;
+ }
+ /*正常菜单后面内容-菜单显示*/
+ .common_content_locked_div {
+	 margin-left: 255px;
+	 width: calc(100% - 255px);
+	 height: 100%;
+ }
+
+ /*导航最小化内容栏*/
+ .common_mini_guide_title_div {
+ 	width: 20px;
+ 	text-align: center;
+ 	padding-top: 10px;
+ 	padding-bottom: 10px;
+ 	background-color: rgb(49,188,244);
+ 	cursor: pointer;
+ 	color: white;
+ 	font-size: 12px;
+ 	-webkit-user-select: none;
+ }
+
+ /*导航菜单图标*/
+ .common_menu_icon {
+ 	width: 12px;
+    height: 2px;
+ 	margin-left: 4px;
+    border-top: 2px solid #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+    background-color: #FFFFFF;
+    padding: 2px 0;
+    background-clip:content-box;
+ }
+
+ /*导航标题栏*/
+ .common_guide_title_div {
+ 	padding-left: 15px;
+ 	background-color: rgb(49,188,244);
+ 	height: 20px;
+ 	-webkit-user-select: none;
+ }
+ /*导航标题*/
+ .common_guide_title_label {
+ 	color: white;
+ 	line-height: 20px;
+ 	font-size: 12px;
+ }
+ /*导航锁定图标*/
+ .common_guide_close_icon {
+ 	float: right;
+ 	margin-right: 15px;
+ 	width: 14px;
+ 	height: 14px;
+ 	margin-top: 3px;
+ 	cursor: pointer;
+ }
+ /*导航内容*/
+ .common_guide_content_div {
+     background-color: white;
+     height: calc(100% - 20px);
+ }
+
+ /*页面带tab子页面的导航，使用时，页面定位设置为relative*/
+ /*子页面tab*/
+ .common_page_tab_div {
+ 	height: 35px;
+ 	width: 100%;
+ 	margin-top: 10px;
+	-webkit-user-select: none;
+ }
+ .common_page_tab_first_item {
+ 	margin-left: 5px;
+ }
+ .common_page_tab_unend_item {
+ 	margin-right: 10px;
+ }
+ .common_page_tab_item {
+	outline: none;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	padding: 0;
+	text-align: left;
+	background-color: transparent;
+ 	font-family: "Microsoft yahei";
+ 	font-size: 14px;
+ 	font-weight: bold;
+ 	border-bottom: solid 1px #808080;
+ 	color: #808080;
+ 	cursor: pointer;
+ }
+ .common_page_tab_item:hover {
+ 	color:#14b2f3;
+ 	border-bottom: solid 1px #14b2f3;
+ }
+ .common_page_tab_item:disabled {
+	 cursor: default;
+	 border-bottom: solid 1px #808080;
+  	 color: #808080;
+ }
+ .common_page_tab_active_item {
+	outline: none;
+ 	border-top: none;
+ 	border-left: none;
+ 	border-right: none;
+ 	padding: 0;
+ 	text-align: left;
+ 	background-color: transparent;
+ 	font-family: "Microsoft yahei";
+ 	font-size: 14px;
+ 	font-weight: bold;
+ 	border-bottom: solid 2px #14b2f3;
+ 	color:#14b2f3;
+ 	cursor: default;
+ }
+
+ /*收起的菜单导航*/
+ .common_tab_subguide_min_div {
+ 	position: absolute;
+ 	top: 0;
+ 	left: 5px;
+ 	bottom: 10px;
+ 	width: 20px;
+ 	border: solid 1px #dcdcdc;
+ }
+
+ /*显示的菜单*/
+ .common_tab_subguide_div {
+ 	position: absolute;
+ 	top: 0;
+ 	left: 5px;
+ 	bottom: 10px;
+ 	width: 248px;
+ 	border:1px solid #dcdcdc;
+ }
+
+
+ /*仅用于子页面*/
+ .common_tab_content_div {
+ 	position: relative;
+	margin-left: 5px;
+ 	width: calc(100% - 5px);
+ 	height: calc(100% - 45px);
+ }
+ .common_tab_content_item {
+ 	width: 100%;
+ 	height: 100%;
+ }
+ .common_tab_content_locked_div {
+ 	position: absolute;
+ 	left: 202px;
+ 	top: 48px;
+ 	right: 0;
+ 	bottom: 0;
+ }
+ .common_tab_content_unlocked_div {
+ 	position: absolute;
+ 	left: 22px;
+ 	top: 48px;
+ 	right: 0;
+ 	bottom: 0;
+ }
+
+ /*正常操作栏*/
+ .common_normal_operate_div {
+	 position: absolute;
+ 	 top: 10px;
+ 	 left: 5px;
+ 	 right: 9px;
+ 	 height: 26px;
+ 	 vertical-align: middle;
+ }
+
+ /*正常数据栏*/
+ .common_normal_data_div {
+	 position: absolute;
+ 	 top: 46px;
+ 	 left: 5px;
+ 	 right: 9px;
+ 	 bottom: 10px;
+ 	 border: 1px solid #DCDCDC;
+ }
+
+ /* 带分页的数据栏 */
+ .common_page_data_div {
+	 position: absolute;
+ 	 top: 46px;
+ 	 left: 5px;
+ 	 right: 9px;
+ 	 bottom: 40px;
+ 	 border: 1px solid #DCDCDC;
+ }
+
+ /*tab页面操作栏*/
+ .common_tab_operate_div {
+	position: absolute;
+	top: 0px;
+	left: 5px;
+	right: 9px;
+	height: 26px;
+	vertical-align: middle;
+ }
+ /*tab页面数据栏*/
+ .common_tab_data_div {
+	 position: absolute;
+ 	 top: 36px;
+ 	 left: 5px;
+ 	 right: 9px;
+ 	 bottom: 10px;
+ 	 border: 1px solid #DCDCDC;
+ }
+
+/*具体的菜单项*/
+ /*.common_multiple_menu_list li{
+     list-style-type:none;
+     white-space: nowrap;
+     line-height: 30px;
+	 cursor: pointer;
+ }
+
+ .common_multiple_menu_list .item{
+     cursor: pointer;
+     padding: 0 10px;
+     text-decoration: none;
+ }
+ .common_multiple_menu_list .item:hover{
+     background-color:rgba(34,36,38,0.05);
+ }
+ .common_noChildren_item0{
+     margin-left: 17px;
+ }
+ .common_noChildren_item1{
+	 margin-left: 34px;
+ }*/
+/*单元列表中，展开收起图标、单元图标*/
+.common_fold_icon {
+	cursor: pointer;
+	vertical-align: middle;
+	width: 13px;
+	height: 13px;
+	-webkit-user-select: none;
+}
+.common_unit_icon {
+	vertical-align: middle;
+	width: 12px;
+	height: 12px;
+	-webkit-user-select: none;
+}
+
+.common_lv1_item {
+	margin-left: 0;
+}
+.common_lv2_item {
+	margin-left: 17px;
+}
+.common_lv3_item {
+	margin-left: 34px;
+}
+.common_lv4_item {
+	margin-left: 49px;
+}
+
+/*统一的滚动条样式*/
+.common_scroll_div{
+    overflow: auto;
+}
+
+.common_scroll_div::-webkit-scrollbar {
+	width: 7px;
+	height: 7px;
+}
+.common_scroll_div::-webkit-scrollbar-thumb {
+	width: 7px;
+	background-color: rgba(197,198,192,0.5);
+	border-radius: 7px;
+	-webkit-box-shadow: inset 0 0 3px rgba(0,0,0,.3);
+}
+.common_scroll_div::-webkit-scrollbar-thumb:window-inactive {
+	background-color: rgba(197,198,192,0.2);
+}
+
+/*用于弹框界面一行的div元素*/
+.common_form_div_item_10px {
+	margin-bottom: 10px;
+}
+
+/*用于弹框界面一行的div中前面的文本标签元素*/
+.common_form_pre_label {
+	font-size: 12px;
+	display: inline-block;
+	width: 80px;
+}
+
+/*用于弹框界面一行的div中文本后面的元素*/
+.common_form_suf_input {
+	width: 228px;
+}
+
+.common_required_item{
+	color: red;
+	font-size: 12px;
+	vertical-align: middle;
+    margin-right: 7px;
+}
+
+/*下拉图标*/
+.common_dropdown_icon {
+	display: inline-block;
+	width: 0;
+	height: 0;
+	border-top: solid 8px white;
+	border-left: solid 4px transparent;
+	border-right: solid 4px transparent;
+	border-radius: 2px;
+	font-size: 12px;
+}
+
+/*升序降序图标*/
+.common_sort_desc_icon {
+	display: inline-block;
+	width: 0;
+	height: 0;
+	border-top: solid 8px #444444;
+	border-left: solid 4px transparent;
+	border-right: solid 4px transparent;
+	border-radius: 2px;
+	font-size: 12px;
+}
+.common_sort_icon {
+	display: inline-block;
+	width: 0;
+	height: 0;
+	border-bottom: solid 8px #444444;
+	border-left: solid 4px transparent;
+	border-right: solid 4px transparent;
+	border-radius: 2px;
+	font-size: 12px;
+}
+
+/*'日期'标签*/
+.common_form_date_label {
+	font-size: 12px;
+	display: inline-block;
+	width: 30px;
+}
+
+
+
+/*日历控件长度*/
+.common_form_calendar_width {
+	width:120px;
+}
+
+/*日历控件*/
+.common_form_calendar {
+	height: 24px;
+	outline: none;
+	border: 1px solid #dcdcdc;
+}
+.common_form_calendar:focus {
+	border: 1px solid lightsteelblue;
+}
+
+/*日历移除清除按钮*/
+.common_form_calendar::-webkit-clear-button {
+    display: none;
+}
+
+/*日历移除上下按钮*/
+.common_form_calendar::-webkit-inner-spin-button {
+    display: none;
+}
+
+
+/*常规字体*/
+.common_normal_text {
+	font-family: "Arial";
+	font-size: 12px;
+	color:#656565;
+	text-align: left;
+}
+/*表格中可编辑字体*/
+.common_edit_text {
+	font-family: "Arial";
+	font-size: 12px;
+	color:#3215aa;
+}
+/*表格中操作分割符号*/
+.common_table_operate_divider {
+	font-family: "Arial";
+	font-size: 12px;
+	color: #099DDC;
+	margin-left: 10px;
+	margin-right: 10px;
+	-webkit-user-select: none;
+}
+.common_table_operate_divider:last-child {
+	display: none;
+}
+/*表格中操作按钮字体*/
+.common_table_operate_text {
+	outline: none;
+	border: none;
+	padding: 0;
+	text-align: left;
+	background-color: transparent;
+	font-family: "Arial";
+	font-size: 12px;
+	color: #099DDC;
+	cursor: pointer;
+	-webkit-user-select: none;
+}
+.common_table_operate_text:hover {
+	color: red;
+}
+.common_table_operate_text:disabled {
+	cursor: default;
+	color: #bcbcbc;
+}
+
+/*表格中操作分割符号-不可用时样式*/
+.common_table_operate_divider_disable {
+	font-family: "Arial";
+	font-size: 12px;
+	color: #bcbcbc;
+	margin-left: 10px;
+	margin-right: 10px;
+	-webkit-user-select: none;
+}
+/*表格中操作按钮字体-不可用时样式*/
+.common_table_operate_text_disable {
+	font-family: "Arial";
+	font-size: 12px;
+	color: #bcbcbc;
+	cursor: default;
+	-webkit-user-select: none;
+}
+.common_table_operate_text_disable:hover {
+	color: #bcbcbc;
+}
+
+/*表格中可修改的label颜色*/
+.common_table_modify_color {
+	color: #3215aa;
+}
+
+/*====================单选按钮风格=====================*/
+/*单元按钮边框*/
+.common_option_radio_border {
+	position: relative;
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	vertical-align: middle;
+	border-radius: 12px;
+	border: 1px solid blue;
+	cursor: pointer;
+	-webkit-user-select: none;
+}
+
+/*单元按钮选中状态实心点*/
+.common_option_radio_heart {
+	position: absolute;
+	left: 3px;
+	top: 3px;
+	display: inline-block;
+	width: 6px;
+	height: 6px;
+	border-radius: 6px;
+	background-color: blue;
+	cursor: pointer;
+	-webkit-user-select: none;
+}
+
+/*单元按钮标签*/
+.common_option_radio_label {
+	font-size: 12px;
+	line-height: 26px;
+	color: blue;
+	margin-right: 10px;
+	vertical-align: middle;
+	-webkit-user-select: none;
+}
+/*====================单选按钮风格=====================*/
+
+/*ITitleIndicate  需要配合div使用*/
+.common_title_indicate {
+	width: calc(100% - 13px);
+	border-left: 3px solid #769d42;
+	background-color: #f7f7f7;
+	padding-left: 10px;
+	height: 30px;
+	line-height: 30px;
+	font-family: "Microsoft yahei";
+	font-size: 12px;
+	color:#67a917;
+	-webkit-user-select: none;
+}
+
+/*====================分页控件风格=====================*/
+.common_page_tools {
+	text-align: center;
+	font-size: 12px;
+	padding: 5px;
+
+	-webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+
+.common_page_number {
+	width: 50px;
+	height: 12px;
+	font-size: 12px;
+	text-align: right;
+}
+.common_page_tool {
+	/*font-size: 12px;*/
+	cursor: pointer;
+}
+
+.common_page_tool:hover {
+	/*font-weight: weight;*/
+	color: #64BAEA;
+}
+
+/*--------------------------开关按钮----------------------*/
+.common_on_radio {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	height: 22px;
+	width: 80px;
+	border-radius: 16px;
+	background-color: #D3EDFB;
+	box-shadow: 0 0 2px black;
+	vertical-align: middle;
+}
+.common_off_radio {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	height: 22px;
+	width: 80px;
+	border-radius: 16px;
+	background-color: gray;
+	box-shadow: 0 0 2px black;
+	vertical-align: middle;
+}
+.common_on_radio_btn {
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 20px;
+	height: 20px;
+	border-radius: 20px;
+	border: 2px solid #555;
+    background-color: #eee;
+}
+.common_off_radio_btn {
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 20px;
+	height: 20px;
+	border-radius: 20px;
+	border: 2px solid #555;
+    background-color: #eee;
+}
+.common_on_radio_text {
+	display: inline-block;
+	position: absolute;
+	left: 10px;
+	line-height: 22px;
+}
+.common_off_radio_text {
+	display: inline-block;
+	position: absolute;
+	right: 10px;
+	line-height: 22px;
+	color: white;
+}
+/*--------------------------开关按钮----------------------*/
+
+.common_table_input {
+	width: 100%;
+	height: 21px;
+	border: none;
+	border-radius: 2px;
+	font-size: 12px;
+	text-align: right;
+}
+.common_table_dropdown {
+	width: 100%;
+	height: 21px;
+	border: none;
+	border-radius: 2px;
+	font-size: 12px;
+	text-align: right;
+}
+.inputErrorTips{
+	margin-left: 100px;
+    font-size: 10px;
+    color: red;
+    height: 18px;
+    line-height: 18px;
+}

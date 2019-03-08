@@ -1,0 +1,63 @@
+<div class = "common_modal" id = "operManage_Alt_modal" >
+	<div class="common_modal_title_div" id = "operManage_Alt_modal_title">
+		<label class = "common_modal_title_label">修改操作员信息</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "operManageAlt_HideModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class="common_modal_body">
+		<div class = "common_form_div_item_10px">
+			<label class = "common_form_pre_label">资产管理人：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item common_form_suf_input" maxlength="4" placeholder="" ng-disabled = "true" ng-model = "selectedTamgr.displayName">
+			<label class = "operManage_form_item_tips">*</label>
+		</div>
+		<div class = "common_form_div_item_10px">
+			<label class = "common_form_pre_label">操作员编号：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item common_form_suf_input" maxlength="32" placeholder="" ng-disabled = "true" ng-model="altOperInfo.oid">
+			<label class = "operManage_form_item_tips">*</label>
+		</div>
+		<!-- <div class = "common_form_div_item_10px">
+			<label class = "common_form_pre_label">密码：</label>
+			<input type="password" class = "common_normal_input common_line_unend_item common_form_suf_input" maxlength="64" placeholder="" ng-disabled = "true" ng-model="altOperInfo.opass">
+			<div style="display: inline-block; width:232px; margin-right:15px;">
+				<cms-password-input password-text="self.add_confirm_psw" maxLength="32"></cms-password-input>
+			</div>
+			<label class = "operManage_form_item_tips">*</label>
+		</div> -->
+		<div class = "common_form_div_item_10px">
+				<label class = "common_form_pre_label">操作员姓名：</label>
+				<input type="text" class = "common_normal_input common_line_unend_item common_form_suf_input" maxlength="32" placeholder="" ng-disabled = "true" ng-model="altOperInfo.oname">
+				<label class = "operManage_form_item_tips">*</label>
+			</div>
+		<div ng-if = "notTheSame" class = "common_form_div_item_10px">
+			<label class = "common_form_pre_label">角色：</label>
+			<select class="common_normal_input common_line_unend_item common_form_suf_input" style="width:240px" ng-if="!isSuper" ng-options="role.name for role in roleList" ng-model="self.selectRole">
+			</select>
+			<input type="text" class = "common_normal_input common_line_unend_item common_form_suf_input" ng-if="isSuper" ng-disabled="true" ng-model="self.selectRole.rolename">
+			<label class = "operManage_form_item_tips">*</label>
+		</div>
+		<div ng-if = "notTheSame" class = "common_form_div_item_10px">
+			<label class = "common_form_pre_label">文本交互：</label>
+			<select class="common_normal_input common_line_unend_item common_form_suf_input" style="width:240px" ng-options="data.name for data in enableList" ng-model="self.tsiEnable">
+			</select>
+			<label class = "operManage_form_item_tips">*</label>
+		</div>
+		<div class = "common_form_div_item_10px">
+			<label class = "common_form_pre_label">联系电话：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item common_form_suf_input" maxlength="32" placeholder="" ng-model="altOperInfo.phone">
+		</div>
+		<div class = "common_form_div_item_10px">
+			<label class = "common_form_pre_label">电子邮箱：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item common_form_suf_input" maxlength="32" placeholder="" ng-model="altOperInfo.email">
+		</div>
+		<div >
+			<label class = "common_form_pre_label">身份证号：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item common_form_suf_input" maxlength="32" placeholder="" ng-model="altOperInfo.idcard">
+		</div>
+
+	</div>
+	<div class="common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "operManageAltConfirm()">确定</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click = "operManageAlt_HideModal()">取消</button>
+	</div>
+</div>

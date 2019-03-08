@@ -1,0 +1,116 @@
+<div class="common_page_html common_scroll_div" ng-controller="customStrategyCtrl">
+        <div class="common_normal_operate_div common_nowrap">
+            <input type="text" ng-model="searchKeyWorlds" class="common_normal_input common_line_unend_item common_search_input_length" placeholder="策略ID/名称/操作员搜索" ng-keyup="searchCustomStrategy()">
+            <label class = "common_form_pre_label" style="width: 35px;">产品：</label>
+            <select class="common_dropdown common_line_unend_item operMacBind_Add_dropdown " style="width: 177px;"  ng-model = "selectedProduct" ng-change="changOutSideProduct()">
+                <option ng-repeat="product in  selectedProductAll" value="{{product.caid}}">{{product.combinationCaName}}</option>
+            </select>
+            <label class = "common_form_pre_label" style="width: 60px;">组合名称：</label>
+            <select class="common_dropdown common_line_unend_item operMacBind_Add_dropdown " style="width: 137px;"   ng-model = "selectedSttrategy" ng-change="changOutSideStrategy()">
+                    <option ng-repeat="strategy in selectedSttrategyAll" value="{{strategy.trid}}">{{strategy.combinationTrName}}</option>
+            </select>
+            <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-if="menuRight.indexOf(2005008001) != -1" style="margin-left: 10px;"  name="button" ng-click="clickAddCustomStrategy()">新建</button>
+            <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-if="menuRight.indexOf(2005008005) != -1"  name="button" ng-click="exportCustomStrategyData()">导出</button>
+            <!-- <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length" name="button" ng-click="resetMD5()">刷新</button> -->
+        </div>
+    
+        <div class="common_scroll_div common_normal_data_div" style="bottom: 40px;overflow: hidden;overflow-x: auto;">
+            <table class="common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+                <thead>
+                    <tr>
+                        <th class = "common_nowrap" ng-click = "clickTableHeader('appname')">
+                            <span ng-show = "keyName == 'appname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                            序号
+                        </th>
+                        <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('version')">
+                            <span ng-show = "keyName == 'version'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                            策略服务ID
+                        </th>
+                        <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('md5')">
+                            <span ng-show = "keyName == 'md5'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                            策略ID
+                        </th>
+                        <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('md5')">
+                                <span ng-show = "keyName == 'md5'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                策略名称
+                        </th>
+                        <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('md5')">
+                                <span ng-show = "keyName == 'md5'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                路由标识
+                        </th>
+                        <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('md5')">
+                                <span ng-show = "keyName == 'md5'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                操作员ID
+                        </th>
+                        <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('md5')">
+                                <span ng-show = "keyName == 'md5'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                策略类型
+                        </th>
+                        <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('md5')">
+                                <span ng-show = "keyName == 'md5'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                产品
+                        </th>
+                        <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('md5')">
+                                <span ng-show = "keyName == 'md5'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                组合ID
+                        </th>
+                        <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('md5')">
+                                <span ng-show = "keyName == 'md5'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                                组合名称
+                        </th>
+
+                        <th class = "common_center_align common_nowrap">操作</th>
+    
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="singleCustomStrategy in allCustomStrategyData  | orderBy:keyName:false:sortFunction"
+                             ng-class="{'common_activeTr':singleCustomStrategy.selected}">
+                        <td class = "common_center_align common_nowrap">{{$index+1}}</td>
+                        <td class = "common_center_align common_nowrap">{{singleCustomStrategy.ssid}}</td>
+                        <td class = "common_center_align common_nowrap">{{singleCustomStrategy.stgid}}</td>
+                        <td class = "common_center_align common_nowrap">{{singleCustomStrategy.stgname}}</td>
+                        <td class = "common_center_align common_nowrap">{{singleCustomStrategy.route}}</td>
+                        <td class = "common_center_align common_nowrap">{{singleCustomStrategy.traderid}}</td>
+                        <td class = "common_center_align common_nowrap">{{singleCustomStrategy.stgtype}}</td>
+                        <td class = "common_center_align common_nowrap">{{singleCustomStrategy.caname}} ({{singleCustomStrategy.caid}})</td>
+                        <td class = "common_center_align common_nowrap">{{singleCustomStrategy.trid}}</td>
+                        <td class = "common_center_align common_nowrap">{{singleCustomStrategy.trname}}</td>
+                        <td class = "common_center_align common_nowrap">
+                            <button class = "common_table_operate_text" ng-click="clickchangeCustomStrategy(singleCustomStrategy)" ng-if="menuRight.indexOf(2005008002) != -1">修改</button>
+                            <label class = "common_table_operate_divider" >|</label>
+                            <button class = "common_table_operate_text" ng-click="clickchangeScript(singleCustomStrategy)" ng-if="menuRight.indexOf(2005008003) != -1">启动脚本</button>
+                            <label class = "common_table_operate_divider" >|</label>
+                            <button class = "common_table_operate_text" ng-click="clickstopScript(singleCustomStrategy)" ng-if="menuRight.indexOf(2005008004) != -1">关闭脚本</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    
+        <!-- <div class="common_page_tools" >
+            <label class="common_page_tool" ng-click="goToPage(1)">首页</label>
+            <label class="common_page_tool" ng-click="goToPage(currentPage -1 )">
+                上一页
+                <i class="iconfont icon-houtuiqianjin"></i>
+            </label>
+            <input type="text" ng-model="currentPage" class="common_page_number" ng-keyup="pageToolsKeyUp($event)">
+            <label title="总页数">/{{allPage}}</label>
+            <label class="common_page_tool" ng-click="goToPage(currentPage +1)">
+                下一页
+                <i class="iconfont icon-houtuiqianjin1"></i>
+            </label>
+            <label class="common_page_tool" ng-click="goToPage(allPage)">尾页</label>
+    
+        </div> -->
+
+        <div class="option_manage_page_tool_div">
+                <cms-data-pager click-menu-item="getCustomStrategyData(page)" all-page="{{allcustomStrategyPage}}" current-page="currentcustomStrategyPagePage"></cms-data-pager>
+            </div>
+    
+        <div class = "common_modal_back" id = "customStrategy_modal_back">
+            <div ng-include = "modalInfo.path" onload = "customStrategyLoadModalReady()"></div>
+        </div>
+    
+    </div>
+    

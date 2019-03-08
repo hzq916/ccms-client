@@ -1,0 +1,50 @@
+<div class="common_modal" id = "accountLogin_changepass_modal" style="width:329px; height:214px;">
+        <div class="common_modal_title_div" id = "accountLogin_changepass_modal_title">
+            <label class = "common_modal_title_label">修改密码</label>
+            <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "accountHideModal()">
+                <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+            </div>
+        </div>
+        <div class = "common_modal_body">
+            <div class="common_form_div_item_10px">
+                <label class="common_form_pre_label">原密码：</label>
+                <div class="password_div">
+                    <cms-password-input password-text="accountPassInfo.oldpass" maxLength="128"></cms-password-input>
+                </div>
+    
+                <label class = "common_required_item" style="margin-left: 15px;">*</label>
+            </div>
+            <div class="common_form_div_item_10px">
+                <label class="common_form_pre_label">新密码：</label>
+                <div class="password_div">
+                    <cms-password-input password-text="accountPassInfo.newpass" maxLength="128"></cms-password-input>
+                </div>
+    
+                <label class = "common_required_item" style="margin-left: 15px;">*</label>
+            </div>
+            <div class="">
+                <label class="common_form_pre_label">确认密码：</label>
+                <div class="password_div">
+                    <cms-password-input password-text="accountPassInfo.newpassrep" maxLength="128"></cms-password-input>
+                </div>
+    
+    
+                <!-- <div class="common_tail_input">
+                    <input type="password"  class = "common_normal_input common_line_unend_item " style = "width:175px;" maxlength="128"  ng-model = "accountPassInfo.newpassrep">
+                    <label style="cursor:pointer;" >
+                        <i class="iconfont icon-yanjing1" title="显示密码" onclick="cms.changeInputType(event)"></i>
+                    </label>
+                </div> -->
+                <label class = "common_required_item" style="margin-left: 15px;">*</label>
+            </div>
+            <!-- <div class="common_right_align" style = "margin-top:3px;">
+                <label class = "account_changepass_option" ng-click = "accountResetPass()">重置密码</label>
+            </div> -->
+        </div>
+        <div class = "common_modal_footer">
+            <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length " ng-click = "accountChangePassSure()">确定</button>
+            <button type="button" class = "common_gray_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "accountHideModal()">取消</button>
+        </div>
+    
+    </div>
+    

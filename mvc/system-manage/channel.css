@@ -1,0 +1,46 @@
+.channel_option_div {
+	position: absolute;
+	top: 0px;
+	left: 13px;
+	right: 9px;
+	height: 26px;
+	vertical-align: middle;
+}
+.channel_data_div {
+	position: absolute;
+	top: 37px;
+	left: 13px;
+	right: 9px;
+	bottom: 10px;
+	border: 1px solid rgba(34,36,38,.15);
+}
+.channel_table_option_label {
+	color: rgb(9,157,220);
+	font-size: 12px;
+	cursor: pointer;
+}
+.channel_table_option_label:hover {
+	color: red;
+}
+.channel_table_option_divider {
+	color: rgb(9,157,220);
+	font-size: 12px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.channel_freeze_modal_content {
+	text-align:center;
+	font-size:12px;
+	color:rgb(101,101,101);
+}
+.channel_form_header {
+	font-size: 12px;
+	display: inline-block;
+	width: 70px;
+}
+.channel_input {
+	width: 190px;
+}
+.channel_dropdown {
+	width: 202px;
+}

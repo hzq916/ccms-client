@@ -1,0 +1,47 @@
+<div class = "common_modal " id = "unitlist_tamgr_modal" style = "height:290px;" >
+	<div class="common_modal_title_div" id = "unitlist_tamgr_modal_title">
+		<label class = "common_modal_title_label">{{currentTamgr.edit ? "资产管理人基本信息修改" : "新建资产管理人"}}</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "unitlistHideModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class="common_modal_body">
+		<div ng-if = "currentTamgr.edit" class = "unitlist_tamgr_form_item">
+			<label class = "unitlist_tamgr_form_header">资产管理人编号：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item unitlist_tamgr_input" maxlength="4" cms-mask="unsignedInt" placeholder="1~9999" ng-disabled = "currentTamgr.edit" ng-model = "currentTamgr.maid">
+			<label class = "unitlist_form_item_tips" ng-hide = "currentTamgr.edit">*</label>
+		</div>
+		<div class = "unitlist_tamgr_form_item">
+			<label class = "unitlist_tamgr_form_header">资产管理人简称：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item unitlist_tamgr_input" maxlength="32" placeholder="" ng-model = "currentTamgr.maname">
+			<label class = "unitlist_form_item_tips">*</label>
+		</div>
+		<div class = "unitlist_tamgr_form_item">
+			<label class = "unitlist_tamgr_form_header">资产管理人全称：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item unitlist_tamgr_input" maxlength="128" placeholder="" ng-model = "currentTamgr.malname">
+			<label class = "unitlist_form_item_tips">*</label>
+		</div>
+		<div class = "unitlist_tamgr_form_item" ng-if = "!currentTamgr.edit">
+			<label class = "unitlist_tamgr_form_header">核算币种：</label>
+			<select class="common_dropdown common_line_unend_item unitlist_tamgr_dropdown" ng-model = "currentTamgr.currencyid" >
+				<option ng-repeat = "ucl in unitCurrencyList" value = "{{ucl.currencyid}}">{{ucl.curencychname+ "("+ucl.briefcode+")"}}</option>
+			</select>
+			<label class = "unitlist_form_item_tips" >*</label>
+		</div>
+		<div class="unitlist_tamgr_form_item" ng-if = "currentTamgr.edit">
+			<label class = "unitlist_tamgr_form_header">核算币种：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item unitlist_tamgr_input" ng-disabled = "true" ng-model = "currentTamgr.show_currency">
+		</div>
+		<div class = "">
+			<label class = "unitlist_tamgr_form_header">启用状态：</label>
+			<select class="common_dropdown common_line_unend_item unitlist_tamgr_dropdown" ng-model = "currentTamgr.stat">
+				<option ng-repeat="uso in unitStatOptions" value="{{uso.stat}}">{{uso.desc}}</option>
+			</select>
+			<label class = "unitlist_form_item_tips">*</label>
+		</div>
+	</div>
+	<div class="common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "unitlistSaveEditTamgr()">确定</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click = "unitlistHideModal()">取消</button>
+	</div>
+</div>

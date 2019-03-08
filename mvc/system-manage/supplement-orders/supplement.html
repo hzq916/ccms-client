@@ -1,0 +1,161 @@
+<div class = "common_page_html common_scroll_div" ng-controller = "supplementCtrl" ng-init = "supplementInit()">
+	<div class="common_mini_subguide_div" ng-show="!showSubguide" ng-click="showSubguide=true;">
+        <div class="common_mini_guide_title_div">
+            <div class="common_menu_icon"></div>
+            账户导航
+        </div>
+    </div>
+    <div class="common_subguide_div" ng-show="showSubguide">
+        <div class = "common_guide_title_div">
+            <label class = "common_guide_title_label">账户导航</label>
+            <img src="../commonui/images/icon_lock.png" draggable="false" class = "common_guide_close_icon" title="点击收起菜单" ng-click = "showSubguide=false;"/>
+        </div>
+        <div class=" common_guide_content_div common_scroll_div">
+			<cms-guide guide-data = "{{guideList}}" guide-showid = "true" guide-selectleaf = "true" guide-click = "supplementClickMenu(menu)" guide-setmenu = "supplementSetMenu"></cms-guide>
+        </div>
+    </div>
+	<div ng-class = "{'common_content_locked_div':showSubguide,'common_content_unlocked_div':!showSubguide}">
+		<div class = "common_page_html common_scroll_div">
+			<div class = "common_normal_operate_div common_nowrap">
+				<!-- <label class = "common_normal_text">日期：</label>
+				<input type="date" class = "common_form_calendar common_normal_input common_line_unend_item lrorder_operate_date_input" ng-model = "currentSelectDate" ng-change = "supplementChangeDate()" required> -->
+				<input type="text" class = "common_normal_input common_line_unend_item common_search_input_length" placeholder = "输入关键字过滤" ng-model = "searchContent" ng-change = "supplementFilterOrder()" >
+				<button type="button" class = "common_blue_btn common_normal_btn common_default_length common_line_unend_item" ng-if = "menuRight.indexOf(2005001001) != -1" ng-click = "supplementByHand()">手动补单</button>
+				<button type="button" class = "common_blue_btn common_normal_btn common_default_length common_line_unend_item" ng-if = "menuRight.indexOf(2005001002) != -1" ng-click = "supplementByFile()" ng-mouseenter = "supplementShowTips()" ng-mouseout = "supplementShowTips()">批量补单</button>
+				<button type="button" class = "common_blue_btn common_normal_btn common_default_length common_line_unend_item" ng-if = "menuRight.indexOf(2005001003) != -1" ng-click = "supplementExportsData()">导&nbsp;&nbsp;出</button>
+				<button type="button" class = "common_green_btn common_normal_btn common_default_length " ng-click = "supplementRefresh()">刷&nbsp;&nbsp;新</button>
+			</div>
+			<div class = "supplement_data_div common_scroll_div">
+				<table class = "common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+					<thead>
+						<th class = "common_center_align common_nowrap">序号</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('sysorderid',true)">
+							<span ng-show = "keyName == 'sysorderid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							系统订单号
+						</th>
+						<!--<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('traderid',true)">
+							<span ng-show = "keyName == 'traderid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							交易员编号
+						</th>-->
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('trid',true)">
+							<span ng-show = "keyName == 'trid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							策略组合
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('marketchname')">
+							<span ng-show = "keyName == 'marketchname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							交易所
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('marketcode')">
+							<span ng-show = "keyName == 'marketcode'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							证券代码
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('cname')">
+							<span ng-show = "keyName == 'cname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							证券名称
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('showSide')">
+							<span ng-show = "keyName == 'showSide'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							买卖类型
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('cmdname')">
+							<span ng-show = "keyName == 'cmdname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							业务名称
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('tradevol',true)">
+							<span ng-show = "keyName == 'tradevol'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							成交数量
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('tradeprice',true)">
+							<span ng-show = "keyName == 'tradeprice'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							成交均价
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('tradeamt',true)">
+							<span ng-show = "keyName == 'tradeamt'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							成交金额
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('tractfee',true)">
+							<span ng-show = "keyName == 'tractfee'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							账户订单费用
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('trdfee',true)">
+							<span ng-show = "keyName == 'trdfee'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							组合订单费用
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('showAddordertype')">
+							<span ng-show = "keyName == 'showAddordertype'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							补单类型
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('msg')">
+							<span ng-show = "keyName == 'msg'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							订单信息
+						</th>
+					</thead>
+					<tbody>
+						<tr ng-repeat = "order in orderList | orderBy:keyName:false:sortFunction" ng-show = "order.show">
+							<td class = "common_center_align common_nowrap">{{$index + 1}}</td>
+							<td class = "common_center_align common_nowrap">{{order.sysorderid}}</td>
+							<!--<td class = "common_center_align common_nowrap">{{order.traderid}}</td>-->
+							<td class = "common_center_align common_nowrap">{{order.trid}}</td>
+							<td class = "common_center_align common_nowrap">{{order.marketchname}}</td>
+							<td class = "common_center_align common_nowrap">{{order.marketcode}}</td>
+							<td class = "common_center_align common_nowrap">{{order.cname}}</td>
+							<td class = "common_center_align common_nowrap">{{order.showSide }}</td>
+							<td class = "common_center_align common_nowrap">{{order.cmdname }}</td>
+							<td class = "common_right_align common_nowrap">{{order.tradevol | number:0 }}</td>
+							<td class = "common_right_align common_nowrap">{{order.tradeprice | number:3 }}</td>
+							<td class = "common_right_align common_nowrap">{{order.tradeamt | number:3 }}</td>
+							<td class = "common_right_align common_nowrap">{{order.tractfee | number:3 }}</td>
+							<td class = "common_right_align common_nowrap">{{order.trdfee | number:3 }}</td>
+							<td class = "common_center_align common_nowrap">{{order.showAddordertype }}</td>
+							<td class = "common_center_align common_nowrap">{{order.msg }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="supplement_page_tool_div">
+				<cms-data-pager click-menu-item="goToPage(page)" all-page="{{allPage}}" current-page="currentPage"></cms-data-pager>
+			</div>
+			<div class= "supplement_load_tips" ng-show = "show_load_tips">
+				<label class = "supplement_tip_label">导入数据表正确格式为:</label>
+				<table class = "common_table" style = "width:820px;">
+					<thead>
+						<th class="common_center_align">委托时间</th>
+						<th class="common_center_align">券商订单号</th>
+						<th class="common_center_align">策略组合</th>
+						<!--<th class="common_center_align">交易员</th>-->
+						<th class="common_center_align">策略</th>
+						<th class="common_center_align">UKCODE</th>
+						<th class="common_center_align">市场</th>
+						<th class="common_center_align">证券代码</th>
+						<th class="common_center_align">证券名称</th>
+						<th class="common_center_align">指令</th>
+						<th class="common_center_align">开平方向</th>
+						<th class="common_center_align">成交数量</th>
+						<th class="common_center_align">成交价格</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="common_center_align">2017-12-20 14:11:15.256</td>
+							<td class="common_center_align">615163906</td>
+							<td class="common_center_align">100010001</td>
+							<!--<td class="common_center_align">19999</td>-->
+							<td class="common_center_align">1</td>
+							<td class="common_center_align">2163460</td>
+							<td class="common_center_align">2</td>
+							<td class="common_center_align">600446</td>
+							<td class="common_center_align">金证股份</td>
+							<td class="common_center_align">1</td>
+							<td class="common_center_align">1</td>
+							<td class="common_center_align">1000</td>
+							<td class="common_center_align">20.382</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class = "common_modal_back" id = "supplement_modal_back">
+		<div ng-include = "modalInfo.path" onload = "supplementModalLoadReady()"></div>
+	</div>
+
+</div>

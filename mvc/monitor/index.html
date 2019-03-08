@@ -1,0 +1,234 @@
+<div class="common_page_html common_scroll_div" ng-controller="monitorCtrl">
+
+    <div class="common_mini_subguide_div" ng-show="!showSubguide" ng-click="showSubguide=true;">
+        <div class="common_mini_guide_title_div">
+            <div class="common_menu_icon"></div>
+            产品导航
+        </div>
+    </div>
+
+    <div class="common_subguide_div" ng-show="showSubguide">
+        <div class = "common_guide_title_div">
+            <label class = "common_guide_title_label">产品导航</label>
+            <img src="../commonui/images/icon_lock.png" draggable="false"  class = "common_guide_close_icon" title="点击收起菜单" ng-click = "showSubguide=false;"/>
+        </div>
+        <div class=" common_guide_content_div common_scroll_div">
+            <cms-guide guide-data = "{{allAssetManager}}" guide-showid = "true" guide-click = "clickUnit(menu)" guide-setmenu = "setGuideMenu"></cms-guide>
+        </div>
+
+    </div>
+
+    <div ng-class = "{'common_content_locked_div':showSubguide,'common_content_unlocked_div':!showSubguide}" >
+        <div class="common_page_html common_scroll_div">
+            <div class="common_normal_operate_div common_nowrap">
+                <label class="monitor_timer common_line_unend_item">距离前次更新{{' '+spendTime+' 分'}}</label>
+                <select class="common_dropdown common_line_unend_item"  ng-model="refreshTime" ng-change="changeRefreshTimer()">
+                    <option value="10">10分刷新</option>
+                    <option value="20">20分刷新</option>
+                    <option value="30">30分刷新</option>
+                </select>
+                <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length"  ng-click="clickUnit(currentUnit)">立即刷新</button>
+                <button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length"
+                    ng-show="showTable == 'strategyInfomation'" ng-click="foldStrategy()">{{foldStrategyDesc}}</button>
+            </div>
+            <div class="common_scroll_div common_normal_data_div">
+                <table class="common_fixed_table" ng-show="showTable == 'productInfomation'" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+                  <thead>
+                    <tr >
+                      <th class = "common_nowrap">名称</th>
+                      <th class = "common_center_align common_nowrap">当日净值</th>
+                      <th class = "common_center_align common_nowrap">平仓盈亏</th>
+                      <th class = "common_center_align common_nowrap">浮动盈亏</th>
+                      <th class = "common_center_align common_nowrap">保证金</th>
+                      <th class = "common_center_align common_nowrap">股票账户可用资金</th>
+                      <th class = "common_center_align common_nowrap">股票总市值</th>
+                      <th class = "common_center_align common_nowrap">股指期货总合约价值	</th>
+                      <th class = "common_center_align common_nowrap">股票及股指期货总敞口</th>
+                      <th class = "common_center_align common_nowrap">商品期货总合约价值</th>
+                      <th class = "common_center_align common_nowrap">风险度</th>
+                      <!-- <th class = "common_center_align common_nowrap">操作</th> -->
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="product in managerProductDetails "  ng-click="clickActiveProductTr(product)" ng-class="{'common_activeTr': product.active}">
+                      <td class = "common_nowrap" >
+                          {{product.caname+"("+product.caid+")"}}
+                      </td>
+                      <td class = " common_nowrap common_center_align" >{{product.net_value | number:3}}</td>
+                      <td class = " common_nowrap common_center_align" >{{product.close_pl | number:2}}</td>
+                      <td class = " common_nowrap common_right_align" >{{product.floating_pl | number:2}}</td>
+                      <td class = " common_nowrap common_right_align" >{{product.total_cover_cost | number:2}}</td>
+                      <td class = " common_nowrap common_center_align" >{{product.stock_act_amt | number:2}}</td>
+                      <td class = " common_nowrap common_center_align" >{{product.mark_close_pl | number:2}}</td>
+                      <td class = " common_nowrap common_center_align" >{{product.stockindex_future_value | number:2}}</td>
+                      <td class = " common_nowrap common_center_align" >{{product.stock_stockindex_future_exposure | number:2}}</td>
+                      <td class = " common_nowrap common_center_align" >{{product.commodity_future_value  | number:2}}</td>
+                      <td class = "common_right_align common_nowrap">{{product.risk_rate | number:2}}</td>
+                      <!-- <td class = " common_nowrap common_right_align" >
+                          <label class = "common_table_option_label" ng-click="showProductNet(product)"
+                            ng-mouseover="getMousePos(product, $event)" ng-mouseout="mouseOut()">净值</label>
+                          <label class="common_table_operate_divider" >|</label>
+                          <label class = "common_table_option_label" ng-click="clickUnit(product)">详情</label>
+                      </td> -->
+
+                    </tr>
+                  </tbody>
+                </table>
+
+                <table class="common_fixed_table" ng-show="showTable == 'strategyInfomation'" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+                  <thead>
+                    <tr >
+                        <th class = "common_center_align common_nowrap" >分类</th>
+                        <th class = "common_center_align common_nowrap">净资产</th>
+                        <th class = "common_center_align common_nowrap">昨日净值</th>
+                        <th class = "common_center_align common_nowrap">当日净值</th>
+                        <th class = "common_center_align common_nowrap">持仓成本</th>
+                        <th class = "common_center_align common_nowrap">盯市成本</th>
+                        <th class = "common_center_align common_nowrap">最新价</th>
+                        <th class = "common_center_align common_nowrap">持仓数量</th>
+                        <th class = "common_center_align common_nowrap">买卖方向</th>
+                        <th class = "common_center_align common_nowrap">市值</th>
+                        <th class = "common_center_align common_nowrap">平仓盈亏</th>
+                        <th class = "common_center_align common_nowrap">持仓浮动盈亏</th>
+                        <th class = "common_center_align common_nowrap">盯市平仓盈亏</th>
+                        <th class = "common_center_align common_nowrap">盯市浮动盈亏</th>
+                        <th class = "common_center_align common_nowrap">管理费率</th>
+                        <th class = "common_center_align common_nowrap">基金投资</th>
+                        <th class = "common_center_align common_nowrap">其他投资</th>
+                        <th class = "common_center_align common_nowrap">成立日期</th>
+
+                        <th class = "common_center_align common_nowrap">保证金</th>
+                        <th class = "common_center_align common_nowrap">股票账户可用资金</th>
+                        <th class = "common_center_align common_nowrap">期货账户可用资金</th>
+                        <th class = "common_center_align common_nowrap">期货账户总权益</th>
+                        <th class = "common_center_align common_nowrap">股票总市值</th>
+                        <th class = "common_center_align common_nowrap">股指期货总合约价值</th>
+                        <th class = "common_center_align common_nowrap">股票及股指期货总敞口</th>
+                        <th class = "common_center_align common_nowrap">商品期货总合约价值</th>
+                        <th class = "common_center_align common_nowrap">商品期货合约轧差</th>
+                        <th class = "common_center_align common_nowrap">期货账户风险度</th>
+                        <th class = "common_center_align common_nowrap">操作</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <tr ng-repeat="productDetail in productDetails" ng-class="{'common_activeTr': productDetail.active}"
+                        ng-show="productDetail.show && !(productDetail.tier == 2 && !productDetail.children.length)"
+                        ng-dblclick="clickFold(productDetail)" ng-click="clickActiveStrategyTr(productDetail)">
+
+                          <td class="common_nowrap">
+                              <label ng-class = "{'tier0':productDetail.tier==0, 'tier1':productDetail.tier==1, 'tier2':productDetail.tier==2, 'tier3':productDetail.tier==3}"></label>
+                              <label class="tier1" ng-show="!productDetail.children.length || (productDetail.tier ==1 && !productDetail.hadData)"></label>
+                              <img src="../commonui/images/icon_table_fold.png" class = "monitor_icon"
+                                    ng-show = "productDetail.children.length && !productDetail.showChildren &&(productDetail.tier!=1 || productDetail.hadData)" title = "展开" ng-click = "clickFold(productDetail)"/>
+                              <img src="../commonui/images/icon_table_unfold.png" class = "monitor_icon"
+                                    ng-show = "productDetail.children.length && productDetail.showChildren &&(productDetail.tier!=1 || productDetail.hadData)" title = "收起" ng-click = "clickFold(productDetail)"/>
+                            <label >{{productDetail.name}}</label>
+
+                          </td>
+
+                          <td class = "common_right_align common_nowrap">{{productDetail.totalint | number:2}}</td>
+                          <td class = "common_right_align common_nowrap">{{productDetail.prenetvalue | number:3}}</td>
+                          <td class = "common_right_align common_nowrap">{{productDetail.netvalue | number:3}}</td>
+                          <td class = "common_right_align common_nowrap">{{productDetail.singleHoldCost | number:2}}</td>
+                          <td class = "common_right_align common_nowrap">{{productDetail.singleMtmcost | number:2}}</td>
+                          <td class = "common_right_align common_nowrap">{{productDetail.price | number:3}}</td>
+                          <td class = "common_right_align common_nowrap">{{productDetail.totalvol}}</td>
+                          <td class='common_center_align aligned'>
+                              <label ng-show="productDetail.direction == 1">买</label>
+                              <label ng-show="productDetail.direction == 2">卖</label>
+                          </td>
+                          <td class = "common_right_align common_nowrap">{{productDetail.stockvalue | number:2}}</td>
+                          <td class = "common_right_align common_nowrap">{{productDetail.hold_closepl | number:2}}</td>
+                          <td class = "common_right_align common_nowrap">{{productDetail.hold_posipl | number:2}}</td>
+                          <td class = "common_right_align common_nowrap">{{productDetail.mtm_closepl | number:2}}</td>
+                          <td class = "common_right_align common_nowrap">{{productDetail.mtm_posipl | number:2}}</td>
+                          <td class = " common_nowrap common_right_align" >{{productDetail.management_rate | number:3}}</td>
+                          <td class = " common_nowrap " >
+                              <table class="table_in_table">
+                                  <tbody>
+                                      <tr ng-repeat="investmentFund in productDetail.investmentFunds">
+                                          <td>{{investmentFund.subjectname+":"}}</td>
+                                          <td class = "common_right_align">{{investmentFund.amt | number:2}}</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </td>
+                          <td class = " common_nowrap common_right_align" >
+                              <table class="table_in_table">
+                                  <body>
+                                      <tr ng-repeat="investmentOther in productDetail.investmentOthers">
+                                          <td>{{investmentOther.subjectname+":"}}</td>
+                                          <td class = "common_right_align">{{investmentOther.amt | number:2}}</td>
+                                      </tr>
+                                  </body>
+                              </table>
+
+                          </td>
+                          <td class = " common_nowrap common_right_align" >{{productDetail.establish_date}}</td>
+
+                          <td class = "common_right_align common_nowrap">{{productDetail.totalmargin | number:2}}</td>
+                          <td class = "common_right_align common_nowrap">{{productDetail.stock_validamt | number:2}}</td>
+                          <td class = "common_right_align common_nowrap">{{productDetail.futures_validamt | number:2}}</td>
+                          <td class = "common_right_align common_nowrap">{{productDetail.totalintFuture | number:2}}</td>
+                          <td class = "common_right_align common_nowrap">{{productDetail.stock_value | number:2}}</td>
+                          <td class = "common_right_align common_nowrap">{{productDetail.spifCap | number:2}}</td>
+                          <td class = "common_right_align common_nowrap">{{productDetail.risk_exposure | number:2}}</td>
+                          <td class = "common_right_align common_nowrap">{{productDetail.commodityFuturesCap  | number:2}}</td>
+                          <td class = "common_right_align common_nowrap">{{productDetail.commodityFuturesNetting | number:2}}</td>
+                          <td class = "common_right_align common_nowrap">{{productDetail.futRiskRatio}}</td>
+                          <td style="white-space:nowrap;">
+                            <label class = "common_table_option_label" ng-show="$index == 0" ng-click="showProductNet(productDetail)"
+                                ng-mouseover="getMousePos(productDetail, $event)" ng-mouseout="mouseOut()">净值</label>
+
+                          </td>
+                      </tr>
+                  </tbody>
+                </table>
+                <!-- <div class="" ng-include="includeObj.path">
+
+                </div> -->
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class = "common_modal_back" id = "monitor_modal_back">
+        <!-- <div ng-include = "'../monitor/productNetDetail.html'" ></div> -->
+        <div class="common_modal" id="monitor_detail_modal" style="width:840px; height:416px;">
+            <div class="common_modal_title_div" id = "monitor_detail_modal_title">
+                <label class = "common_modal_title_label" >产品净值走势图</label>
+                <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "hideMonitorModal()">
+                    <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+                </div>
+            </div>
+
+            <div class="common_modal_body">
+                <div class="" id="monitor_detail_div" style="width:800px; height:300px;">
+
+                </div>
+            </div>
+
+            <div class="common_modal_footer">
+                <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length " ng-click="hideMonitorModal()">确定</button>
+                <button type="button" class="common_gray_btn common_normal_btn  common_default_length" ng-click="hideMonitorModal()">取消</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="monitor_preview_modal" class="monitor_preview_modal" ng-show="showPreviewNetChart">
+        <label class="indicator_icon">
+            <i class="icon iconfont icon-sanjiao" style="font-size: 30px;"></i>
+        </label>
+        <!-- <div class="simpleNetChartDiv">
+
+        </div> -->
+        <div id="monitor_preview_echart" class="" style="width: 294px;height:120px;">
+        </div>
+    </div>
+
+</div>

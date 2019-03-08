@@ -1,0 +1,64 @@
+
+.permissionManage_module_div{
+    position: relative;
+    float: left;
+    width: 50%;
+    height: 100%;
+}
+
+.permissionManage_operate_div_left {
+    position: absolute;
+    top: 14px;
+	left: 13px;
+	right: 7px;
+	height: 26px;
+	vertical-align: middle;
+}
+.permissionManage_operate_div_right {
+    position: absolute;
+    top: 14px;
+	left: 6px;
+	right: 9px;
+	height: 26px;
+	vertical-align: middle;
+}
+
+.permissionManage_data_div_left {
+    position: absolute;
+	top: 51px;
+	left: 13px;
+	right: 7px;
+	bottom: 10px;
+	border: 1px solid #DCDCDC;
+}
+.permissionManage_data_div_right {
+    position: absolute;
+	top: 51px;
+	left: 6px;
+	right: 9px;
+	bottom: 10px;
+	border: 1px solid #DCDCDC;
+}
+
+.tier_0{
+    margin-left: 5px;
+}
+.tier_1{
+    margin-left: 25px;
+}
+.tier_2{
+    margin-left: 45px;
+}
+.tier_3{
+    margin-left: 65px;
+}
+.tier_4{
+    margin-left: 85px;
+}
+.img_width {
+    margin-left: 18px;
+}
+
+.fold-item{
+    cursor: pointer;
+}

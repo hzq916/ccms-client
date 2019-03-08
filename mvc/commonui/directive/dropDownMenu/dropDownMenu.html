@@ -1,0 +1,11 @@
+<button class="dropDown common_blue_btn common_normal_btn common_line_unend_item " ng-disabled="disabled" ng-blur="hideMySelect()" tabindex="20" ng-click = "showOrHideMySelect()" >
+    {{placeholderText}}
+    <span class="common_dropdown_icon " ></span>
+    <div class=" dropDownMenu newDropDownMenu component_scroll_div" ng-show="showSelect">
+        <div class="dropDownItem" ng-repeat="option in options" ng-click="clickItem(option);">
+            {{option.text}}
+        </div>
+
+    </div>
+
+</button>

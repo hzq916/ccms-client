@@ -1,0 +1,166 @@
+<div class = "common_page_html common_scroll_div" ng-controller = "clearCtrl" ng-init = "clearInit()">
+	<div class="common_mini_subguide_div" ng-show="!showSubguide" ng-click="showSubguide=true;">
+        <div class="common_mini_guide_title_div">
+            <div class="common_menu_icon"></div>
+            单元导航
+        </div>
+    </div>
+    <div class="common_subguide_div" ng-show="showSubguide">
+        <div class = "common_guide_title_div">
+            <label class = "common_guide_title_label">单元导航</label>
+            <img src="../commonui/images/icon_lock.png" draggable="false"  class = "common_guide_close_icon" title="点击收起菜单" ng-click = "showSubguide=false;"/>
+        </div>
+        <div class=" common_guide_content_div common_scroll_div">
+			<cms-guide guide-data = "{{guideTree}}" guide-showid = "true" guide-click = "clearClickMenu(menu)" guide-setmenu = "clearSetMenu"></cms-guide>
+        </div>
+    </div>
+	<div ng-class = "{'common_content_locked_div':showSubguide,'common_content_unlocked_div':!showSubguide}">
+		<div class="common_page_html common_scroll_div">
+			<div class = "clear_option_div common_nowrap">
+				<label class = "common_normal_text">筛选账户：</label>
+				<input type="text" class = "common_normal_input common_line_unend_item common_search_input_length" placeholder="输入账户编号或名称" ng-model = "filterContent" ng-change = "clearFilterAccount()">
+				<button type="button" class = "common_normal_btn common_green_btn common_default_length" ng-click = "clearRefreshAccountList()">刷&nbsp;&nbsp;新</button>
+			</div>
+			<div class = "clear_data_div common_scroll_div">
+				<table class = "common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+					<thead>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('acid',true)">
+							<span ng-show = "keyName == 'acid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							账户编号
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('acname')">
+							<span ng-show = "keyName == 'acname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							账户名称
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('bid',true)">
+							<span ng-show = "keyName == 'bid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							经纪商编号
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('bname')">
+							<span ng-show = "keyName == 'bname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							经济商名称
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('trday')">
+							<span ng-show = "keyName == 'trday'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							上次清算交易日
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('current_step',true)">
+							<span ng-show = "keyName == 'current_step'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							当前清算步骤
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('stepstat',true)">
+							<span ng-show = "keyName == 'stepstat'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							当前清算状态
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('clearday')">
+							<span ng-show = "keyName == 'clearday'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+							当前清算交易日
+						</th>
+						<th class = "common_center_align common_nowrap">清算步骤</th>
+						<th class = "common_center_align common_nowrap">操作</th>
+					</thead>
+					<tbody>
+						<tr ng-repeat = "account in accountList | orderBy:keyName:false:sortFunction" ng-show = "account.show" ng-init = "parentIndex = $index" ng-class = "{true:'common_activeTr',false:''}[account.acIndex == clickTr ]" ng-click = "clearClickTr(account)">
+							<td class = "common_left_align common_nowrap">
+								<label >{{account.acid}}</label>
+							</td>
+							<td class = "common_center_align common_nowrap">
+								<label  >{{account.acname}}</label>
+							</td>
+							<td class = "common_center_align common_nowrap">
+								<label >{{account.bid}}</label>
+							</td>
+							<td class = "common_center_align common_nowrap">
+								<label>{{account.bname}}</label>
+							</td>
+							<td class = "common_center_align common_nowrap">
+								<label >{{account.trday}}</label>
+							</td>
+							<td class = "common_center_align common_nowrap">
+								<label >{{(account.current_step == 0 || (account.current_step == 1 && account.stepstat == 0) ) ? "未清算" : account.stepname}}</label>
+							</td>
+							<td class = "common_center_align common_nowrap">
+								<label ng-class = "{'clear_red_text':account.stepstat == -1,'clear_green_text':account.current_step == clearSteps.length  && account.stepstat == 2,'clear_teal_text':!(account.current_step == 0 || (account.current_step == 1 && account.stepstat == 0) || (account.current_step == clearSteps.length && account.stepstat == 2) || account.stepstat == -1),'common_normal_text':account.current_step == 0 || (account.current_step == 1 && account.stepstat == 0)}">
+									{{ account.stepstat == -1 ? "清算失败" : (( account.current_step == clearSteps.length && account.stepstat == 2) ? "清算成功" : ((account.current_step > 1 && account.stepstat != -1) || (account.current_step == 1 && account.stepstat > 0) ? "清算中" : "未清算"))}}
+								</label>
+							</td>
+							<td class = "common_center_align common_nowrap">
+								<label >{{account.clearday}}</label>
+							</td>
+							<td class = "common_center_align common_nowrap">
+								<nobr ng-repeat = "step in clearSteps">
+									<label class = "common_table_operate_divider" ng-if = "menuRight.indexOf(2005003001) != -1" ng-show = "!$first">--</label>
+									<button type="button" class = "clear_table_btn"
+									ng-if = "menuRight.indexOf(2005003001) != -1"
+									ng-class = "{'clear_blue_btn':step.stepid > account.current_step || (step.stepid == account.current_step && account.stepstat == 0),'clear_teal_btn':step.stepid == account.current_step && account.stepstat == 1,'clear_green_btn':step.stepid < account.current_step || (step.stepid == account.current_step && account.stepstat == 2),'clear_red_btn': step.stepid == account.current_step && account.stepstat == -1}"
+									ng-disabled = "account.clearday == '-' || !((step.stepid == account.current_step && account.stepstat == 0) || (step.stepid == account.current_step * 1 + 1 && (account.stepstat == 2 || account.current_step == 0 ) ) ) "
+									ng-click = "clearClickStep(step,account)">{{step.stepname}}</button>
+								</nobr>
+							</td>
+							<td class = "common_center_align common_nowrap">
+								<button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2005003001) != -1" ng-disabled = "account.clearday == '-' || !(account.current_step == 0 || (account.current_step == 1 && account.stepstat == 0) ) "  ng-click = "clearOnceClick(account)">一键清算</button>
+								<label class = "common_table_operate_divider" ng-if = "menuRight.indexOf(2005003001) != -1">|</label>
+								<button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2005003001) != -1" ng-disabled = "account.trday == '-' || account.current_step == 0 || account.stepstat == 1 || (account.current_step == 1 && account.stepstat == 0)"  ng-click = "clearRevoke(account)">撤销</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class = "clear_log_title_bar">
+				<div class = "common_title_indicate">清算日志记录</div>
+			</div>
+			<div class = "clear_log_div common_scroll_div">
+				<table class = "common_fixed_table">
+					<thead>
+						<th class = "common_center_align common_nowrap" ng-click = "logClickTableHeader('oid',true)">
+							<span ng-show = "log_keyName == 'oid'" ng-class = "{common_sort_icon:!log_reverse,common_sort_desc_icon:log_reverse}"></span>
+							操作员编号
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "logClickTableHeader('oname')">
+							<span ng-show = "log_keyName == 'oname'" ng-class = "{common_sort_icon:!log_reverse,common_sort_desc_icon:log_reverse}"></span>
+							操作员名称
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "logClickTableHeader('taskname')">
+							<span ng-show = "log_keyName == 'taskname'" ng-class = "{common_sort_icon:!log_reverse,common_sort_desc_icon:log_reverse}"></span>
+							任务名称
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "logClickTableHeader('parms')">
+							<span ng-show = "log_keyName == 'parms'" ng-class = "{common_sort_icon:!log_reverse,common_sort_desc_icon:log_reverse}"></span>
+							参数
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "logClickTableHeader('begin_tm')">
+							<span ng-show = "log_keyName == 'begin_tm'" ng-class = "{common_sort_icon:!log_reverse,common_sort_desc_icon:log_reverse}"></span>
+							操作开始时间
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "logClickTableHeader('end_tm')">
+							<span ng-show = "log_keyName == 'end_tm'" ng-class = "{common_sort_icon:!log_reverse,common_sort_desc_icon:log_reverse}"></span>
+							操作结束时间
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "logClickTableHeader('success_flag',true)">
+							<span ng-show = "log_keyName == 'success_flag'" ng-class = "{common_sort_icon:!log_reverse,common_sort_desc_icon:log_reverse}"></span>
+							操作结果
+						</th>
+						<th class = "common_center_align common_nowrap" ng-click = "logClickTableHeader('return_msg')">
+							<span ng-show = "log_keyName == 'return_msg'" ng-class = "{common_sort_icon:!log_reverse,common_sort_desc_icon:log_reverse}"></span>
+							反馈信息
+						</th>
+					</thead>
+					<tbody>
+						<tr ng-repeat = "taskLog in taskLogList | orderBy:log_keyName:false:logSortFunction">
+							<td class = "common_center_align common_nowrap">{{taskLog.oid}}</td>
+							<td class = "common_center_align common_nowrap">{{taskLog.oid == "sys" ? "system" : taskLog.oname}}</td>
+							<td class = "common_center_align common_nowrap">{{taskLog.taskname}}</td>
+							<td class = "common_center_align common_nowrap">{{taskLog.parms}}</td>
+							<td class = "common_center_align common_nowrap">{{taskLog.begin_tm}}</td>
+							<td class = "common_center_align common_nowrap">{{taskLog.end_tm}}</td>
+							<td class = "common_center_align common_nowrap">
+								<label ng-class = "{true:'clear_green_text',false:'clear_red_text'}[taskLog.success_flag == '成功']">{{taskLog.success_flag}}</label>
+							</td>
+							<td class = "common_center_align common_nowrap">{{taskLog.return_msg}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

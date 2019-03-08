@@ -1,0 +1,27 @@
+.md5_manage_operate_div {
+    position: absolute;
+    top: 14px;
+    left: 13px;
+    right: 9px;
+    height: 26px;
+    vertical-align: middle;
+}
+.md5Manage_table_div{
+    position: absolute;
+	top: 51px;
+	left: 13px;
+	right: 9px;
+	bottom: 10px;
+	border: 1px solid #DCDCDC;
+}
+
+.md5_input{
+    width: 220px;
+}
+.option_manage_page_tool_div {
+	position: absolute;
+	left: 5px;
+	right: 9px;
+	bottom: 10px;
+	height: 28px;
+}

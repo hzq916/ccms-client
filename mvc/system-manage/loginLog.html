@@ -1,0 +1,75 @@
+<div class = "common_page_html common_scroll_div" ng-controller = "loginLogCtrl" ng-init = "loginLogInit()">
+    <div class = "common_tab_operate_div common_nowrap">
+        <input type="text" class = "common_normal_input common_line_unend_item common_search_input_length" placeholder = "请输入关键字进行过滤>>" ng-model = "filterContent" ng-change = "loginLogFilter()">
+		<label class = "common_form_date_label">日期：</label>
+		<input type="date" class = "common_normal_input  common_form_calendar common_form_calendar_width common_line_unend_item"  ng-model="begin_date">
+		<label class = "common_line_unend_item" >-</label>
+		<input type="date" class = "common_normal_input  common_form_calendar common_form_calendar_width common_line_unend_item" ng-model="end_date" >
+		<button type="button" class = "common_green_btn common_normal_btn common_default_length" ng-click = "refreshLoginLogDataTable()" >查 询</button>
+	</div>
+	<div class = "common_tab_data_div common_scroll_div">
+		<table class = "common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH')">
+			<thead >
+				<tr >
+					<th class = "common_center_align common_nowrap">序号</th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('mac')">
+                        <span ng-show = "keyName == 'mac'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        MAC信息
+                    </th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('lip')">
+                        <span ng-show = "keyName == 'lip'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        IP地址
+                    </th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('oid',true)">
+                        <span ng-show = "keyName == 'oid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        操作员ID
+                    </th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('oname')">
+                        <span ng-show = "keyName == 'oname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        操作员姓名
+                    </th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('logintm')">
+                        <span ng-show = "keyName == 'logintm'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        登录时间
+                    </th>
+                    <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('login_result_ch')">
+                        <span ng-show = "keyName == 'login_result_ch'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        登录结果
+                    </th>
+                    <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('login_msg_info')">
+                        <span ng-show = "keyName == 'login_msg_info'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        反馈信息
+                    </th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="cell in loginLogDataList | orderBy:keyName:false:sortFunction" ng-show="cell.show" ng-class = "{true:'common_activeTr',false:''}[$index == curClickedIndex ]" ng-click="itemClicked($index)">
+					<td class = "common_center_align common_nowrap">
+						<label>{{$index + 1}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<label>{{cell.mac}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<label>{{cell.lip}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<label>{{cell.oid}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<label>{{cell.oname}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<label>{{cell.logintm}}</label>
+                    </td>
+                    <td class = "common_center_align common_nowrap">
+						<label>{{cell.login_result_ch}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<label>{{cell.login_msg_info}}</label>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

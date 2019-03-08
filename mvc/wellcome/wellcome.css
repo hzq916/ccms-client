@@ -1,0 +1,475 @@
+/* wellcome table*/
+.wellcome_table {
+	width: 100%;
+	table-layout: automatic;
+	border-collapse:collapse;
+	background-color: white;
+	font-size: 14px;
+	color: #656565;
+}
+
+.wellcome_table  tr {
+	border-bottom: 1px solid #DCDCDC;
+}
+
+.wellcome_table tbody>tr:last-child {
+	border: none;
+}
+
+.wellcome_table  th {
+	height: 26px;
+	font-size: 12px;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-weight: 200;
+	font-family: "宋体";
+	color: #666;
+	background-color:#f2f2f2;
+}
+
+.wellcome_table  td {
+	height: 26px;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-size: 12px;
+	font-family: "Arial";
+}
+
+.wellcome_table_option_icon {
+	display: inline-block;
+	width: 13px;
+	height: 13px;
+	cursor: pointer;
+}
+.wellcome_table_edit_icon {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	cursor: pointer;
+}
+
+.wellcome_table_option_margin {
+	margin-right: 10px;
+}
+
+.wellcome_table_delete_icon {
+	position: relative;
+	width: 10px;
+	height: 10px;
+	display: inline-block;
+	border-radius: 10px;
+	cursor: pointer;
+	overflow: hidden;
+	background-color: inherit;
+}
+
+.wellcome_table_delete_icon:before {
+    position: absolute;
+    content: '';
+    width: 10px;
+    height: 2px;
+    background-color: red;
+    -webkit-transform: rotate(45deg);
+    top: 4px;
+    left: 0;
+}
+.wellcome_table_delete_icon:after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 2px;
+    background-color: red;
+    -webkit-transform: rotate(-45deg);
+    top: 4px;
+    left: 0;
+}
+
+.wellcome_table_save_icon {
+	display: inline-block;
+	width: 5px;
+	height:2px;
+	background: green;
+	line-height: 0;
+	font-size:0;
+	vertical-align: middle;
+	cursor: pointer;
+	-webkit-transform: rotate(45deg);
+}
+.wellcome_table_save_icon:after{
+	content:'/';
+	display:block;
+	width: 10px;
+	height:2px;
+	background: green;
+	cursor: pointer;
+	-webkit-transform: rotate(-90deg) translateY(-50%) translateX(50%);
+}
+
+.wellcome_table_input {
+	width: 100%;
+	height: 22px;
+	outline: none;
+	border: none;
+	border-bottom: solid 1px #cbcbcb;
+	border-radius: 2px;
+	font-size: 12px;
+}
+.wellcome_table_input:focus {
+	border-bottom: 1px solid lightsteelblue;
+}
+
+.wellcome_products {
+	margin-left: 5px;
+	margin-right: 9px;
+	margin-top: 10px;
+	-webkit-user-select: none;
+}
+.wellcome_product_item {
+	position: relative;
+	display: inline-block;
+	width: 16.6%;
+	height: 170px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	-webkit-user-select: none;
+}
+.wellcome_product_item_icon {
+	position: absolute;
+	top: 10px;
+	left: calc(50% - 50px);
+	width: 100px;
+	height: 100px;
+}
+.wellcome_product_item_icon_img {
+	width: 100%;
+	height: 100%;
+}
+.wellcome_product_item_desc {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 10px;
+	text-align: center;
+	color:#607D8B;
+}
+.wellcome_product_item_count_label {
+	font-size: 20px;
+	font-weight: bold;
+	vertical-align: middle;
+}
+.wellcome_product_item_desc_label {
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+.wellcome_servers {
+	margin-left: 15px;
+	margin-right: 9px;
+	-webkit-user-select: none;
+}
+.wellcome_server_item {
+	position: relative;
+	display: inline-block;
+	width: calc(20% - 10px);
+	margin-right: 10px;
+	margin-bottom: 10px;
+	top: 0;
+	text-align: center;
+	vertical-align: top;
+	border-radius: 5px;
+	overflow: hidden;
+	background-color: #EEE;
+	-webkit-user-select: none;
+}
+.wellcome_server_item:hover {
+	margin-bottom: 8px;
+	top: 2px;
+}
+.wellcome_server_add {
+	position: relative;
+	display: inline-block;
+	width: calc(20% - 10px);
+	height: 170px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	top: 0;
+	text-align: center;
+	vertical-align: top;
+	border-radius: 5px;
+	overflow: hidden;
+	/* background-color: #EEE; */
+	background-color: #DDD;
+	cursor: pointer;
+	-webkit-user-select: none;
+}
+.wellcome_server_add:hover {
+	margin-bottom: 8px;
+	top: 2px;
+	border-radius: 5px;
+	/* background-color: #DDD; */
+}
+.wellcome_server_add_icon {
+	position: relative;
+	display: inline-block;
+	width: 150px;
+	height: 100px;
+	top: 35px;
+}
+.wellcome_server_card {
+	position: relative;
+	display: inline-block;
+	top: 0;
+	width: 100%;
+	height: 170px;
+	background-color: #DDD;
+}
+.wellcome_server_title {
+	margin-top: 10px;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: "Microsoft Yahei";
+	color:#607D8B;
+}
+.wellcome_server_edit {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	cursor: pointer;
+	vertical-align: baseline;
+}
+.wellcome_server_delete {
+	position: absolute;
+	right: 1px;
+	top: 1px;
+	width: 15px;
+	height: 15px;
+	cursor: pointer;
+}
+.wellcome_server_item_icon {
+	display: inline-block;
+	margin-top: 5px;
+	width: 130px;
+	height: 130px;
+}
+.wellcome_server_item_icon_img {
+	width: 100%;
+	height: 100%;
+}
+.wellcome_server_item_content {
+	color: #656565;
+	margin-top: 5px;
+	margin-bottom: 14px;
+}
+.wellcome_server_item_content_filter {
+	display: inline-block;
+	text-align: left;
+}
+.wellcome_server_item_22px {
+	margin-bottom: 22px;
+}
+.wellcome_server_header_label {
+	font-family: "Arial";
+	font-size: 14px;
+	color:#656565;
+	vertical-align: middle;
+}
+.wellcome_server_value_label {
+	font-family: "Arial";
+	font-size: 14px;
+	font-weight: bold;
+	vertical-align: middle;
+}
+.wellcome_server_normal_color {
+	color:#656565;
+}
+.wellcome_server_online_color {
+	color: green;
+}
+.wellcome_server_offline_color {
+	color:#FF0000;
+}
+
+.wellcome_server_info {
+	margin-left: 15px;
+	margin-right: 9px;
+	-webkit-user-select: none;
+}
+.wellcome_server_info_content {
+	text-align: center;
+}
+
+.wellcome_server_info_item {
+	position: relative;
+	display: inline-block;
+	width: calc(25% - 5px);
+	margin-bottom: 10px;
+	border-radius: 5px;
+	text-align: center;
+	vertical-align: top;
+	color: #656565;
+	-webkit-user-select: none;
+}
+
+.wellcome_server_info_item_icon {
+	margin-top: 10px;
+	display: inline-block;
+	width: 60px;
+	height: 60px;
+}
+.wellcome_server_info_item_icon_img {
+	width: 100%;
+	height: 100%;
+}
+
+.wellcome_server_info_item_desc {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.wellcome_server_info_item_desc_content {
+	display: inline-block;
+	text-align: left;
+}
+
+.wellcome_server_info_label {
+	font-family: "Arial";
+	font-size: 12px;
+	color:#656565;
+	vertical-align: middle;
+}
+.wellcome_server_info_value {
+	font-family: "Arial";
+	font-size: 12px;
+	vertical-align: middle;
+}
+.wellcome_server_info_color {
+	color:#656565;
+}
+.wellcome_server_info_normal_color {
+	color: green;
+}
+.wellcome_server_info_warnning_color {
+	color: red;
+}
+.wellcome_server_info_danger_color {
+	color: #FF0000;
+}
+.wellcome_server_info_network_name_div {
+	display: inline-block;
+	vertical-align: middle;
+}
+.wellcome_server_info_memory_detail {
+	margin-left: 10px;
+	font-size: 12px;
+	color: #099DDC;
+	cursor: pointer;
+	vertical-align: bottom;
+}
+.wellcome_server_info_memory_detail_page {
+	margin-top: 10px;
+	margin-left: 20px;
+	margin-bottom: 22px;
+}
+.wellcome_server_item_10px {
+	margin-bottom: 10px;
+}
+.wellcome_server_info_memory_detail_page1 {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: calc(100% - 20px);
+	border-radius: 5px;
+	background-color: #f2f2f2;
+	z-index: 51;
+	padding: 10px;
+}
+
+
+
+.wellcome_add_server_form_header {
+	display: inline-block;
+	width: 80px;
+}
+.wellcome_add_server_form_input {
+	width: 175px;
+}
+
+
+.wellcome_delete_server_modal_content {
+	text-align:center;
+	font-size:12px;
+	color:rgb(101,101,101);
+}
+
+.wellcome_services {
+	position: relative;
+	margin-left: 15px;
+	margin-right: 9px;
+	margin-bottom: 10px;
+}
+
+.wellcome_service_div {
+	width: 100%;
+	height: 400px;
+	border: 1px solid #DCDCDC;
+}
+.wellcome_service_port_span {
+	cursor: default;
+	margin-right: 5px;
+}
+
+.wellcome_service_modal_body {
+	position: relative;
+	width: 700px;
+	height: 220px;
+}
+.wellcome_service_modal_body_left {
+	position: absolute;
+	left: 20px;
+	top: 20px;
+	bottom: 20px;
+	width: 300px;
+}
+.wellcome_add_service_form_header {
+	display: inline-block;
+	width: 80px;
+}
+.wellcome_add_service_form_input {
+	width: 175px;
+}
+.wellcome_add_service_form_dropdown {
+	width: 187px;
+}
+.wellcome_service_modal_add_port {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	vertical-align: middle;
+	cursor: pointer;
+}
+.wellcome_service_modal_body_right {
+	position: absolute;
+	left: 330px;
+	right: 20px;
+	top: 20px;
+	bottom: 20px;
+}
+
+.wellcome_move_service_form_input {
+	width: 175px;
+}
+.wellcome_move_service_form_dropdown {
+	width: 187px;
+}
+.wellcome_channel_form_header {
+	font-size: 12px;
+	display: inline-block;
+	width: 70px;
+}
+.wellcome_channel_input {
+	width: 190px;
+}
+.wellcome_channel_dropdown {
+	width: 202px;
+}

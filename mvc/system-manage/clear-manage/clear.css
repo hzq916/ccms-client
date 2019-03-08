@@ -1,0 +1,82 @@
+.clear_option_div {
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-right: 9px;
+	height: 26px;
+}
+.clear_data_div {
+	position: relative;
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-right: 9px;
+	height: calc(60% - 64px);
+	border: 1px solid #dcdcdc;
+}
+.clear_log_title_bar {
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-right: 9px;
+	height: 30px;
+}
+.clear_log_div {
+	position: relative;
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-right: 9px;
+	height: calc(40% - 46px);
+	border: 1px solid #dcdcdc;
+}
+.clear_table_btn {
+	height: 22px;
+	outline: none;
+	border: none;
+	border-radius: 2px;
+	cursor: pointer;
+	font-size: 12px;
+	font-family: "Arial";
+}
+.clear_green_text {
+	color: #14c202;
+}
+.clear_red_text {
+	color: red;
+}
+.clear_teal_text {
+	color: teal;
+}
+.clear_blue_btn {
+	background-color: #64BAEA;
+	color: white;
+}
+.clear_blue_btn:hover {
+	background-color: rgba(100,186,234,0.75);
+}
+.clear_blue_btn:disabled {
+	background-color: rgb(188,188,188);
+	cursor: default;
+}
+/*绿色按钮*/
+.clear_green_btn {
+	background-color: #14c202;
+	color: white;
+}
+.clear_green_btn:disabled {
+	background-color: #14c202;
+	cursor: default;
+}
+.clear_teal_btn {
+	background-color: teal;
+	color: white;
+}
+.clear_teal_btn:disabled {
+	background-color: teal;
+	cursor: default;
+}
+.clear_red_btn {
+	background-color: red;
+	color: white;
+}
+.clear_red_btn:disabled {
+	background-color: red;
+	cursor: default;
+}

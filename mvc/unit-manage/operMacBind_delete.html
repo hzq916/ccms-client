@@ -1,0 +1,17 @@
+<div class = "common_modal" style = "min-width: 300px;" id = "operMacBind_delete_modal">
+	<div class="common_modal_title_div" id = "operMacBind_delete_modal_title">
+        <label class = "common_modal_title_label">删除终端绑定</label>
+        <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click="mainHideModalLv2()">
+            <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+        </div>
+    </div>
+	<div class = "common_modal_body">
+		<div class = "">
+			确定删除选中的MAC和IP绑定？
+		</div>
+	</div>
+	<div class="common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "confirmDelete()">确定</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click = "mainHideModalLv2()">取消</button>
+	</div>
+</div>

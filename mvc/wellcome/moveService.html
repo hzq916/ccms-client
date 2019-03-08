@@ -1,0 +1,25 @@
+<div class = "common_modal " id = "wellcome_move_service_modal">
+	<div class="common_modal_title_div" id = "wellcome_move_service_modal_title">
+		<label class = "common_modal_title_label">转移服务</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "wellcomeCloseModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class="common_modal_body">
+		<div class="common_form_div_item_10px common_nowrap">
+            <label class = "common_normal_text">当前服务器：</label>
+			<input type="text" class = "common_normal_input wellcome_move_service_form_input" ng-disabled="true" ng-model="currentService.old_servername" >
+        </div>
+		<div class="common_nowrap">
+            <label class = "common_normal_text">目标服务器：</label>
+			<select class="common_dropdown common_line_unend_item wellcome_move_service_form_dropdown" ng-model="currentService.serverid" >
+				<option ng-repeat="server in currentService.servers" value="{{server.serverid}}">{{server.servername + "("+server.serverid+")"}}</option>
+			</select>
+			<label class = "common_required_item">*</label>
+        </div>
+	</div>
+	<div class="common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "wellcomeMoveServiceSure()">确定</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click = "wellcomeCloseModal()">取消</button>
+	</div>
+</div>

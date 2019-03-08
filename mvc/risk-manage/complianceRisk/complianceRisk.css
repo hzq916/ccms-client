@@ -1,0 +1,31 @@
+.prerisk_operate_div {
+	position: absolute;
+	top: 14px;
+	left: 13px;
+	right: 9px;
+	height: 26px;
+	vertical-align: middle;
+}
+.prerisk_data_div {
+	position: absolute;
+	top: 51px;
+	left: 13px;
+	right: 9px;
+	bottom: 10px;
+	border: 1px solid #DCDCDC;
+}
+.prerisk_form_header {
+	display: inline-block;
+	width: 120px;
+}
+.prerisk_form_input {
+	width: 275px;
+}
+.prerisk_form_dropdown {
+	width: 287px;
+}
+.prerisk_delete_modal_content {
+	text-align:center;
+	font-size:12px;
+	color:rgb(101,101,101)
+}

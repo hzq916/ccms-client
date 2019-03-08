@@ -1,0 +1,102 @@
+<div class = "common_page_html common_scroll_div" ng-controller = "operMacBindCtrl" ng-init = "operMacBindInit()">
+    <div class = "common_normal_operate_div common_nowrap">
+        <input type="text" class = "common_normal_input common_line_unend_item common_search_input_length" placeholder = "请输入操作员编号或姓名进行过滤" ng-model = "filterContent" ng-change = "operMacBindFilter()">
+		<label class = "common_form_pre_label">资产管理人：</label>
+		<select class="common_dropdown common_line_unend_item operMacBind_Add_dropdown "  ng-change="operMacBind_tamgrChanged()" ng-options = "x.displayName for x in operMacBind_maidList" ng-model = "selectedTamgr"></select>
+		<!-- <button type="button" class = "common_green_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "refreshOperDataTable()" >查 询</button> -->
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-if = "menuRight.indexOf(2001006001) != -1" ng-click = "showOperMacBind_AddDlg()" >新 建</button>
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-if = "menuRight.indexOf(2001006002) != -1" ng-mouseover="operMacShowTips(true)" ng-mouseout="operMacShowTips(false)"  ng-click = "importOperMacBindDataClick()" >导 入</button>
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-if = "menuRight.indexOf(2001006003) != -1" ng-click = "exportOperMacBindDataClick()" >导 出</button>
+	</div>
+	<form id = "operMacBind_import_open_file_form" action="index.html" method="post" style = "display:none">
+		<input type="file" id = "operMacBind_import_open_file" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.csv">
+	</form>
+	<div class= "operMacBind_import_tip" ng-show = "showImportTips">
+		<label class = "operMacBind_import_tip_label">导入数据,表正确格式为:</label>
+		<table class = "common_table" style = "width:410px;">
+			<thead>
+				<th class="common_center_align">操作员编号</th>
+				<th class="common_center_align">MAC地址</th>
+				<th class="common_center_align">IP地址</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="common_center_align">581001</td>
+					<td class="common_center_align">601a062837bc</td>
+					<td class="common_center_align">172.24.2.64</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class = "common_normal_data_div common_scroll_div">
+		<table class = "common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH')">
+			<thead >
+				<tr >
+					<th class = "common_center_align common_nowrap"><input type="checkbox"></th>
+					<th class = "common_center_align common_nowrap">序号</th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('oid',true)">
+                        <span ng-show = "keyName == 'oid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        操作员编号
+                    </th>
+					<!-- <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('oname')">
+                        <span ng-show = "keyName == 'oname'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        操作员姓名
+                    </th> -->
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('mac')">
+                        <span ng-show = "keyName == 'mac'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        MAC地址
+                    </th>
+					<th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('cellid',true)">
+                        <span ng-show = "keyName == 'cellid'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        IP地址
+                    </th>
+					<!-- <th class = "common_center_align common_nowrap" ng-click = "clickTableHeader('stat',true)">
+                        <span ng-show = "keyName == 'stat'" ng-class = "{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        状态
+                    </th> -->
+					<th class = "common_center_align common_nowrap">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="cell in operMacBind_DataList | orderBy:keyName:false:sortFunction" ng-class = "{true:'common_activeTr',false:''}[$index == curClickedIndex ]" ng-click="itemClicked($index)" ng-show="cell.show" >
+					<td class="common_center_align common_nowrap"><input type="checkbox"></td>
+					<td class = "common_center_align common_nowrap">
+						<label>{{$index + 1}}</label>
+					</td>
+					<td class = "  common_center_align" style="padding:0;  width:140px;" ng-click="clickOidItem(cell,$index,$event)">
+                        <label ng-class="{'common_table_modify_color':menuRight.indexOf(2001006004) != -1}" style="cursor: pointer;">{{cell.oid}}</label>
+                        <!-- <input type="text" class="operMacBind_table_td_input" ng-disabled = "menuRight.indexOf(2001006004) == -1"  ng-model="cell.oid_edit_value"
+                         ng-show="cell.edit_oid_flag" ng-blur="cancelEdit(cell, 'oid')" cms-mask="unsignedInt" ng-keyup="inputPress($event, cell, 'oid')"> -->
+                    </td>
+					<!-- <td class = "common_center_align common_nowrap">
+						<label>{{cell.oname}}</label>
+					</td> -->
+					<td class = "  common_center_align" style="padding:0; width:140px;" ng-click="clickMacItem(cell,$index,$event)">
+                        <label ng-class="{'common_table_modify_color':menuRight.indexOf(2001006004) != -1}" style="cursor: pointer;">{{cell.mac}}</label>
+                        <!-- <input type="text" class="operMacBind_table_td_input" ng-disabled = "menuRight.indexOf(2001006004) == -1"  ng-model="cell.mac_edit_value"
+                         ng-show="cell.edit_mac_flag" ng-blur="cancelEdit(cell, 'mac')" cms-mask="word" ng-keyup="inputPress($event, cell, 'mac')"> -->
+					</td>
+
+					<!-- <td class = "  common_center_align" style="padding:0; cursor: pointer; width:140px;" ng-click="clickCellidItem(cell,$index,$event)">
+                        <label class="common_table_modify_color" style="cursor: pointer;" ng-show="!cell.edit_cellid_flag">{{cell.cellid}}</label>
+                        <input type="text" class="operMacBind_table_td_input"  ng-model="cell.cellid_edit_value"
+                         ng-show="cell.edit_cellid_flag" ng-blur="cancelEdit(cell, 'cellid')"  ng-keyup="inputPress($event, cell, 'cellid')">
+					</td> -->
+
+					<td class = "common_center_align common_nowrap"> 
+							<label ng-class="{'common_table_modify_color':menuRight.indexOf(2001006004) != -1}" style="cursor: pointer;">{{cell.ip}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<!-- <button class = "common_table_operate_text" ng-if = "menuRight.indexOf(2001006005) != -1" ng-click = "showOperMacBind_FreezeDlg(cell)">{{cell.stat==1 ? "禁用" : "启用"}}</button> -->
+						<button class="common_table_operate_text" ng-if="menuRight.indexOf(2001006004) != -1"  ng-click="showOperMacBind_ChangeDlg(cell)">修改</button>
+						<button class="common_table_operate_text" ng-if="menuRight.indexOf(2001006005) != -1" ng-click="showOperMacBind_DeleteDlg(cell)">删除</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class = "common_modal_back" id = "operMacBind_modal_back">
+        <div ng-include = "modalInfo.path" onload = "operMacBindLoadModalReady()"></div>
+	</div>
+</div>

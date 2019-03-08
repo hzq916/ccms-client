@@ -1,0 +1,17 @@
+<div class = "common_modal " style = "min-width:300px;" id = "option_audit_modal" >
+	<div class="common_modal_title_div" id = "option_audit_modal_title">
+		<label class = "common_modal_title_label">审核期权</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "closeModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class = "common_modal_body">
+		<div class = "option_modal_content">
+			你确定要 {{ currentOption.audit_stat == 1 ? "通过" : "不通过" }} 该条期权持仓吗？
+		</div>
+	</div>
+	<div class = "common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click = "auditOptionSure()">确定</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click = "closeModal()">取消</button>
+	</div>
+</div>

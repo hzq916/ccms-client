@@ -1,0 +1,95 @@
+<div class="common_page_html common_scroll_div" ng-controller="positionDataSyncCtrl" ng-init="positionDataSyncInit()" style="text-align: center;">
+    <div class="common_tab_operate_div common_nowrap" style="margin-left: 10px;text-align: left;">
+        <input type="text" class="common_normal_input common_line_unend_item common_search_input_length" style="width: 150px;" ng-model="filterContent"
+            placeholder="资产账户ID/名称搜索">
+        <label for="">资产管理人：</label>
+        <select ng-init="currentTamgr" ng-model="currentTamgr" class="common_dropdown common_line_unend_item" ng-options="assetManager.fullName for assetManager in allAssetManager"
+            ng-change="getTaacctSyncStatFirst()">
+        </select>
+        <label for="">账户类型：</label>
+        <select ng-init="currentAccountType.id" ng-model="currentAccountType.id" class="common_dropdown common_line_unend_item" style="width: 150px;"
+            ng-change="getTaacctSyncStatFirst()">
+            <option ng-repeat="item in fundsDataAccountType" value="{{item.id}}">{{item.name}}</option>
+        </select>
+        <button type="button" title="需清算完成后才能同步数据" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length"
+            ng-if="menuRight.indexOf(2002006003) != -1"  ng-click="clickPositionSynchronizeData()">同　步</button>
+        <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-if="menuRight.indexOf(2002006004) != -1" ng-click="recoverFundsDataSync()">恢 复</button>
+        <!-- <label for="">同步状态：</label>
+        <select ng-init="currentPositionState" ng-model="currentPositionState" class="common_dropdown common_line_unend_item" style="width: 100px;">
+            <option ng-repeat="item in positionDataSyncStateList" value="{{item.id}}">{{item.name}}</option>
+        </select> -->
+    </div>
+    <div class="common_tab_data_div common_scroll_div" style="height: calc(100% - 70px);">
+        <table class="common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH')">
+            <thead>
+                <tr>
+                    <th class="common_center_align common_nowrap">
+                        <input type="checkbox" ng-checked="isCheckedAll" ng-click="clickCheckAll()">
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('actype')">
+                        <span ng-show="keyName == 'actype'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        账户类型
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('acname')">
+                        <span ng-show="keyName == 'acname'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        资产账户
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('acid')">
+                        <span ng-show="keyName == 'acid'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        资金账户
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('hold_stat_info')">
+                        <span ng-show="keyName == 'hold_stat_info'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        同步状态
+                    </th>
+                    <th class="common_center_align common_nowrap" ng-click="clickTableHeader('hold_last_time')">
+                        <span ng-show="keyName == 'hold_last_time'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                        同步时间
+                    </th>
+                    <th class="common_center_align common_nowrap">操作</th>
+                    <th class="common_center_align common_nowrap">同步消息</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="temp in positionDataLists |myfilter : filterContent | orderBy:keyName:false:sortFunction">
+                    <td class="common_center_align common_nowrap">
+                        <label>
+                            <input type="checkbox" ng-checked="temp.isCheck" ng-click="clickChooseOne($index)">
+                        </label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{temp.actype}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{temp.acname}}({{temp.acid}})</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{temp.acid}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{temp.hold_stat_info}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{temp.hold_last_time}}</label>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <button class="common_table_operate_text" ng-if="menuRight.indexOf(2002006002) != -1" ng-click="clickPositionDifferenceData(temp.acid)">仓位详情</button>
+                    </td>
+                    <td class="common_center_align common_nowrap">
+                        <label>{{temp.hold_stat_info}}</label>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <cms-data-pager style="position: absolute;bottom: 0;" click-menu-item="goToPage(page)" all-page="{{allPage}}" current-page="currentPage"></cms-data-pager>
+
+    <div class="common_modal_back" id="positionDataSynchronize_modal_back">
+        <div ng-include="modalInfo.path" onload="positionDataSynchronizeLoadModalReady()"></div>
+    </div>
+
+    <!-- <div class="common_modal_back_lv2" id="positionDataSynchronize_modal_back2">
+            <div ng-include="modalInfo2.path" onload="positionDataSynchronizeLoadModalReady2()"></div>
+        </div> -->
+</div>

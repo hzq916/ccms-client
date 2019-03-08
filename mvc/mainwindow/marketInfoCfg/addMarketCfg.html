@@ -1,0 +1,34 @@
+
+<div class="common_modal" style="width: 380px" id="marketInfoCfg_add_modal">
+        <div class="common_modal_title_div" id = "marketInfoCfg_add_modal_title">
+            <label class = "common_modal_title_label" >新增行情站点</label>
+    
+            <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click="mainHideModalLv2()">
+                <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+            </div>
+        </div>
+    
+        <div class="common_modal_body">
+            <div class = "common_form_div_item_10px">
+                <label class = "common_form_pre_label">名称：</label>
+                <input type="text" class = "common_normal_input common_line_unend_item common_form_suf_input" maxlength="32" placeholder="" ng-model="addMarketData.station_name_copy">
+                <label class = "operMacBind_form_item_tips">*</label>
+            </div>
+            <div class = "common_form_div_item_10px">
+                <label class = "common_form_pre_label">地址：</label>
+                <input type="text" class = "common_normal_input common_line_unend_item common_form_suf_input" maxlength="32" placeholder="" ng-model="addMarketData.station_addr_copy">
+                <label class = "operMacBind_form_item_tips">*</label>
+            </div>
+            <div class = "common_form_div_item_10px">
+                <label class = "common_form_pre_label">端口：</label>
+                <input type="text" class = "common_normal_input common_line_unend_item common_form_suf_input" maxlength="32" placeholder="" ng-model="addMarketData.station_port_copy">
+                <label class = "operMacBind_form_item_tips">*</label>
+            </div>
+        </div>
+    
+        <div class="common_modal_footer">
+            <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length " ng-click="confirmAddMarketInfo(addMarketData)">确定</button>
+            <!-- <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length " ng-click="saveMarketCfg(true)">确定</button> -->
+            <button type="button" class="common_gray_btn common_normal_btn  common_default_length" ng-click="mainHideModalLv2()">取消</button>
+        </div>
+    </div>

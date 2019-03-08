@@ -1,0 +1,111 @@
+<div class = "commom_page_div common_scroll_div" ng-controller = "paraSettingsCtrl" ng-init = "paraSettingsInit()">
+
+	<!-- <div class = "paraSettings_option_div">
+			<label class = "paraSettings_div_left_label">撤单笔数比例限制生效值：</label>
+			<input type="number" min="0" class = "common_normal_input common_line_unend_item common_form_suf_input"  ng-model = "t0cfgDataInfo.cancel_checknum">
+
+			<label class = "paraSettings_div_right_label">清算散股移仓功能：</label>
+            <label ng-class = "{true:'common_on_radio',false:'common_off_radio'}[t0cfgDataInfo.clear_move_piece == true]" ng-click = "t0cfgDataInfo.clear_move_piece = !t0cfgDataInfo.clear_move_piece;">
+                <span ng-class = "{true:'common_on_radio_btn',false:'common_off_radio_btn'}[t0cfgDataInfo.clear_move_piece == true]"></span>
+                <span ng-class = "{true:'common_on_radio_text',false:'common_off_radio_text'}[t0cfgDataInfo.clear_move_piece == true]">{{t0cfgDataInfo.clear_move_piece ? "ON" : "OFF"}}</span>
+            </label>
+	</div> -->
+
+	<!-- <div class = "paraSettings_option_div">
+			<label class = "paraSettings_div_left_label">撤单金额比例限制生效值：</label>
+			<input type="number" min="0" class = "common_normal_input common_line_unend_item common_form_suf_input"  ng-model = "t0cfgDataInfo.cancel_checkamt">
+
+			<label class = "paraSettings_div_right_label">资产管理人自动清算功能：</label>
+			<label ng-class = "{true:'common_on_radio',false:'common_off_radio'}[t0cfgDataInfo.mgr_auto_clear == true]" ng-click = "t0cfgDataInfo.mgr_auto_clear = !t0cfgDataInfo.mgr_auto_clear;">
+                <span ng-class = "{true:'common_on_radio_btn',false:'common_off_radio_btn'}[t0cfgDataInfo.mgr_auto_clear == true]"></span>
+                <span ng-class = "{true:'common_on_radio_text',false:'common_off_radio_text'}[t0cfgDataInfo.mgr_auto_clear == true]">{{t0cfgDataInfo.mgr_auto_clear ? "ON" : "OFF"}}</span>
+            </label>
+	</div> -->
+
+	<div class = "paraSettings_option_div">
+			<label class = "paraSettings_div_left_label">OGS资产账户登录失败重试次数限制：</label>
+			<input type="number" min="0" class = "common_normal_input common_line_unend_item common_form_suf_input" style="width:280px" ng-model = "t0cfgDataInfo.act_loginfailcount">
+
+			<!-- <label class = "paraSettings_div_right_label">操作员终端MAC绑定：</label>
+			<label ng-class = "{true:'common_on_radio',false:'common_off_radio'}[t0cfgDataInfo.oper_mac == true]" ng-click = "t0cfgDataInfo.oper_mac = !t0cfgDataInfo.oper_mac;">
+                <span ng-class = "{true:'common_on_radio_btn',false:'common_off_radio_btn'}[t0cfgDataInfo.oper_mac == true]"></span>
+                <span ng-class = "{true:'common_on_radio_text',false:'common_off_radio_text'}[t0cfgDataInfo.oper_mac == true]">{{t0cfgDataInfo.oper_mac ? "ON" : "OFF"}}</span>
+            </label> -->
+	</div>
+
+	<!-- <div class = "paraSettings_option_div">
+			<label class = "paraSettings_div_left_label">交易员数量限制：</label>
+			<input type="number" min="0" class = "common_normal_input common_line_unend_item common_form_suf_input" placeholder="填0表示无限制" ng-model = "t0cfgDataInfo.cap_trader_qty_limit">
+	</div> -->
+
+	<!-- <div class = "paraSettings_option_div">
+			<label class = "paraSettings_div_left_label">策略组合数量限制：</label>
+			<input type="number" min="0" class = "common_normal_input common_line_unend_item common_form_suf_input"  placeholder="填0表示无限制"  ng-model = "t0cfgDataInfo.cap_trd_qty_limit">
+	</div> -->
+
+	<div class = "paraSettings_option_div">
+			<label class = "paraSettings_div_left_label">主升级服务器地址配置：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item common_form_suf_input" style="width:280px" ng-model = "t0cfgDataInfo.main_ip">
+
+			<!-- <label class = "paraSettings_div_right_label">资金账户绑定开关：</label>
+			<label ng-class = "{true:'common_on_radio',false:'common_off_radio'}[t0cfgDataInfo.acid_bacid_relation == true]" ng-click = "t0cfgDataInfo.acid_bacid_relation = !t0cfgDataInfo.acid_bacid_relation;">
+                <span ng-class = "{true:'common_on_radio_btn',false:'common_off_radio_btn'}[t0cfgDataInfo.acid_bacid_relation == true]"></span>
+                <span ng-class = "{true:'common_on_radio_text',false:'common_off_radio_text'}[t0cfgDataInfo.acid_bacid_relation == true]">{{t0cfgDataInfo.acid_bacid_relation ? "ON" : "OFF"}}</span>
+            </label> -->
+	</div>
+
+	<div class = "paraSettings_option_div">
+			<label class = "paraSettings_div_left_label">备用升级服务器地址配置：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item common_form_suf_input" style="width:280px" ng-model = "t0cfgDataInfo.sub_ip">
+
+			<!-- <label class = "paraSettings_div_right_label">投顾下单：</label>
+			<label ng-class = "{true:'common_on_radio',false:'common_off_radio'}[t0cfgDataInfo.investment_advisor_order == true]" ng-click = "t0cfgDataInfo.investment_advisor_order = !t0cfgDataInfo.investment_advisor_order;">
+                <span ng-class = "{true:'common_on_radio_btn',false:'common_off_radio_btn'}[t0cfgDataInfo.investment_advisor_order == true]"></span>
+                <span ng-class = "{true:'common_on_radio_text',false:'common_off_radio_text'}[t0cfgDataInfo.investment_advisor_order == true]">{{t0cfgDataInfo.investment_advisor_order ? "ON" : "OFF"}}</span>
+            </label> -->
+	</div>
+
+
+	<!-- <div class = "paraSettings_option_div">
+			<label class = "paraSettings_div_left_label">券商标志：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item common_form_suf_input"  ng-model = "t0cfgDataInfo.broker_flag"> -->
+
+			<!-- <label class = "paraSettings_div_right_label">对冲自动移仓：</label>
+			<label ng-class = "{true:'common_on_radio',false:'common_off_radio'}[t0cfgDataInfo.clear_move_hedgeposi == true]" ng-click = "t0cfgDataInfo.clear_move_hedgeposi = !t0cfgDataInfo.clear_move_hedgeposi;">
+                <span ng-class = "{true:'common_on_radio_btn',false:'common_off_radio_btn'}[t0cfgDataInfo.clear_move_hedgeposi == true]"></span>
+                <span ng-class = "{true:'common_on_radio_text',false:'common_off_radio_text'}[t0cfgDataInfo.clear_move_hedgeposi == true]">{{t0cfgDataInfo.clear_move_hedgeposi ? "ON" : "OFF"}}</span>
+            </label> -->
+	<!-- </div> -->
+	<div class="paraSettings_option_div">
+		<label class = "paraSettings_div_right_label">强制改密功能：</label>
+			<label ng-class = "{true:'common_on_radio',false:'common_off_radio'}[t0cfgDataInfo.oper_chg_default_pass == true]" ng-click = "t0cfgDataInfo.oper_chg_default_pass = !t0cfgDataInfo.oper_chg_default_pass;">
+                <span ng-class = "{true:'common_on_radio_btn',false:'common_off_radio_btn'}[t0cfgDataInfo.oper_chg_default_pass == true]"></span>
+                <span ng-class = "{true:'common_on_radio_text',false:'common_off_radio_text'}[t0cfgDataInfo.oper_chg_default_pass == true]">{{t0cfgDataInfo.oper_chg_default_pass ? "ON" : "OFF"}}</span>
+            </label>
+	</div>
+	<div class="paraSettings_option_div">
+		<label class = "paraSettings_div_right_label">MD5校验功能：</label>
+			<label ng-class = "{true:'common_on_radio',false:'common_off_radio'}[t0cfgDataInfo.md5_check == true]" ng-click = "t0cfgDataInfo.md5_check = !t0cfgDataInfo.md5_check;">
+                <span ng-class = "{true:'common_on_radio_btn',false:'common_off_radio_btn'}[t0cfgDataInfo.md5_check == true]"></span>
+                <span ng-class = "{true:'common_on_radio_text',false:'common_off_radio_text'}[t0cfgDataInfo.md5_check == true]">{{t0cfgDataInfo.md5_check ? "ON" : "OFF"}}</span>
+            </label>
+	</div>
+	<div class="paraSettings_option_div">
+		<label class = "paraSettings_div_right_label">密码复杂度：</label>
+			<select ng-model="selectPasswordType" class="common_normal_input common_line_unend_item common_form_suf_input" style="width:290px" 
+			ng-options="type.msg for type in passwordType">
+			</select>
+	</div>
+	<div class="paraSettings_option_div">
+		<label class = "paraSettings_div_right_label">跨资产管理人授权开关：</label>
+			<label ng-class = "{true:'common_on_radio',false:'common_off_radio'}[t0cfgDataInfo.cross_mgr_auth == true]" ng-click = "t0cfgDataInfo.cross_mgr_auth = !t0cfgDataInfo.cross_mgr_auth;">
+                <span ng-class = "{true:'common_on_radio_btn',false:'common_off_radio_btn'}[t0cfgDataInfo.cross_mgr_auth == true]"></span>
+                <span ng-class = "{true:'common_on_radio_text',false:'common_off_radio_text'}[t0cfgDataInfo.cross_mgr_auth == true]">{{t0cfgDataInfo.cross_mgr_auth ? "ON" : "OFF"}}</span>
+            </label>
+	</div>	
+
+	<div class = " paraSettings_option_div_40px">
+		<button type="button" class = "common_blue_btn common_normal_btn common_default_length" ng-if = "menuRight.indexOf(2005004004001) != -1" style="margin-right:80px" ng-click = "setParaSettingsDataInfo()" >&nbsp;&nbsp;保  存&nbsp;&nbsp;</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click = "refreshParaSettingsData()" >&nbsp;&nbsp;取  消&nbsp;&nbsp;</button>
+	</div>
+</div>

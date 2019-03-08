@@ -1,0 +1,125 @@
+<div class="common_page_html common_scroll_div" ng-controller="alarmMessageCtrl">
+
+    <div class="common_page_html common_scroll_div">
+        <div class="common_operate_div common_nowrap">
+            <div>
+                <input type="text" class="common_normal_input common_line_unend_item common_search_input_length" placeholder="消息内容查询"
+                    ng-model="messageContent" ng-change="getMessageNew()">
+                <label class="common_form_pre_label" style="margin-left: 10px;text-align: right;">应用名：</label>
+                <select class="common_dropdown common_line_unend_item operMacBind_Add_dropdown " style="width: 177px;" ng-model="applicationCheckList"
+                    ng-change="getMessageNew()">
+                    <option ng-repeat="appName in  applicationsNameList" value="{{appName.id}}">{{appName.name}}</option>
+                </select>
+                <label class="common_form_pre_label" style="margin-left: 10px;text-align: right;">严重级别：</label>
+                <select class="common_dropdown common_line_unend_item operMacBind_Add_dropdown " style="width: 177px;" ng-model="severityCheckList"
+                    ng-change="getMessageNew()">
+                    <option ng-repeat="level in  severityLevelList" value="{{level.id}}">{{level.name}}</option>
+                </select>
+            </div>
+            <div style="margin-top: 15px;margin-bottom: 15px;">
+                <input type="radio" ng-checked="isSearchNow" ng-click="changeCheckState()">当天
+                <input type="radio" ng-checked="isSearchHistory" ng-click="changeCheckState()">历史
+                <input ng-if="isSearchHistory" type="datetime-local" ng-model="begin_date" ng-change="changeStartDate(begin_date)" style="width: 277px;">
+                <input ng-if="isSearchHistory" type="datetime-local" ng-model="end_date" ng-change="changeEndDate(end_date)" style="width: 277px;margin-left: 15px;">
+                <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length " style="margin-left: 15px;"
+                    ng-click="getMessageNew()">查询</button>
+                <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length " ng-click="exportAlarmMessageDataClick()">导出</button>
+            </div>
+        </div>
+        <div class="alarmMessage_data_div common_scroll_div ">
+            <table ng-class="{'common_fixed_table':!importing,'common_red_fixed_table':importing}" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+                <thead>
+                    <tr>
+                        <th class="common_center_align common_nowrap">
+                            <!-- <span ng-show="keyName == 'alarmtime'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span> -->
+                            序号
+                        </th>
+                        <th class="common_center_align common_nowrap" ng-click="clickTableHeader('alarmtime')">
+                            <span ng-show="keyName == 'alarmtime'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                            告警时间
+                        </th>
+
+                        <th class="common_center_align common_nowrap" ng-click="clickTableHeader('appid')">
+                            <span ng-show="keyName == 'appid'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                            应用ID
+                        </th>
+
+                        <th class="common_center_align common_nowrap" ng-click="clickTableHeader('appname')">
+                            <span ng-show="keyName == 'appname'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                            应用名
+                        </th>
+
+                        <th class="common_center_align common_nowrap" ng-click="clickTableHeader('alarmid')">
+                            <span ng-show="keyName == 'alarmid'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                            应用消息ID
+                        </th>
+
+                        <th class="common_center_align common_nowrap" ng-click="clickTableHeader('alarmlvDesc',true)">
+                            <span ng-show="keyName == 'alarmlvDesc '" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                            严重级别
+                        </th>
+
+                        <th class="common_center_align common_nowrap" ng-click="clickTableHeader('content')">
+                            <span ng-show="keyName == 'content'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                            消息内容
+                        </th>
+
+                        <!-- <th class="common_center_align common_nowrap" ng-click="clickTableHeader('stat',true)">
+                            <span ng-show="keyName == 'stat'" ng-class="{common_sort_icon:!reverse,common_sort_desc_icon:reverse}"></span>
+                            状态
+                        </th> -->
+
+                        <!-- <th class="common_center_align common_nowrap">
+                            操作
+                        </th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="alarmMessage in allAlarmMessage   | orderBy:keyName:false:sortFunction">
+                        <td class="common_center_align common_nowrap">{{$index}}</td>
+                        <td class="common_center_align common_nowrap">{{alarmMessage.alarmtime}}</td>
+                        <td class="common_center_align common_nowrap">{{alarmMessage.appid}}</td>
+                        <td class="common_center_align common_nowrap">{{alarmMessage.appname}}</td>
+                        <td class="common_center_align common_nowrap">{{alarmMessage.alarmid}}</td>
+                        <td class="common_center_align common_nowrap">
+                            <label ng-class="{blue_level: alarmMessage.alarmlv == 0, yellow_level: alarmMessage.alarmlv == 1,  orange_level: alarmMessage.alarmlv == 2, red_level: alarmMessage.alarmlv == 3}">
+                                {{alarmMessage.alarmlvDesc}}
+                            </label>
+                        </td>
+                        <!-- <td class="common_center_align common_nowrap">{{alarmMessage.alarmtype == 2 ? "运维告警" : "-"}}</td> -->
+
+                        <td class="common_center_align common_nowrap">{{alarmMessage.content}}</td>
+                        <!-- <td class="common_center_align common_nowrap">
+                            {{alarmMessage.alarmStateDesc}}
+                        </td> -->
+                        <!-- <td class="common_center_align common_nowrap">
+                            <button class="common_table_operate_text" ng-if="menuRight.indexOf(2003004001) != -1" ng-click="editAlarmMessage(alarmMessage, '1')"
+                                ng-show="alarmMessage.stat == 0">开始处理</button>
+                            <label class="common_table_operate_divider" ng-show="alarmMessage.stat == 0 ">|</label>
+                            <button class="common_table_operate_text" ng-if="menuRight.indexOf(2003004002) != -1" ng-click="editAlarmMessage(alarmMessage,'2')"
+                                ng-show="alarmMessage.stat <= 1 ">处理完成</button>
+                            <label class="common_table_operate_divider" ng-show="alarmMessage.stat <= 1">|</label>
+                            <button class="common_table_operate_text" ng-if="menuRight.indexOf(2003004003) != -1" ng-click="editAlarmMessage(alarmMessage, '9')"
+                                ng-show="alarmMessage.stat <= 1">忽略</button>
+                        </td> -->
+
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+        <cms-data-pager click-menu-item="goToPage(page)" all-page="{{allPage}}" current-page="currentPage" ng-keyup="pageToolsKeyUp($event)"></cms-data-pager>
+        <!--<div class="common_page_tools" >
+            <i class=" iconfont icon-rilijiantouzuoshuang common_page_tool" style="font-size:12px; "  ng-click="goToPage(1)"  title="首页"></i>
+            <i class="iconfont icon-houtuiqianjin common_page_tool" ng-click="goToPage(currentPage -1 )" style="font-size:12px; " title="上一页"></i>
+
+            <input type="text" ng-model="currentPage" class="common_page_number" ng-keyup="pageToolsKeyUp($event)">
+            <label title="总页数">/{{allPage}}</label>
+
+            <i class="iconfont icon-houtuiqianjin1 common_page_tool" style="font-size:12px; " ng-click="goToPage(currentPage +1)" title="下一页"></i>
+            <i class=" iconfont icon-rilijiantouyoushuang common_page_tool" ng-click="goToPage(allPage)" style="font-size:12px; " title="尾页"></i>
+
+        </div>-->
+    </div>
+</div>

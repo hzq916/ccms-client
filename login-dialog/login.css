@@ -1,0 +1,366 @@
+p{
+	padding: 0;
+	margin: 0;
+}
+.login_html,.login_body {
+	width: 100%;
+	height: 100%;
+	background-color:rgba(255,255,255,0);
+	overflow: hidden;
+}
+.login_content {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255,255,255,0);
+	overflow: hidden;
+}
+.login_close_btn {
+	position: absolute;
+	top: 9px;
+	right: 10px;
+	width: 21px;
+	height: 21px;
+	overflow: hidden;
+	border-radius: 3px;
+	background-color: inherit;
+	-webkit-app-region:no-drag;
+}
+.login_close_btn:hover {
+	background-color: rgb(229,229,229);
+}
+.login_min_btn {
+	position: absolute;
+	top: 9px;
+	right: 40px;
+	width: 21px;
+	height: 21px;
+	overflow: hidden;
+	border-radius: 3px;
+	background-color: inherit;
+	-webkit-app-region:no-drag;
+}
+.login_min_btn:hover {
+	background-color: rgb(229,229,229);
+}
+.login_logo{
+	position: absolute;
+	top: 9px;
+	left: 10px;
+	width: 21px;
+	height: 21px;
+	overflow: hidden;
+	border-radius: 3px;
+	background-color: inherit;
+	-webkit-app-region:no-drag;
+}
+.login_userform_front {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	border: 1px solid #dcdcdc;
+	background-color: white;
+	/*-webkit-app-region:drag;*/
+	/*-webkit-box-shadow:0 0 10px rgba(40,40,40,0.5);*/
+	-webkit-transform: scaleX(1);
+	transform: scaleX(1);
+	-webkit-transition:0.1s 0.1s all ease;
+	transition:0.1s 0.1s all ease;
+}
+.login_userform_back {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	border: 1px solid #dcdcdc;
+	background-color: white;
+	/*-webkit-app-region:drag;*/
+	/*-webkit-box-shadow:0 0 10px rgba(40,40,40,0.5);*/
+	-webkit-transform: scaleX(0);
+	transform: scaleX(0);
+	-webkit-transition:0.1s all ease;
+	transition:0.1s all ease;
+}
+.login_title_label {
+	text-align: center;
+	font-size: 35px;
+	font-family: "Arial";
+	color: #009dff;
+}
+.login_version_label {
+	font-size: 25px;
+	font-family: "Calibri";
+	color: #009dff;
+	text-align: center;
+}
+
+.login_label {
+	font-size: 17px;
+	font-family: "Calibri";
+	color: #8c8b8b;
+	margin-left: 60px
+}
+
+   
+.login_tips_label {
+	margin-left: 60px;
+	font-size: 12px;
+	font-family: "宋体";
+	color: #ff1313;
+}
+.login_form_div {
+	margin-left: 60px;
+	width: calc(100% - 120px);
+	-webkit-app-region:no-drag;
+}
+.login_form_unend_item {
+	width: 100%;
+	margin-bottom: 10px;
+}
+.login_form_end_item {
+	width: 100%;
+	margin-bottom: 0px;
+}
+.login_normal_input {
+	width: 320px;
+	height: 46px;
+	font-size: 16px;
+	font-family: "Microsoft YaHei";
+	border-radius: 2px;
+	border: 1px solid #cbcbcb;
+	padding-left: 5px;
+	padding-right: 5px;
+	outline: none;
+	-webkit-app-region:no-drag;
+}
+.login_normal_input::-webkit-input-placeholder {
+	color: #d8d8d8;
+}
+.login_normal_input:focus {
+	border: 1px solid lightsteelblue;
+}
+.login_error_input {
+	width: 170px;
+	height: 32px;
+	font-size: 16px;
+	font-family: "Microsoft YaHei";
+	border-radius: 2px;
+	border: 1px solid #ff1313;
+	padding-left: 5px;
+	padding-right: 5px;
+	outline: none;
+	-webkit-app-region:no-drag;
+	margin-left: 20px;
+}
+.login_error_input::-webkit-input-placeholder {
+	color: #d8d8d8;
+}
+.login_check {
+	height: 14px;
+	margin-left: 60px;
+	-webkit-app-region:no-drag;
+}
+.login_check_box_true {
+	float: left;
+	width: 14px;
+	height: 14px;
+}
+.login_check_box_false {
+	float: left;
+	width: 12px;
+	height: 12px;
+	border-radius: 2px;
+	border: 1px solid #adadad;
+}
+.login_check_label {
+	margin-left: 10px;
+	font-family: "Microsoft yahei";
+	font-size: 14px;
+	color: #999999;
+	line-height: 14px;
+}
+.login_btn {
+	margin-left: 60px;
+	width: 333px;
+	height: 50px;
+	font-size: 20px;
+	font-family: "Microsoft YaHei";
+	border: none;
+	outline: none;
+	border-radius: 2px;
+	-webkit-app-region:no-drag;
+	cursor: pointer;
+}
+.login_blue_btn {
+	color: #d5e9fd;
+	background-color: #009dff;
+}
+.login_blue_btn:hover {
+	background-color: #34b0fd;
+}
+.login_params_option {
+	/*margin-top: 30px;*/
+	text-align: center;
+	width: 100%;
+	-webkit-app-region:no-drag;
+	position: relative;
+    top: 30px;
+}
+.login_userform_option_label {
+	font-family: "幼圆";
+	font-size: 16px;
+	color: #8c8b8b;
+}
+.login_userform_option_label:hover {
+	color: #009dff;
+}
+
+/*网络配置*/
+.login_net_front {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	border: 1px solid #dcdcdc;
+	background-color: white;
+	/*-webkit-app-region:drag;*/
+	/*-webkit-box-shadow:0 0 10px rgba(40,40,40,0.5);*/
+	-webkit-transform: scaleX(1);
+	transform: scaleX(1);
+	-webkit-transition:0.1s 0.1s all ease;
+	transition:0.1s 0.1s all ease;
+}
+.login_net_back {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	border: 1px solid #dcdcdc;
+	background-color: white;
+	/*-webkit-app-region:drag;*/
+	/*-webkit-box-shadow:0 0 10px rgba(40,40,40,0.5);*/
+	-webkit-transform: scaleX(0);
+	transform: scaleX(0);
+	-webkit-transition:0.1s all ease;
+	transition:0.1s all ease;
+}
+.login_net_title {
+	font-family: "Microsoft YaHei";
+	font-size: 32px;
+	color: #34b0fd;
+	width: 100%;
+	text-align: center;
+	/*margin-top: 65px;*/
+}
+.login_net_form_unend_item {
+	width: 100%;
+}
+.login_net_form_end_item {
+	width: 100%;
+	margin-bottom: 0;
+}
+.login_netform_option_label {
+	font-family: "幼圆";
+	font-size: 16px;
+	color: #9f9e9e;
+}
+.login_netform_option_label:hover {
+	color: #34b0fd;
+}
+.loginBtn{
+	color:#707070;
+	font-size: 12px;
+	cursor: pointer;
+    text-decoration: underline;
+}
+.modifyBtn{
+	margin-left: 10px;
+}
+.configDropdowm{
+	width: 230px;
+    height: 24px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+	border-radius: 1px;
+	background: #fff;
+	-webkit-app-region: no-drag;
+}
+.configPage .login_normal_input {
+	width: 170px;
+    height: 32px;
+	font-size: 16px;
+	font-family: "Microsoft YaHei";
+	border-radius: 2px;
+	border: 1px solid #cbcbcb;
+	padding-left: 5px;
+	padding-right: 5px;
+	outline: none;
+	-webkit-app-region:no-drag;
+	margin-left: 20px;
+}
+/*.configPage .configInputBox{
+	margin-top: 25px;
+}*/
+.configPage .configTip{
+	width: 100%;
+    height: 25px;
+    color: red;
+    font-size: 11px;
+    margin-left: 55px;
+    line-height: 25px;
+}
+.configPage .login_form_div {
+	width: 250px;
+    margin: 65px auto;
+	margin-top: 30px;
+}
+.common_gray_btn {
+    background-color: #8c8c8c;
+    color: white;
+}
+.configPage .btnCon{
+	margin-left: 70px;
+}
+.configPage .login_btn {
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 5px;
+	margin-left: 45px;
+}
+
+.configPage .login_version_label {
+	text-align: middle; 
+	width: 250px;
+    margin: 0 auto;
+}
+.loginTit{
+	height: 55px;
+	-webkit-app-region: drag;
+}
+.alertBox{
+	font-size: 12px;
+	min-width: 240px;
+	position: absolute;
+	left: 50%;
+	top:50%;
+	transform: translate(-50%, -50%);
+	box-shadow: 0 0 10px rgba(40,40,40,0.5);
+	background: #fff;
+	color: #252525;
+}
+.alertBox .common_modal_title_div{
+	line-height: 30px;
+}
+.alertBox .common_modal_body .main_modal_tips_content{
+	text-align: center;
+}
+.alertBox .closeIcon{
+	float:right; 
+	margin: 3px;
+	cursor: pointer;
+}

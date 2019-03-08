@@ -1,0 +1,18 @@
+
+<div class="common_modal" id="permissionManage_del_modal" style="width:300px;">
+    <div class="common_modal_title_div" id = "permissionManage_del_modal_title">
+        <label class = "common_modal_title_label">删除角色</label>
+        <div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click = "hidePermissionModal()">
+            <img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+        </div>
+    </div>
+
+    <div class="common_modal_body" style="text-align:center;">
+        确定要删除该角色吗?
+    </div>
+
+    <div class="common_modal_footer">
+        <button type="button" class="common_blue_btn common_normal_btn common_line_unend_item common_default_length " ng-click="delRole(operateRole.maid, operateRole.roleid)">确定</button>
+        <button type="button" class="common_gray_btn common_normal_btn  common_default_length" ng-click="hidePermissionModal()">取消</button>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<div class = "common_modal" id = "addAlgorithm_change_modal" >
+	<div class="common_modal_title_div" id = "addAlgorithm_change_modal_title">
+		<label class = "common_modal_title_label">添加算法</label>
+		<div class = "common_modal_window_close_btn" title = "关闭窗口" ng-click="addAlgorithmChange_HideModal()">
+			<img src="../commonui/images/icon_close.png" draggable="false" class = "common_modal_close_icon" />
+		</div>
+	</div>
+	<div class="common_modal_body">
+		<!-- <div class = "common_form_div_item_10px">
+			<label class = "common_form_pre_label">算法ID：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item common_form_suf_input" maxlength="32" cms-mask="word" placeholder="" ng-model="addAlgorithmId">
+			<label class = "addAlgorithm_form_item_tips">*</label>
+		</div> -->
+		<div class = "">
+			<label class = "common_form_pre_label">算法名称：</label>
+			<input type="text" class = "common_normal_input common_line_unend_item common_form_suf_input" maxlength="32" placeholder="" ng-model="addAlgorithmName.name">
+			<label class = "addAlgorithm_form_item_tips">*</label>
+		</div>
+	</div>
+	<div class="common_modal_footer">
+		<button type="button" class = "common_blue_btn common_normal_btn common_line_unend_item common_default_length" ng-click="confirmAddAlgorithm()">确定</button>
+		<button type="button" class = "common_gray_btn common_normal_btn common_default_length" ng-click="addAlgorithmChange_HideModal()">取消</button>
+	</div>
+</div>
